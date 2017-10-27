@@ -1,1 +1,4 @@
 main
+.gitignore
+.vscode/*
+.vscode
