@@ -1,10 +1,13 @@
 #include <iostream>
-#include "mytest.h"
+#include "cMatrix.cpp"
 using namespace std;
+
+
+
+
 int main()
 {
-mytest ahmed();
-ahmed.hello();
+    
 
 return 0;
 }
