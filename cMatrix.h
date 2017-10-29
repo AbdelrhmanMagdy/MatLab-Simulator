@@ -1,71 +1,37 @@
-#include <iostream>
-
+#include "stdarg.h"
+#include "string.h"
 class CMatrix
 {
 int nR, nC;
 double** values;
 public:
 CMatrix();
-// ~CMatrix();
-// enum MI{MI_ZEROS, MI_ONES, MI_EYE, MI_RAND, MI_VALUE};
-// CMatrix(int nR, int nC, int initialization = MI_ZEROS, double
-// initializationValue = 0.0);
-// CMatrix(int nR, int nC, double first, ...);
-// CMatrix(CMatrix& m);
-// CMatrix(double d);
-// CMatrix(string s);
-// copy(CMatrix& m);
-// copy(double d);
-// copy(string s);
-// reset();
-// string getString();
-// CMatrix operator=(CMatrix& m);
-// CMatrix operator=(double d);
-// CMatrix operator=(string s);
-// void add(CMatrix& m);
-// void operator+=(CMatrix& m);
-// void operator+=(double d);
-// CMatrix operator+(CMatrix& m);
-// CMatrix operator+(double d);
-// void sub(CMatrix& m);
-// void operator-=(CMatrix& m);
-// void operator-=(double d);
-// CMatrix operator-(CMatrix& m);
-// CMatrix operator-(double d);
-// void mul(CMatrix& m);
-// void operator*=(CMatrix& m);
-// void operator*=(double d);
-// CMatrix operator*(CMatrix& m);
-// CMatrix operator*(double d);
-// void div(CMatrix& m);
-// void operator/=(CMatrix& m);
-// void operator/=(double d);
-// CMatrix operator/(CMatrix& m);
-// CMatrix operator/(double d);
-// CMatrix
-// CMatrix
-// CMatrix
-// CMatrix
-// operator++(); //Pre Increment
-// operator++(int); //Post Increment, int is not used
-// operator--(); //Pre Increment
-// operator--(int); //Post Increment, int is not used
-// CMatrix operator-();
-// CMatrix operator+();
-// friend istream& operator >> (istream &is, CMatrix& C); //Stream
-// friend ostream& operator << (ostream &os, CMatrix& C); //Stream
-// void setSubMatrix(int iR, int iC, CMatrix& m);
-// CMatrix getSubMatrix(int r, int c, int nr, int nc);
-// CMatrix getCofactor(int r, int c);
-// void addColumn(CMatrix& m);
-// void addRow(CMatrix& m);
-// double& operator[](int i){return values[i/nC][i%nC];}
-// double& operator()(int i){return values[i/nC][i%nC];}
-// double& operator()(int r, int c){return values[r][c];}
-// int getn(){return nR*nC;};
-// int getnR(){return nR;};
-// int getnC(){return nC;};
-// double getDeterminant();
-// double getTranspose();
-// double getInverse();
+CMatrix(int nR, int nC, double first, ...);
+void reset();
 };
+
+
+
+CMatrix::CMatrix(){
+    nR = nC = 0;
+    values = NULL;
+}
+
+
+CMatrix::CMatrix(int nR, int nC, double first, ...){
+    this->nR = nR;
+    this->nC = nC;
+    if((nR*nC)==0){values=NULL; return;}
+    values = new double*[nR];
+    va_list va;
+    va_start(va, first);
+    for(int iR=0;iR<nR;iR++)
+    {
+        values[iR] = new double[nC];
+        for(int iC=0;iC<nC;iC++)
+        {
+            values[iR][iC] = (iC==0&&iR==0)?first:va_arg(va, double);
+        }
+    }
+    va_end(va);
+}
