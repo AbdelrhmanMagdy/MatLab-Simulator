@@ -44,20 +44,54 @@ void CMatrix::reset()
     nR = nC = 0;
     values = NULL;
 }
+CMatrix::CMatrix(int nR, int nC, double initVal)
+{
+    reset();
+    this->nR = nR;
+    this->nC = nC;
+    values = new double *[nR];
 
+    for (int i = 0; i < this->nR; i++)
+    {
+        values[i] = new double[nC];
 
-CMatrix::CMatrix(int nR, int nC, ...){
+        for (int j = 0; j < this->nC; j++)
+        {
+            values[i][j] = initVal;
+        }
+    }
+}
+CMatrix::CMatrix(int nR, int nC)
+{
+    reset();
+    this->nR = nR;
+    this->nC = nC;
+    values = new double *[nR];
+
+    for (int i = 0; i < this->nR; i++)
+    {
+        values[i] = new double[nC];
+
+        for (int j = 0; j < this->nC; j++)
+        {
+            values[i][j] = 0;
+        }
+    }
+}
+CMatrix::CMatrix(int nR, int nC, double first, ...){
     this->nR = nR;
     this->nC = nC;
     if((nR*nC)==0){values=NULL; return;}
     values = new double*[nR];
     va_list va;
-    va_start(va, nC);
+    va_start(va, first);
     for(int iR=0;iR<nR;iR++)
     {
         values[iR] = new double[nC];
         for(int iC=0;iC<nC;iC++)
         {
+            if (iR == 0 && iC == 0) values[iR][iC] = first;
+            else
             values[iR][iC] = va_arg(va, double);
         }
     }
@@ -74,6 +108,43 @@ void CMatrix::display(){
         }
         printf("\n");
     }
-
 }
 
+CMatrix CMatrix::transpose(){
+    CMatrix result(nC, nR);
+
+    for (int iR = 0; iR < result.nR; iR++)
+    {
+        for (int iC = 0; iC < result.nC; iC++)
+        {
+            result.values[iR][iC] = values[iC][iR];
+        }
+    }
+    // result.display();
+    return result;
+}
+
+void CMatrix::add(CMatrix &x){
+    if (x.nR != nR || x.nC != nC){throw("Invalid Matrix Addition coulmns and rows must be equal in the two matrices");}
+    for (int iR = 0; iR < nR; iR++)
+    {
+        for (int iC = 0; iC < nC; iC++)
+        {
+            values[iR][iC] += x.values[iR][iC];
+        }
+    }
+}
+void CMatrix::sub(CMatrix &x)
+{
+    if (x.nR != nR || x.nC != nC)
+    {
+        throw("Invalid Matrix Substraction coulmns and rows must be equal in the two matrices");
+    }
+    for (int iR = 0; iR < nR; iR++)
+    {
+        for (int iC = 0; iC < nC; iC++)
+        {
+            values[iR][iC] -= x.values[iR][iC];
+        }
+    }
+}
