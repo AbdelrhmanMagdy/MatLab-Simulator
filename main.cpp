@@ -8,8 +8,7 @@ using namespace std;
 int main()
 {
 
-CMatrix x(2,2,1,4,5,6);
-    
-
+CMatrix x(2,3, 1.0, 5.6 ,  3.66, 4.3, 6.2 ,10.55);
+x.display();
 return 0;
 }
