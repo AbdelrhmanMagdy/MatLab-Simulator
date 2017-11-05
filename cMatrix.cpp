@@ -9,6 +9,42 @@ CMatrix::CMatrix(){
     values = NULL;
 }
 
+CMatrix::CMatrix(CMatrix &x){
+    copy(x);
+}
+CMatrix::~CMatrix(){
+    reset();    
+}
+
+void CMatrix::copy(CMatrix &x)
+{
+    reset();
+    this->nR = x.nR;
+    this->nC = x.nC;
+    values = new double*[nR]; 
+
+    for (int i=0; i<this->nR; i++){
+        values[i] = new double[nC];
+        
+        for (int j=0; j<this->nC; j++){
+            values[i][j] = x.values[i][j];
+        }
+    }
+}
+void CMatrix::reset()
+{
+    if (values)
+    {
+        for (int i = 0; i < this->nR; i++)
+        {
+            delete[] values[i];
+        }
+        delete[] values;
+    }
+    nR = nC = 0;
+    values = NULL;
+}
+
 
 CMatrix::CMatrix(int nR, int nC, ...){
     this->nR = nR;
