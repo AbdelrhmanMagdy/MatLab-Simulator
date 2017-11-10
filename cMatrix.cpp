@@ -44,35 +44,34 @@ void CMatrix::reset()
     nR = nC = 0;
     values = NULL;
 }
-CMatrix::CMatrix(int nR, int nC, double initVal)
-{
-    reset();
-    this->nR = nR;
-    this->nC = nC;
-    values = new double *[nR];
+// CMatrix::CMatrix(int nR, int nC, double initVal)
+// {
+//     reset();
+//     this->nR = nR;
+//     this->nC = nC;
+//     values = new double *[nR];
 
-    for (int i = 0; i < this->nR; i++)
-    {
-        values[i] = new double[nC];
+//     for (int i = 0; i < this->nR; i++)
+//     {
+//         values[i] = new double[nC];
 
-        for (int j = 0; j < this->nC; j++)
-        {
-            values[i][j] = initVal;
-        }
-    }
-}
+//         for (int j = 0; j < this->nC; j++)
+//         {
+//             values[i][j] = initVal;
+//         }
+//     }
+// }
 CMatrix::CMatrix(int nR, int nC)
 {
-    reset();
     this->nR = nR;
     this->nC = nC;
     values = new double *[nR];
 
-    for (int i = 0; i < this->nR; i++)
+    for (int i = 0; i < nR; i++)
     {
         values[i] = new double[nC];
 
-        for (int j = 0; j < this->nC; j++)
+        for (int j = 0; j < nC; j++)
         {
             values[i][j] = 0;
         }
@@ -147,4 +146,57 @@ void CMatrix::sub(CMatrix &x)
             values[iR][iC] -= x.values[iR][iC];
         }
     }
+}
+
+void CMatrix::mult(CMatrix &x){
+    if( x.nR != nC || x.nC != nR ){
+        throw("Invalid Matrix Multiplication");
+    }
+    CMatrix temp(nR, x.nC);
+    for (int iR = 0; iR < temp.nR; iR++)
+        for (int iC = 0; iC < temp.nC; iC++)
+        {
+            for (int k = 0; k < x.nC; k++)
+                temp.values[iR][iC] += values[iR][k] * x.values[k][iC];
+        }
+    copy(temp);
+}
+
+CMatrix CMatrix::coMatrix(int r, int c){
+    CMatrix temp(nR-1,nC-1);
+    int r_index = 0, c_index ;
+    for (int iR = 0; iR < nR; iR++){
+        if (iR==r) continue;
+        c_index = 0;
+        for (int iC = 0; iC < nC; iC++)
+        {
+            if (iC==c) continue;
+            temp.values[r_index][c_index] = values[iR][iC];
+            c_index++;
+        }
+        r_index++;
+    }
+    temp.display();
+    return temp;
+}
+
+CMatrix CMatrix::operator= (CMatrix &x)
+{
+    reset();
+    copy(x);
+    return *this;
+}
+CMatrix CMatrix::operator+(CMatrix &x){
+    add(x);
+    return *this;
+}
+CMatrix CMatrix::operator-(CMatrix &x)
+{
+    sub(x);
+    return *this;
+}
+CMatrix CMatrix::operator*(CMatrix &x)
+{
+    mult(x);
+    return *this;
 }
