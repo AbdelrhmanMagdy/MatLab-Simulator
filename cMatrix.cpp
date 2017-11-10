@@ -3,6 +3,7 @@
 #include "cMatrix.h"
 #include "stdio.h"
 #include <iostream>
+using namespace std;
 
 CMatrix::CMatrix(){
     nR = nC = 0;
@@ -13,7 +14,7 @@ CMatrix::CMatrix(CMatrix &x){
     copy(x);
 }
 CMatrix::~CMatrix(){
-    reset();    
+    reset();
 }
 
 void CMatrix::copy(CMatrix &x)
@@ -21,11 +22,11 @@ void CMatrix::copy(CMatrix &x)
     reset();
     this->nR = x.nR;
     this->nC = x.nC;
-    values = new double*[nR]; 
+    values = new double*[nR];
 
     for (int i=0; i<this->nR; i++){
         values[i] = new double[nC];
-        
+
         for (int j=0; j<this->nC; j++){
             values[i][j] = x.values[i][j];
         }
@@ -44,23 +45,23 @@ void CMatrix::reset()
     nR = nC = 0;
     values = NULL;
 }
-// CMatrix::CMatrix(int nR, int nC, double initVal)
-// {
-//     reset();
-//     this->nR = nR;
-//     this->nC = nC;
-//     values = new double *[nR];
+ CMatrix::CMatrix(int nR, int nC,int hamada, double initVal)//need it to initialize matrices with certain values and hamada is important for the compiler to differentiate between this fn and the fn with infinite variables
+ {
+    // reset();// if this stays the program crashes and there is no need for it
+    this->nR = nR;
+     this->nC = nC;
+     values = new double *[nR];
 
-//     for (int i = 0; i < this->nR; i++)
-//     {
-//         values[i] = new double[nC];
+    for (int i = 0; i < this->nR; i++)
+     {
+        values[i] = new double[nC];
 
-//         for (int j = 0; j < this->nC; j++)
-//         {
-//             values[i][j] = initVal;
-//         }
-//     }
-// }
+         for (int j = 0; j < this->nC; j++)
+         {
+             values[i][j] = initVal;
+         }
+    }
+ }
 CMatrix::CMatrix(int nR, int nC)
 {
     this->nR = nR;
@@ -124,7 +125,7 @@ CMatrix CMatrix::transpose(){
 }
 
 void CMatrix::add(CMatrix &x){
-    if (x.nR != nR || x.nC != nC){throw("Invalid Matrix Addition coulmns and rows must be equal in the two matrices");}
+    if (x.nR != nR || x.nC != nC){throw("Invalid Matrix Addition couloumns and rows must be equal in the two matrices");}
     for (int iR = 0; iR < nR; iR++)
     {
         for (int iC = 0; iC < nC; iC++)
@@ -186,9 +187,46 @@ CMatrix CMatrix::operator= (CMatrix &x)
     copy(x);
     return *this;
 }
-CMatrix CMatrix::operator+(CMatrix &x){
-    add(x);
+CMatrix CMatrix::operator= (double x)
+{
+    reset();
+    this->nR = 1;
+    this->nC = 1;
+    values = new double*[1];
+    values[0] = new double[1];
+    values[0][0] = x;
     return *this;
+}
+CMatrix CMatrix::operator+=(CMatrix &x){
+
+    add(x);
+   return *this;
+}
+CMatrix CMatrix::operator+=(double x){
+    CMatrix temp(nR,nC,8,x);
+    add(temp);
+   return *this;
+}
+CMatrix CMatrix::operator+(CMatrix &x){
+
+CMatrix temp=x;
+temp +=x;
+return temp;
+
+}
+CMatrix CMatrix::operator++ (){ //the 2 ++ functions must be written in order for the ++ function to work
+
+    *this+=1;
+    return *this;
+
+}
+CMatrix CMatrix::operator++ (int){
+
+    CMatrix temp(nR,nC,8,1);
+    CMatrix temp2=*this;
+    add(temp);
+    return temp2;
+
 }
 CMatrix CMatrix::operator-(CMatrix &x)
 {
