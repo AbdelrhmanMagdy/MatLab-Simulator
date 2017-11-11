@@ -28,12 +28,22 @@ CMatrix operator=(CMatrix &x);
 CMatrix operator=(double x);
 CMatrix operator+=(CMatrix &x);
 CMatrix operator+=(double x);
+CMatrix operator+(double x);
+
 CMatrix operator+(CMatrix &x);
 CMatrix operator++ ();
 CMatrix operator++ (int);
 
-CMatrix operator-(CMatrix &x);
+//CMatrix operator-(CMatrix &x);
+CMatrix operator-=(CMatrix &x);
+CMatrix operator-=(double x);
+CMatrix operator-(double x);
+CMatrix operator-(CMatrix& x);
+CMatrix operator-- ();
+CMatrix operator-- (int);
 CMatrix operator*(CMatrix &x);
+CMatrix operator*=(CMatrix &x);
+CMatrix operator*=(double x);
 };
 
 #endif

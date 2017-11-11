@@ -1,11 +1,11 @@
 #include <iostream>
 using namespace std;
 
-/*#include "stdarg.h"
+#include "stdarg.h"
 #include "string.h"
 //#include "cMatrix.h"
 #include "stdio.h"
-
+/*
 //#include "cMatrix.cpp"
 #ifndef CMATRIX
 #define CMATRIX
@@ -34,12 +34,23 @@ CMatrix operator=(CMatrix &x);
 CMatrix operator=(double x);
 CMatrix operator+=(CMatrix &x);
 CMatrix operator+=(double x);
+CMatrix operator+(double x);
+
 CMatrix operator+(CMatrix &x);
 CMatrix operator++ ();
 CMatrix operator++ (int);
 
-CMatrix operator-(CMatrix &x);
+//CMatrix operator-(CMatrix &x);
+CMatrix operator-=(CMatrix &x);
+CMatrix operator-=(double x);
+CMatrix operator-(double x);
+CMatrix operator-(CMatrix& x);
+CMatrix operator-- ();
+CMatrix operator-- (int);
 CMatrix operator*(CMatrix &x);
+CMatrix operator*=(CMatrix &x);
+CMatrix operator*=(double x);
+
 };
 
 #endif
@@ -64,7 +75,7 @@ CMatrix::~CMatrix(){
 
 void CMatrix::copy(CMatrix &x)
 {
-    reset();
+   reset();
     this->nR = x.nR;
     this->nC = x.nC;
     values = new double*[nR];
@@ -228,13 +239,13 @@ CMatrix CMatrix::coMatrix(int r, int c){
 
 CMatrix CMatrix::operator= (CMatrix &x)
 {
-    reset();
+    //reset();
     copy(x);
     return *this;
 }
 CMatrix CMatrix::operator= (double x)
 {
-    reset();
+    //reset();
     this->nR = 1;
     this->nC = 1;
     values = new double*[1];
@@ -252,11 +263,17 @@ CMatrix CMatrix::operator+=(double x){
     add(temp);
    return *this;
 }
-CMatrix CMatrix::operator+(CMatrix &x){
+CMatrix CMatrix::operator+(double x){
+    CMatrix temp =* this;
+    temp += x;
+   return temp;
+}
 
-CMatrix temp=x;
+CMatrix CMatrix::operator+(CMatrix& x){
+
+CMatrix temp = *this;
 temp +=x;
-return temp;
+return  temp;
 
 }
 CMatrix CMatrix::operator++ (){ //the 2 ++ functions must be written in order for the ++ function to work
@@ -273,18 +290,69 @@ CMatrix CMatrix::operator++ (int){
     return temp2;
 
 }
-CMatrix CMatrix::operator-(CMatrix &x)
+/*CMatrix CMatrix::operator-(CMatrix &x)
 {
     sub(x);
     return *this;
 }
+CMatrix CMatrix::operator-=(CMatrix &x){
+
+    sub(x);
+   return *this;
+}
+CMatrix CMatrix::operator-=(double x){
+    CMatrix temp(nR,nC,8,x);
+    sub(temp);
+   return *this;
+}
+CMatrix CMatrix::operator-(double x){
+    CMatrix temp =* this;
+    temp -= x;
+   return temp;
+}
+
+CMatrix CMatrix::operator-(CMatrix& x){
+
+CMatrix temp = *this;
+temp -=x;
+return  temp;
+}
+CMatrix CMatrix::operator-- (){ //the 2 ++ functions must be written in order for the ++ function to work
+
+    *this-=1;
+    return *this;
+
+}
+CMatrix CMatrix::operator-- (int){
+
+    CMatrix temp(nR,nC,8,1);
+    CMatrix temp2=*this;
+    sub(temp);
+    return temp2;
+
+}
+
+
 CMatrix CMatrix::operator*(CMatrix &x)
 {
     mult(x);
     return *this;
 }
-
+CMatrix CMatrix::operator*=(CMatrix &x)
+{
+    mult(x);
+   return *this;
+}
+CMatrix CMatrix::operator*=(double x)
+{
+ for(int i =0;i<nR;i++)
+for(int j=0;j<nC;j++)
+values[i] [j] *= x;
+}
 */
+
+
+
 
 
 int main()
@@ -293,8 +361,8 @@ int main()
     CMatrix x(3, 3, 1.2, 33.1, 5.11, 22.22 ,55.2 ,1.2, 2.2, 3.2, 4.2);
     CMatrix y(3, 3, 1.2, 2.2, 3.2, 4.2, 5.5, 3.4, 2.3, 9.5, 4.4);
     CMatrix z;
-    y++;
-    y.display();
+    x*=2;
+    x.display();
     y.coMatrix(1,1);
     // try{x.mult(y);}
     // catch(const char* e){

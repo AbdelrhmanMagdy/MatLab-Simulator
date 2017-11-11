@@ -19,7 +19,7 @@ CMatrix::~CMatrix(){
 
 void CMatrix::copy(CMatrix &x)
 {
-    reset();
+   reset();
     this->nR = x.nR;
     this->nC = x.nC;
     values = new double*[nR];
@@ -183,13 +183,13 @@ CMatrix CMatrix::coMatrix(int r, int c){
 
 CMatrix CMatrix::operator= (CMatrix &x)
 {
-    reset();
+    //reset();
     copy(x);
     return *this;
 }
 CMatrix CMatrix::operator= (double x)
 {
-    reset();
+    //reset();
     this->nR = 1;
     this->nC = 1;
     values = new double*[1];
@@ -207,11 +207,17 @@ CMatrix CMatrix::operator+=(double x){
     add(temp);
    return *this;
 }
-CMatrix CMatrix::operator+(CMatrix &x){
+CMatrix CMatrix::operator+(double x){
+    CMatrix temp =* this;
+    temp += x;
+   return temp;
+}
 
-CMatrix temp=x;
+CMatrix CMatrix::operator+(CMatrix& x){
+
+CMatrix temp = *this;
 temp +=x;
-return temp;
+return  temp;
 
 }
 CMatrix CMatrix::operator++ (){ //the 2 ++ functions must be written in order for the ++ function to work
@@ -228,13 +234,62 @@ CMatrix CMatrix::operator++ (int){
     return temp2;
 
 }
-CMatrix CMatrix::operator-(CMatrix &x)
+/*CMatrix CMatrix::operator-(CMatrix &x)
 {
     sub(x);
     return *this;
+}*/
+CMatrix CMatrix::operator-=(CMatrix &x){
+
+    sub(x);
+   return *this;
 }
+CMatrix CMatrix::operator-=(double x){
+    CMatrix temp(nR,nC,8,x);
+    sub(temp);
+   return *this;
+}
+CMatrix CMatrix::operator-(double x){
+    CMatrix temp =* this;
+    temp -= x;
+   return temp;
+}
+
+CMatrix CMatrix::operator-(CMatrix& x){
+
+CMatrix temp = *this;
+temp -=x;
+return  temp;
+}
+CMatrix CMatrix::operator-- (){ //the 2 ++ functions must be written in order for the ++ function to work
+
+    *this-=1;
+    return *this;
+
+}
+CMatrix CMatrix::operator-- (int){
+
+    CMatrix temp(nR,nC,8,1);
+    CMatrix temp2=*this;
+    sub(temp);
+    return temp2;
+
+}
+
+
 CMatrix CMatrix::operator*(CMatrix &x)
 {
     mult(x);
     return *this;
+}
+CMatrix CMatrix::operator*=(CMatrix &x)
+{
+    mult(x);
+   return *this;
+}
+CMatrix CMatrix::operator*=(double x)
+{
+ for(int i =0;i<nR;i++)
+for(int j=0;j<nC;j++)
+values[i] [j] *= x;
 }
