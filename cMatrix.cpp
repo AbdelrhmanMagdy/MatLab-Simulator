@@ -10,9 +10,9 @@ CMatrix::CMatrix(){
     values = NULL;
 }
 
-CMatrix::CMatrix(CMatrix &x){
+/*CMatrix::CMatrix(CMatrix &x){
     copy(x);
-}
+}*/
 CMatrix::~CMatrix(){
     reset();
 }
@@ -124,7 +124,7 @@ CMatrix CMatrix::transpose(){
     return result;
 }
 
-void CMatrix::add(CMatrix &x){
+void CMatrix::add(CMatrix x){
     if (x.nR != nR || x.nC != nC){throw("Invalid Matrix Addition couloumns and rows must be equal in the two matrices");}
     for (int iR = 0; iR < nR; iR++)
     {
@@ -181,7 +181,7 @@ CMatrix CMatrix::coMatrix(int r, int c){
     return temp;
 }
 
-CMatrix CMatrix::operator= (CMatrix &x)
+CMatrix CMatrix::operator= ( CMatrix x)
 {
     //reset();
     copy(x);
@@ -213,9 +213,9 @@ CMatrix CMatrix::operator+(double x){
    return temp;
 }
 
-CMatrix CMatrix::operator+(CMatrix& x){
+CMatrix CMatrix::operator+(CMatrix x){
 
-CMatrix temp = *this;
+ CMatrix temp = *this;
 temp +=x;
 return  temp;
 
@@ -234,11 +234,7 @@ CMatrix CMatrix::operator++ (int){
     return temp2;
 
 }
-/*CMatrix CMatrix::operator-(CMatrix &x)
-{
-    sub(x);
-    return *this;
-}*/
+
 CMatrix CMatrix::operator-=(CMatrix &x){
 
     sub(x);

@@ -19,24 +19,24 @@ public:
 CMatrix();
 ~CMatrix();
 CMatrix(int nR, int nC, double first, ...);
-CMatrix(CMatrix &x);
+//CMatrix(CMatrix &x);
 CMatrix(int nR, int nC);
 CMatrix transpose();
 void reset();
 CMatrix(int nR, int nC,int hamada, double initVal);
 void display();
 void copy(CMatrix &x);
-void add(CMatrix &x);
+void add(CMatrix x);
 void sub(CMatrix &x);
 void mult(CMatrix &x);
 CMatrix coMatrix(int r,int c);
-CMatrix operator=(CMatrix &x);
+CMatrix operator=( CMatrix x);
 CMatrix operator=(double x);
 CMatrix operator+=(CMatrix &x);
 CMatrix operator+=(double x);
 CMatrix operator+(double x);
 
-CMatrix operator+(CMatrix &x);
+CMatrix operator+(CMatrix x);
 CMatrix operator++ ();
 CMatrix operator++ (int);
 
@@ -66,9 +66,9 @@ CMatrix::CMatrix(){
     values = NULL;
 }
 
-CMatrix::CMatrix(CMatrix &x){
+/*CMatrix::CMatrix(CMatrix &x){
     copy(x);
-}
+}*/
 CMatrix::~CMatrix(){
     reset();
 }
@@ -180,7 +180,7 @@ CMatrix CMatrix::transpose(){
     return result;
 }
 
-void CMatrix::add(CMatrix &x){
+void CMatrix::add(CMatrix x){
     if (x.nR != nR || x.nC != nC){throw("Invalid Matrix Addition couloumns and rows must be equal in the two matrices");}
     for (int iR = 0; iR < nR; iR++)
     {
@@ -237,7 +237,7 @@ CMatrix CMatrix::coMatrix(int r, int c){
     return temp;
 }
 
-CMatrix CMatrix::operator= (CMatrix &x)
+CMatrix CMatrix::operator= ( CMatrix x)
 {
     //reset();
     copy(x);
@@ -269,9 +269,9 @@ CMatrix CMatrix::operator+(double x){
    return temp;
 }
 
-CMatrix CMatrix::operator+(CMatrix& x){
+CMatrix CMatrix::operator+(CMatrix x){
 
-CMatrix temp = *this;
+ CMatrix temp = *this;
 temp +=x;
 return  temp;
 
@@ -290,11 +290,7 @@ CMatrix CMatrix::operator++ (int){
     return temp2;
 
 }
-/*CMatrix CMatrix::operator-(CMatrix &x)
-{
-    sub(x);
-    return *this;
-}
+
 CMatrix CMatrix::operator-=(CMatrix &x){
 
     sub(x);
@@ -349,8 +345,8 @@ CMatrix CMatrix::operator*=(double x)
 for(int j=0;j<nC;j++)
 values[i] [j] *= x;
 }
-*/
 
+*/
 
 
 
@@ -361,8 +357,8 @@ int main()
     CMatrix x(3, 3, 1.2, 33.1, 5.11, 22.22 ,55.2 ,1.2, 2.2, 3.2, 4.2);
     CMatrix y(3, 3, 1.2, 2.2, 3.2, 4.2, 5.5, 3.4, 2.3, 9.5, 4.4);
     CMatrix z;
-    x*=2;
-    x.display();
+    z=x+y;
+    z.display();
     y.coMatrix(1,1);
     // try{x.mult(y);}
     // catch(const char* e){
