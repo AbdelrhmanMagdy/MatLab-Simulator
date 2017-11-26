@@ -74,8 +74,8 @@ void CMatrix::reset()
          }
      }
 }
-
-CMatrix::CMatrix(int nR, int nC) {
+CMatrix::CMatrix(int nR, int nC)
+{
     this->nR = nR;
     this->nC = nC;
     values = new double *[nR];
@@ -260,7 +260,6 @@ int CMatrix::getCols()
 
 void CMatrix::display(){
 
-	printf("%c = \n", nme);
     for (int iR=0; iR<this->nR; iR++){
         for (int iC=0; iC<this->nC; iC++){
 
@@ -380,6 +379,9 @@ double CMatrix::determinent()
 
 }
 
+
+// transpose function 
+
 CMatrix CMatrix::transpose()
 {
 	CMatrix temp(nR, nC);
@@ -406,6 +408,8 @@ CMatrix CMatrix::divElement(double x){
     }
     return temp;
 }
+
+//multiplication function 
 
 CMatrix CMatrix::multElement(double x) {
 
@@ -634,10 +638,26 @@ CMatrix CMatrix::operator-(const CMatrix& x){
 
 }
 
+
+//Multiplication operator *
+
+
 CMatrix CMatrix::operator*(const CMatrix &x)
 {
     return (this->mult(x));
 }
+
+//transpose operator ~
+
+
+CMatrix CMatrix::operator~()
+{
+
+
+    return (this->transpose());
+}
+
+
 
 CMatrix  CMatrix::operator/(CMatrix& x)
 {
