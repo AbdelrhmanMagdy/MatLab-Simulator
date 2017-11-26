@@ -29,6 +29,7 @@
 
 ```bash
 #include "Matrix.h"
+make
 ```
 
 ## Collaborators
