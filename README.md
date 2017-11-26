@@ -34,7 +34,7 @@ make
 
 ## Collaborators
 - [Mamdouh El Nakeeb](https://github.com/MamdouhRElNakeeb)
-- [Abdelrahman Magdy](https://github.com/)
+- [Abdelrahman Magdy](https://github.com/AbdelrhmanMagdy/)
 - [Manar Abdelrahman](https://github.com/ManarABDELRAHMAN)
 - [Menna Ehab](https://github.com/MennaEhab)
 - [Hadi Hebat](https://github.com/)
