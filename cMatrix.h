@@ -1,5 +1,5 @@
 #include <string>
-#include<stdlib.h>
+#include <stdlib.h>
 
 #ifndef CMATRIX
 #define CMATRIX
@@ -27,16 +27,23 @@ public:
     CMatrix(int nR, int nC, int initialization, double initializationValue);
     CMatrix find_Matrix(CMatrix *temp_matrices, char nme, int n);
     bool isMatExist(std::string matStr, char nme, int n);
-    void setname(char nme);
-    char getname();
+    void setName(char nme);
+    char getName();
     double **getValues();
+    void addCol();
+    void addRow();
+    void setValues(std::string matStr);
     int getRows();
     int getCols();
     void display();
     void copy(const CMatrix &x);
+
+
     CMatrix add(const CMatrix & x);
     CMatrix sub(const CMatrix &x);
     CMatrix mult(const CMatrix &x);
+    CMatrix divElement(double x);
+    CMatrix multElement(double x);
     CMatrix coMatrix(int r,int c);
     double determinent();
     CMatrix getInverse();
