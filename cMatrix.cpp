@@ -312,7 +312,7 @@ CMatrix CMatrix::mult(const CMatrix &x){
 	
 	// if matrix1 columns should eqaul matrix2 rows
 
-    if( x.nR != nC || x.nC != nR ){
+    if( x.nR != nC  ){
         throw("Invalid Matrix Multiplication");
     }
 
