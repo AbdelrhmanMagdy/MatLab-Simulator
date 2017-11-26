@@ -593,12 +593,18 @@ CMatrix CMatrix::GaussianInverse()
         for (y = 0; y < nR; y++)
             if (y != x) {
                 Factor1 = gaussianMatrix.values[y][x];
+                if (gaussianMatrix.values[x][x] == 0) {
+                    throw "NAN: Invalid matrices division \n\n";
+                }
                 for (z = 0; z < 2 * nR; z++)
                     gaussianMatrix.values[y][z] -= gaussianMatrix.values[x][z] *
                                                    Factor1 / gaussianMatrix.values[x][x];
             }
             else {
                 Factor1 = gaussianMatrix.values[y][x];
+                if (Factor1 == 0) {
+                    throw "NAN: Invalid matrices division \n\n";
+                }
                 for (z = 0; z < 2 * nR; z++)
                     gaussianMatrix.values[y][z] /= Factor1;
             }
