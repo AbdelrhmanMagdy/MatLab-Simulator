@@ -273,13 +273,14 @@ void CMatrix::display(){
 
 
 CMatrix CMatrix::add(const CMatrix & x){
+	//print error when the number of cols and rows are not the same in the two matrices
     if (x.nR != nR || x.nC != nC)
 	{
 		throw("Invalid Matrix Addition columns and rows must be equal in the two matrices");
 	}
 
 	CMatrix temp(*this);
-
+	//add the values of the two matrices in one temp matrix
     for (int iR = 0; iR < nR; iR++)
     {
         for (int iC = 0; iC < nC; iC++)
@@ -292,11 +293,14 @@ CMatrix CMatrix::add(const CMatrix & x){
 
 CMatrix CMatrix::sub(const CMatrix &x)
 {
+	//print error when the number of cols and rows are not the same in the two matrices
     if (x.nR != nR || x.nC != nC)
     {
         throw("Invalid Matrix Subtraction columns and rows must be equal in the two matrices");
     }
 	CMatrix temp(*this);
+	//subtract the values of the two matrices in one temp matrix
+    
     for (int iR = 0; iR < nR; iR++)
     {
         for (int iC = 0; iC < nC; iC++)
