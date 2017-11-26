@@ -306,11 +306,20 @@ CMatrix CMatrix::sub(const CMatrix &x)
 	return temp;
 }
 
+// multiplying two matrices
+
 CMatrix CMatrix::mult(const CMatrix &x){
+	
+	// if matrix1 columns should eqaul matrix2 rows
+
     if( x.nR != nC || x.nC != nR ){
         throw("Invalid Matrix Multiplication");
     }
+
+
     CMatrix temp(nR, x.nC);
+
+
     for (int iR = 0; iR < temp.nR; iR++)
         for (int iC = 0; iC < temp.nC; iC++)
         {
@@ -390,6 +399,7 @@ CMatrix CMatrix::transpose()
 	{
 		for (int j = 0; j < nC; j++)
 		{
+			
 			temp.values[i][j] = values[j][i];
 			temp.values[j][i] = values[i][j];
 		}
@@ -409,7 +419,7 @@ CMatrix CMatrix::divElement(double x){
     return temp;
 }
 
-//multiplication function 
+//multiplying matrix with element  
 
 CMatrix CMatrix::multElement(double x) {
 
@@ -647,15 +657,7 @@ CMatrix CMatrix::operator*(const CMatrix &x)
     return (this->mult(x));
 }
 
-//transpose operator ~
 
-
-CMatrix CMatrix::operator~()
-{
-
-
-    return (this->transpose());
-}
 
 
 

@@ -53,7 +53,7 @@ public:
     CMatrix operator-(const CMatrix& x);
     CMatrix operator*(const CMatrix &x);
     CMatrix operator/(CMatrix& x);
-	CMatrix operator~();
+
 };
 
 #endif
