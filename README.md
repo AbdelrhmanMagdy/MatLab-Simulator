@@ -28,7 +28,7 @@
 ## Installation
 
 ```bash
-#include "Matrix.h"
+#include "Matlab.h"
 make
 ```
 
@@ -37,6 +37,6 @@ make
 - [Abdelrahman Magdy](https://github.com/AbdelrhmanMagdy/)
 - [Manar Abdelrahman](https://github.com/ManarABDELRAHMAN)
 - [Menna Ehab](https://github.com/MennaEhab)
-- [Hadi Hebat](https://github.com/)
+- [Hadi Hebat](https://github.com/HadiHebat)
 - [Nabil Negm](https://github.com/)
 - [Ahmed Khaled](https://github.com/AhmedGamil)
