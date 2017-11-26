@@ -74,8 +74,8 @@ void CMatrix::reset()
          }
      }
 }
-
-CMatrix::CMatrix(int nR, int nC) {
+CMatrix::CMatrix(int nR, int nC)
+{
     this->nR = nR;
     this->nC = nC;
     values = new double *[nR];
@@ -260,7 +260,6 @@ int CMatrix::getCols()
 
 void CMatrix::display(){
 
-	printf("%c = \n", nme);
     for (int iR=0; iR<this->nR; iR++){
         for (int iC=0; iC<this->nC; iC++){
 
@@ -311,11 +310,20 @@ CMatrix CMatrix::sub(const CMatrix &x)
 	return temp;
 }
 
+// multiplying two matrices
+
 CMatrix CMatrix::mult(const CMatrix &x){
-    if( x.nR != nC || x.nC != nR ){
+	
+	// if matrix1 columns should eqaul matrix2 rows
+
+    if( x.nR != nC  ){
         throw("Invalid Matrix Multiplication");
     }
+
+
     CMatrix temp(nR, x.nC);
+
+
     for (int iR = 0; iR < temp.nR; iR++)
         for (int iC = 0; iC < temp.nC; iC++)
         {
@@ -384,6 +392,9 @@ double CMatrix::determinent()
 
 }
 
+
+// transpose function 
+
 CMatrix CMatrix::transpose()
 {
 	CMatrix temp(nR, nC);
@@ -392,6 +403,7 @@ CMatrix CMatrix::transpose()
 	{
 		for (int j = 0; j < nC; j++)
 		{
+			
 			temp.values[i][j] = values[j][i];
 			temp.values[j][i] = values[i][j];
 		}
@@ -410,6 +422,8 @@ CMatrix CMatrix::divElement(double x){
     }
     return temp;
 }
+
+//multiplying matrix with element  
 
 CMatrix CMatrix::multElement(double x) {
 
@@ -638,10 +652,18 @@ CMatrix CMatrix::operator-(const CMatrix& x){
 
 }
 
+
+//Multiplication operator *
+
+
 CMatrix CMatrix::operator*(const CMatrix &x)
 {
     return (this->mult(x));
 }
+
+
+
+
 
 CMatrix  CMatrix::operator/(CMatrix& x)
 {
