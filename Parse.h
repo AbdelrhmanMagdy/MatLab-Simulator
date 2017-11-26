@@ -15,7 +15,7 @@ std::string findMatrix(CMatrix *temp_matrices, char name, int n);
 
 std::string itos(int in);
 
-void openFile(std::string path);
+void openFile(char* path);
 void cline();
 
 

@@ -23,7 +23,7 @@ std::string findMatrix(CMatrix *temp_matrices, char name, int n){
 
 }
 
-void openFile(std::string path) {
+void openFile(char* path) {
 
     CMatrix temp_matrices[10];
     std::string matStr = "";
