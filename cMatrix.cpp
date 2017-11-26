@@ -1,7 +1,7 @@
 #include "stdarg.h"
 #include "string.h"
 #include "cMatrix.h"
-#include "stdio.h"1
+#include "stdio.h"
 #include <iostream>
 #include <cmath>
 

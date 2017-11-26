@@ -1,4 +1,4 @@
 all:
-	g++ cMatrix.cpp main.cpp -o matrix
+	g++ -w cMatrix.cpp main.cpp Parse.cpp -o matrix
 clean:
 	rm matrix

@@ -190,8 +190,8 @@ void openFile(char* path) {
                         mat3.display();
                         temp_matrices[matIndex] = mat3;
                     }
-                    catch (const char* e){
-                        printf(e);
+                    catch ( const char* e){
+                        printf("%s",e);
                     }
 
                     break;
@@ -212,7 +212,7 @@ void openFile(char* path) {
                         temp_matrices[matIndex] = mat2;
                     }
                     catch (const char* e){
-                        printf(e);
+                        printf("%s",e);
                     }
 
 
@@ -450,7 +450,7 @@ void cline(){
                         temp_matrices[matIndex] = mat3;
                     }
                     catch (const char* e){
-                        printf(e);
+                        printf("%s", e);
                     }
 
                     break;
@@ -471,9 +471,8 @@ void cline(){
                         temp_matrices[matIndex] = mat2;
                     }
                     catch (const char* e){
-                        printf(e);
+                        printf("%s", e);
                     }
-
 
                     break;
                 case 'd':
