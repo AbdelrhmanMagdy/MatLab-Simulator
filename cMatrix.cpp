@@ -74,8 +74,8 @@ void CMatrix::reset()
          }
      }
 }
-CMatrix::CMatrix(int nR, int nC)
-{
+
+CMatrix::CMatrix(int nR, int nC) {
     this->nR = nR;
     this->nC = nC;
     values = new double *[nR];
@@ -260,6 +260,7 @@ int CMatrix::getCols()
 
 void CMatrix::display(){
 
+	printf("%c = \n", nme);
     for (int iR=0; iR<this->nR; iR++){
         for (int iC=0; iC<this->nC; iC++){
 
