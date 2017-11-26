@@ -5,7 +5,7 @@ using namespace std;
 #include "string.h"
 //#include "cMatrix.h"
 #include "stdio.h"
-/*
+
 //#include "cMatrix.cpp"
 #ifndef CMATRIX
 #define CMATRIX
@@ -36,7 +36,7 @@ CMatrix operator+=(CMatrix &x);
 CMatrix operator+=(double x);
 CMatrix operator+(double x);
 
-CMatrix operator+(CMatrix x);
+CMatrix operator+(CMatrix &x);
 CMatrix operator++ ();
 CMatrix operator++ (int);
 
@@ -269,7 +269,7 @@ CMatrix CMatrix::operator+(double x){
    return temp;
 }
 
-CMatrix CMatrix::operator+(CMatrix x){
+CMatrix CMatrix::operator+(CMatrix &x){
 
  CMatrix temp = *this;
 temp +=x;
@@ -346,7 +346,7 @@ for(int j=0;j<nC;j++)
 values[i] [j] *= x;
 }
 
-*/
+
 
 
 
