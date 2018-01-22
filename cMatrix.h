@@ -19,7 +19,10 @@ public:
         MI_RAND,
         MI_VALUE
     };
-
+    CMatrix operator ^(int i);
+    static CMatrix Sin(const CMatrix &a);
+   static  CMatrix Cos(const CMatrix&a);
+    static  CMatrix Tan(const CMatrix &a);
     CMatrix(std::string matStr);
     CMatrix(const CMatrix &x);
     CMatrix(int nR, int nC);
@@ -53,6 +56,7 @@ public:
     CMatrix operator-(const CMatrix& x);
     CMatrix operator*(const CMatrix &x);
     CMatrix operator/(CMatrix& x);
+
 };
 
 #endif

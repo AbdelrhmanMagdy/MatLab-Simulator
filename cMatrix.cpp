@@ -6,6 +6,90 @@
 #include <cmath>
 
 using namespace std;
+ CMatrix CMatrix:: Sin(const CMatrix &a)
+{
+    CMatrix temp(a.nR,a.nC);
+    for(int i=0;i<a.nR;i++)
+    {
+        for(int j=0;j<a.nC;j++)
+        {
+            temp.values[i][j]= sin(a.values[i][j]);
+
+        }
+
+    }
+
+
+return temp;
+
+}
+
+
+CMatrix CMatrix:: Cos(const CMatrix &a)
+{
+    CMatrix temp(a.nR,a.nC);
+    for(int i=0;i<a.nR;i++)
+    {
+        for(int j=0;j<a.nC;j++)
+        {
+            temp.values[i][j]= cos(a.values[i][j]);
+
+        }
+
+    }
+
+
+    return temp;
+
+}
+CMatrix CMatrix:: Tan(const CMatrix &a)
+{
+    CMatrix temp(a.nR,a.nC);
+    for(int i=0;i<a.nR;i++)
+    {
+        for(int j=0;j<a.nC;j++)
+        {
+            temp.values[i][j]= tan(a.values[i][j]);
+
+        }
+
+    }
+
+
+    return temp;
+
+}
+
+CMatrix CMatrix:: operator ^(int i)
+{
+    CMatrix temp = *this;
+
+        if(i==0)
+        {
+            for(int i=0;i<nR;i++)
+            {
+                for(int j=0;j<nC;j++)
+                {
+                    if(i==j)
+                       temp. values[i][j]=1;
+                    else
+                       temp. values[i][j]=0;
+
+                }
+
+            }
+        }
+
+        for(int j=2 ; j<=i ; j++)
+        {
+            temp=temp* *this;
+        }
+
+
+    return temp;
+
+}
+
 
 CMatrix::CMatrix(){
     nR = nC = 0;
@@ -50,29 +134,29 @@ void CMatrix::reset()
     nR = nC = 0;
     values = NULL;
 }
- CMatrix::CMatrix(int nR, int nC,int initialization, double initializationValue)//need it to initialize matrices with certain values and hamada is important for the compiler to differentiate between this fn and the fn with infinite variables
- {
+CMatrix::CMatrix(int nR, int nC,int initialization, double initializationValue)//need it to initialize matrices with certain values and hamada is important for the compiler to differentiate between this fn and the fn with infinite variables
+{
     this->nR = nR;
-     this->nC = nC;
+    this->nC = nC;
     if((nR*nC) == 0) {
         values = NULL;
         return;
     }
-     values = new double *[nR];
+    values = new double *[nR];
 
-     for (int iR = 0; iR < nR; iR++)
-     {
-         values[iR] = new double[nC];
-         for (int iC = 0; iC < nC; iC++)
-         {
-             switch (initialization)
-             {
-             default:
-                 values[iR][iC] = initializationValue;
-                 break;
-             }
-         }
-     }
+    for (int iR = 0; iR < nR; iR++)
+    {
+        values[iR] = new double[nC];
+        for (int iC = 0; iC < nC; iC++)
+        {
+            switch (initialization)
+            {
+                default:
+                    values[iR][iC] = initializationValue;
+                    break;
+            }
+        }
+    }
 }
 CMatrix::CMatrix(int nR, int nC)
 {
@@ -175,7 +259,7 @@ void CMatrix::setValues(std::string matStr)
 //    }
 
     //
-	nR = 0, nC = 0;
+    nR = 0, nC = 0;
 
 
     values = new double *[1];
@@ -237,25 +321,25 @@ void CMatrix::setValues(std::string matStr)
 
 void CMatrix::setName(char nme)
 {
-	this->nme = nme;
+    this->nme = nme;
 }
 
 char CMatrix::getName()
 {
-	return nme;
+    return nme;
 }
 double **CMatrix::getValues()
 {
-	return values;
+    return values;
 }
 int CMatrix::getRows()
 {
-	return nR;
+    return nR;
 }
 
 int CMatrix::getCols()
 {
-	return nC;
+    return nC;
 }
 
 void CMatrix::display(){
@@ -272,14 +356,14 @@ void CMatrix::display(){
 
 
 CMatrix CMatrix::add(const CMatrix & x){
-	//print error when the number of cols and rows are not the same in the two matrices
+    //print error when the number of cols and rows are not the same in the two matrices
     if (x.nR != nR || x.nC != nC)
-	{
-		throw("Invalid Matrix Addition columns and rows must be equal in the two matrices");
-	}
+    {
+        throw("Invalid Matrix Addition columns and rows must be equal in the two matrices");
+    }
 
-	CMatrix temp(*this);
-	//add the values of the two matrices in one temp matrix
+    CMatrix temp(*this);
+    //add the values of the two matrices in one temp matrix
     for (int iR = 0; iR < nR; iR++)
     {
         for (int iC = 0; iC < nC; iC++)
@@ -287,27 +371,27 @@ CMatrix CMatrix::add(const CMatrix & x){
             temp.values[iR][iC] += x.values[iR][iC];
         }
     }
-	return temp;
+    return temp;
 }
 
 CMatrix CMatrix::sub(const CMatrix &x)
 {
-	//print error when the number of cols and rows are not the same in the two matrices
+    //print error when the number of cols and rows are not the same in the two matrices
     if (x.nR != nR || x.nC != nC)
     {
         throw("Invalid Matrix Subtraction columns and rows must be equal in the two matrices");
     }
-	CMatrix temp(*this);
-	//subtract the values of the two matrices in one temp matrix
-    
+    CMatrix temp(*this);
+    //subtract the values of the two matrices in one temp matrix
+
     for (int iR = 0; iR < nR; iR++)
     {
         for (int iC = 0; iC < nC; iC++)
         {
             temp.values[iR][iC] -= x.values[iR][iC];
         }
-	}
-	return temp;
+    }
+    return temp;
 }
 
 CMatrix CMatrix::mult(const CMatrix &x){
@@ -321,7 +405,7 @@ CMatrix CMatrix::mult(const CMatrix &x){
             for (int k = 0; k < x.nC; k++)
                 temp.values[iR][iC] += values[iR][k] * x.values[k][iC];
         }
-	return temp;
+    return temp;
 }
 
 
@@ -345,57 +429,57 @@ CMatrix CMatrix::coMatrix(int r, int c){
 
 double CMatrix::determinent()
 {
-	int  indexcolomns, minorrows, minorcolomns;
-	double Determinent = 0;
-	CMatrix minorMatrix(nR -1, nC - 1);
-	if (nR == 2)
-	{
-		Determinent = ((values[0][0])*(values[1][1])) - ((values[1][0])*(values[0][1]));
-		return Determinent;
-	}
-	else
-	{
-		for (indexcolomns = 0; indexcolomns<nC; indexcolomns++)
-		{
-			minorrows = 0;
-			minorcolomns = 0;
-			for (int i = 1; i<nR; i++)
-			{
-				for (int j = 0; j<nC; j++)
-				{
-					if (j == indexcolomns)
-					{
-						continue;
-					}
-					minorMatrix.values[minorrows][minorcolomns] = values[i][j];
-					minorcolomns++;
-					if (minorcolomns == nC - 1)
-					{
-						minorrows++;
-						minorcolomns = 0;
-					}
-				}
-			}
-			Determinent += values[0][indexcolomns] * pow(-1, indexcolomns)*minorMatrix.determinent();
-		}
-		return Determinent;
-	}
+    int  indexcolomns, minorrows, minorcolomns;
+    double Determinent = 0;
+    CMatrix minorMatrix(nR -1, nC - 1);
+    if (nR == 2)
+    {
+        Determinent = ((values[0][0])*(values[1][1])) - ((values[1][0])*(values[0][1]));
+        return Determinent;
+    }
+    else
+    {
+        for (indexcolomns = 0; indexcolomns<nC; indexcolomns++)
+        {
+            minorrows = 0;
+            minorcolomns = 0;
+            for (int i = 1; i<nR; i++)
+            {
+                for (int j = 0; j<nC; j++)
+                {
+                    if (j == indexcolomns)
+                    {
+                        continue;
+                    }
+                    minorMatrix.values[minorrows][minorcolomns] = values[i][j];
+                    minorcolomns++;
+                    if (minorcolomns == nC - 1)
+                    {
+                        minorrows++;
+                        minorcolomns = 0;
+                    }
+                }
+            }
+            Determinent += values[0][indexcolomns] * pow(-1, indexcolomns)*minorMatrix.determinent();
+        }
+        return Determinent;
+    }
 
 }
 
 CMatrix CMatrix::transpose()
 {
-	CMatrix temp(nR, nC);
+    CMatrix temp(nR, nC);
 
-	for (int i = 0; i < nR; i++)
-	{
-		for (int j = 0; j < nC; j++)
-		{
-			temp.values[i][j] = values[j][i];
-			temp.values[j][i] = values[i][j];
-		}
-	}
-	return temp;
+    for (int i = 0; i < nR; i++)
+    {
+        for (int j = 0; j < nC; j++)
+        {
+            temp.values[i][j] = values[j][i];
+            temp.values[j][i] = values[i][j];
+        }
+    }
+    return temp;
 }
 
 CMatrix CMatrix::divElement(double x){
@@ -427,114 +511,114 @@ CMatrix CMatrix::multElement(double x) {
 
 CMatrix CMatrix::getInverse()
 {
-	CMatrix MatrixInverse(nR,nC);
+    CMatrix MatrixInverse(nR,nC);
 
-	// Created to get the determinant
-	CMatrix matrixB(nR,nC);
-	matrixB.copy(*this);
+    // Created to get the determinant
+    CMatrix matrixB(nR,nC);
+    matrixB.copy(*this);
 
-	double Determinant = matrixB.determinent();
-	double Reciprocal = 1.0 / Determinant;
-	// Used to get the n - 1 x n -1 matrices for to get inverse
-	CMatrix Cofactors(nR - 1, nC - 1);
+    double Determinant = matrixB.determinent();
+    double Reciprocal = 1.0 / Determinant;
+    // Used to get the n - 1 x n -1 matrices for to get inverse
+    CMatrix Cofactors(nR - 1, nC - 1);
 
-	int indexcols, indexrows, minorrows, minorcols, i, j;
-	// z is indexrows for inverse matrix , y for indexcols for inverse matrix , powerindexes to adjust signs
-	int z = 0, y = 0, powerindex1 = 0, powerindex2 = 0;
+    int indexcols, indexrows, minorrows, minorcols, i, j;
+    // z is indexrows for inverse matrix , y for indexcols for inverse matrix , powerindexes to adjust signs
+    int z = 0, y = 0, powerindex1 = 0, powerindex2 = 0;
 
-	if (nR == 2)
-	{
-		double temp = this->values[0][0];
-		MatrixInverse.values[0][0] = MatrixInverse.values[1][1];
-		MatrixInverse.values[1][1] = temp;
+    if (nR == 2)
+    {
+        double temp = this->values[0][0];
+        MatrixInverse.values[0][0] = MatrixInverse.values[1][1];
+        MatrixInverse.values[1][1] = temp;
 
-		MatrixInverse.values[1][0] = -MatrixInverse.values[1][0];
-		MatrixInverse.values[0][1] = -MatrixInverse.values[0][1];
+        MatrixInverse.values[1][0] = -MatrixInverse.values[1][0];
+        MatrixInverse.values[0][1] = -MatrixInverse.values[0][1];
 
-		for (i = 0; i < nR; i++)
-		{
-			for (j = 0; j < nC; j++)
-			{
-				MatrixInverse.values[i][j] = Reciprocal * MatrixInverse.values[i][j];
-			}
-		}
-	}
-	else
-	{
-		for (indexcols = 0, indexrows = 0; indexrows < nR; indexcols++)
-		{
-			minorrows = 0;
-			minorcols = 0;
-			if (indexrows == 0)
-			{
-				i = 1;
-			}
-			else
-			{
-				i = 0;
-			}
-			for (i; i < nR; i++)
-			{
-				if (i == indexrows)
-				{
-					continue;
-				}
-				for (j = 0; j < nC; j++)
-				{
-					if (j == indexcols)
-					{
-						continue;
-					}
-					Cofactors.values[minorrows][minorcols] = this->values[i][j];
-					minorcols++;
-					if (minorcols == nC - 1)
-					{
-						minorrows++;
-						minorcols = 0;
-					}
-				}
-			}
-			MatrixInverse.values[z][y] = Cofactors.determinent() * pow(-1, powerindex1);
-			powerindex2++;
-			if (powerindex2 == nC)
-			{
-				powerindex2 = 0;
-				powerindex1++;
-			}
-			powerindex1++;
-			y++;
-			if (y == nC)
-			{
-				z++;
-				if (z == nR)
-				{
-					z = nR - 1;
-				}
-				y = 0;
-			}
+        for (i = 0; i < nR; i++)
+        {
+            for (j = 0; j < nC; j++)
+            {
+                MatrixInverse.values[i][j] = Reciprocal * MatrixInverse.values[i][j];
+            }
+        }
+    }
+    else
+    {
+        for (indexcols = 0, indexrows = 0; indexrows < nR; indexcols++)
+        {
+            minorrows = 0;
+            minorcols = 0;
+            if (indexrows == 0)
+            {
+                i = 1;
+            }
+            else
+            {
+                i = 0;
+            }
+            for (i; i < nR; i++)
+            {
+                if (i == indexrows)
+                {
+                    continue;
+                }
+                for (j = 0; j < nC; j++)
+                {
+                    if (j == indexcols)
+                    {
+                        continue;
+                    }
+                    Cofactors.values[minorrows][minorcols] = this->values[i][j];
+                    minorcols++;
+                    if (minorcols == nC - 1)
+                    {
+                        minorrows++;
+                        minorcols = 0;
+                    }
+                }
+            }
+            MatrixInverse.values[z][y] = Cofactors.determinent() * pow(-1, powerindex1);
+            powerindex2++;
+            if (powerindex2 == nC)
+            {
+                powerindex2 = 0;
+                powerindex1++;
+            }
+            powerindex1++;
+            y++;
+            if (y == nC)
+            {
+                z++;
+                if (z == nR)
+                {
+                    z = nR - 1;
+                }
+                y = 0;
+            }
 
-			if (indexcols == nC - 1)
-			{
-				indexcols = -1;
-				indexrows++;
-			}
-		}
+            if (indexcols == nC - 1)
+            {
+                indexcols = -1;
+                indexrows++;
+            }
+        }
 
-	}
-	MatrixInverse = MatrixInverse.transpose();
-	for (int x = 0; x < nR; x++)
-	{
-		for (int y = 0; y < nC; y++)
-		{
-			MatrixInverse.values[x][y] = Reciprocal * MatrixInverse.values[x][y];
-		}
-	}
-	return MatrixInverse;
+    }
+    MatrixInverse = MatrixInverse.transpose();
+    for (int x = 0; x < nR; x++)
+    {
+        for (int y = 0; y < nC; y++)
+        {
+            MatrixInverse.values[x][y] = Reciprocal * MatrixInverse.values[x][y];
+        }
+    }
+    return MatrixInverse;
 }
 
 CMatrix CMatrix::GaussianInverse()
 {
-	// Used for testing
+    // Used for testing
     /*
 	values[0][0] = 6; values[0][1] = 9; values[0][2] = 8; values[0][3] = 5; values[0][4] = 4;
 	values[1][0] = 7; values[1][1] = 12; values[1][2] = 11; values[1][3] = 13; values[1][4] = 10;
@@ -542,87 +626,87 @@ CMatrix CMatrix::GaussianInverse()
 	values[3][0] = 18; values[3][1] = 19; values[3][2] = 20; values[3][3] = 21; values[3][4] = 22;
 	values[4][0] = 23; values[4][1] = 24; values[4][2] = 25; values[4][3] = 26; values[4][4] = 27;
     */
-	//The New Matrix that will held the operations
-	CMatrix gaussianMatrix(nR, nC * 2);
-	for (int i = 0; i < nR; i++)
-	{
-		for (int j = 0; j < nC; j++)
-		{
-			gaussianMatrix.values[i][j] = values[i][j];
-		}
-	}
-	for (int i = 0; i < nR; i++)
-	{
-		for (int j = nC; j < nC * 2; j++)
-		{
-			if ((j - i) == nC)
-			{
-				gaussianMatrix.values[i][j] = 1;
-			}
-		}
-	}
-	//this->display();
-	//gaussianMatrix.display();
-	//
-	int IndexRows = 0, Index1 = 0;
-	int factorrows = 1, factorcols = 0;
-	int j = 0, k = 0, temp = 0,Row=0;
-	double factor0 = 0,factor1 = 0;
-	for (int i = 0; i < nR; i++)
-	{
-		for (j = 0; j < nR; j++)
-		{
-			if (j == 0)
-			{
-				factor1 = gaussianMatrix.values[Index1][Index1];
-				for (k = 0; k < nC + nC; k++)
-				{
-					gaussianMatrix.values[temp][k] /= factor1;
-				}
-				Index1++;
-				//gaussianMatrix.display();
-			}
-			else
-			{
-				if (i > 0 && j == 1)
-				{
-					Row = 0;
-				}
-				if (Row == IndexRows)
-				{
-					Row++;
-					factorrows++;
-				}
-				factor0 = gaussianMatrix.values[factorrows][factorcols];
-				for (k = 0; k < nC + nC; k++)
-				{
-					gaussianMatrix.values[Row][k] -= factor0 * gaussianMatrix.values[IndexRows][k];
-				}
-				factorrows++;
-				//gaussianMatrix.display();
-			}
-			Row++;
-			if (factorrows == nR)
-			{
-				factorrows = 0;
-				factorcols++;
-				temp++;
-			}
-		}
-		IndexRows++;
-	}
+    //The New Matrix that will held the operations
+    CMatrix gaussianMatrix(nR, nC * 2);
+    for (int i = 0; i < nR; i++)
+    {
+        for (int j = 0; j < nC; j++)
+        {
+            gaussianMatrix.values[i][j] = values[i][j];
+        }
+    }
+    for (int i = 0; i < nR; i++)
+    {
+        for (int j = nC; j < nC * 2; j++)
+        {
+            if ((j - i) == nC)
+            {
+                gaussianMatrix.values[i][j] = 1;
+            }
+        }
+    }
+    //this->display();
+    //gaussianMatrix.display();
+    //
+    int IndexRows = 0, Index1 = 0;
+    int factorrows = 1, factorcols = 0;
+    int j = 0, k = 0, temp = 0,Row=0;
+    double factor0 = 0,factor1 = 0;
+    for (int i = 0; i < nR; i++)
+    {
+        for (j = 0; j < nR; j++)
+        {
+            if (j == 0)
+            {
+                factor1 = gaussianMatrix.values[Index1][Index1];
+                for (k = 0; k < nC + nC; k++)
+                {
+                    gaussianMatrix.values[temp][k] /= factor1;
+                }
+                Index1++;
+                //gaussianMatrix.display();
+            }
+            else
+            {
+                if (i > 0 && j == 1)
+                {
+                    Row = 0;
+                }
+                if (Row == IndexRows)
+                {
+                    Row++;
+                    factorrows++;
+                }
+                factor0 = gaussianMatrix.values[factorrows][factorcols];
+                for (k = 0; k < nC + nC; k++)
+                {
+                    gaussianMatrix.values[Row][k] -= factor0 * gaussianMatrix.values[IndexRows][k];
+                }
+                factorrows++;
+                //gaussianMatrix.display();
+            }
+            Row++;
+            if (factorrows == nR)
+            {
+                factorrows = 0;
+                factorcols++;
+                temp++;
+            }
+        }
+        IndexRows++;
+    }
 
-	CMatrix inverseMatrix(nR, nC);
-	for (int i = 0; i < nR; i++)
-	{
-		for (int j = 0; j < nC; j++)
-		{
-			inverseMatrix.values[i][j] = gaussianMatrix.values[i][j + nC];
-		}
-	}
+    CMatrix inverseMatrix(nR, nC);
+    for (int i = 0; i < nR; i++)
+    {
+        for (int j = 0; j < nC; j++)
+        {
+            inverseMatrix.values[i][j] = gaussianMatrix.values[i][j + nC];
+        }
+    }
 //	gaussianMatrix.display();
 //	inverseMatrix.display();
-	return inverseMatrix;
+    return inverseMatrix;
 }
 
 CMatrix CMatrix::operator+(const CMatrix & x){
@@ -633,7 +717,7 @@ CMatrix CMatrix::operator+(const CMatrix & x){
 
 CMatrix CMatrix::operator-(const CMatrix& x){
 
-	return (this->sub(x));
+    return (this->sub(x));
 
 }
 
@@ -644,11 +728,11 @@ CMatrix CMatrix::operator*(const CMatrix &x)
 
 CMatrix  CMatrix::operator/(CMatrix& x)
 {
-	if (nR != x.nC)
-	{
-		throw "There is no unique solution\n";
-	}
-	CMatrix xInverse(x.nR,x.nC);
-	xInverse = x.GaussianInverse();
-	return (*this * xInverse);
+    if (nR != x.nC)
+    {
+        throw "There is no unique solution\n";
+    }
+    CMatrix xInverse(x.nR,x.nC);
+    xInverse = x.GaussianInverse();
+    return (*this * xInverse);
 }
