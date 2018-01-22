@@ -671,3 +671,32 @@ CMatrix  CMatrix::operator/(CMatrix& x)
 	xInverse = x.GaussianInverse();
 	return (*this * xInverse);
 }
+
+CMatrix CMatrix::Log(const CMatrix &a )
+{
+
+    CMatrix temp( a.nR,a.nC) ;
+
+    for(int i=0 ; i<a.nR ; i++) {
+        for (int j = 0; j < a.nC; j++) {
+            temp.values[i][j]=log(a.values[i][j]);
+        }
+    }
+
+    return temp ;
+}
+CMatrix  CMatrix::operator ^( const int a)
+{
+    CMatrix temp (this->nR , this->nC);
+    for (int i=0 ; i<this->nR ;i++ )
+    {
+        for (int j=0 ; j<this->nC ; j++)
+        {
+
+            temp.values[i][j]=pow(this->values[i][j],a) ;
+
+        }
+
+    }
+    return temp ;
+}
