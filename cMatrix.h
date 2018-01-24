@@ -23,6 +23,7 @@ public:
     CMatrix(std::string matStr);
     CMatrix(const CMatrix &x);
     CMatrix(int nR, int nC);
+    ~CMatrix();
     void reset();
     CMatrix(int nR, int nC, int initialization, double initializationValue);
     CMatrix find_Matrix(CMatrix *temp_matrices, char nme, int n);
@@ -38,6 +39,7 @@ public:
     void display();
     void copy(const CMatrix &x);
 
+    friend void sum_matrix(CMatrix &a, CMatrix &b, CMatrix &c);
 
     CMatrix add(const CMatrix & x);
     CMatrix sub(const CMatrix &x);

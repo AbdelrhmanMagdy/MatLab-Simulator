@@ -11,21 +11,21 @@ std::string itos(int in){
     return stream.str();
 }
 
-std::string findMatrix(CMatrix *temp_matrices, char name, int n){
+int findMatrix(CMatrix **temp_matrices, char name, int n){
 
     for (int i = 0; i < n; i++) {
 
-        if (temp_matrices[i].getName() == name)
-            return itos(i);
+        if (temp_matrices[i]->getName() == name)
+            return i;
     }
 
-    return  "";
+    return  -1;
 
 }
 
 void openFile(char* path) {
 
-    CMatrix temp_matrices[10];
+    CMatrix *temp_matrices[10];
     std::string matStr = "";
     char operation = 'a';
     int n = 0, matNo = 0;
@@ -45,11 +45,12 @@ void openFile(char* path) {
 
             if (((int) fileLine[i] > 96 && (int) fileLine[i] < 123) || ((int) fileLine[i] > 64 && (int) fileLine[i] < 91)){
 
-                if (findMatrix(temp_matrices, fileLine[i], matNo).empty()){
+                if (findMatrix(temp_matrices, fileLine[i], matNo) == -1){
 
-                    CMatrix tempMat;
-                    tempMat.setName(fileLine[i]);
-                    temp_matrices[matNo] = tempMat;
+                    CMatrix *tempMat = new CMatrix();
+                    tempMat->setName(fileLine[i]);
+                    temp_matrices[matNo] = new CMatrix();
+                    *temp_matrices[matNo] = *tempMat;
 
                     operation = 'a';
 
@@ -85,11 +86,12 @@ void openFile(char* path) {
                     matrixStr = matrixStr.substr(0, matrixStr.length() - 2);
                 }
 
-                temp_matrices[matNo - 1].setValues(matrixStr);
+                temp_matrices[matNo - 1]->setValues(matrixStr);
                 matrixStr = "";
                 break;
 
             }
+                //
             else if (fileLine[i] == '+' || fileLine[i] == '-' || fileLine[i] == '*' || fileLine[i] == '/' || fileLine[i] == '\''){
 
                 operation = fileLine[i];
@@ -105,6 +107,7 @@ void openFile(char* path) {
             else if (fileLine[i] == ' ' || fileLine[i] == '\r' || fileLine[i] == '\n' || fileLine[i] == '='){
                 continue;
             }
+                //
             else if ((int) fileLine[i] > 47 && (int) fileLine[i] < 58){
 
                 while (fileLine[i] != ' '){
@@ -122,73 +125,78 @@ void openFile(char* path) {
 
         if (operation != 'a'){
 
-            CMatrix mat1, mat2, mat3;
+            CMatrix *mat1 = new CMatrix();
+            CMatrix *mat2 = new CMatrix();
+            CMatrix *mat3 = new CMatrix();
+
             int matIndex = 0;
 
             switch (operation){
 
                 case '+':
 
-                    mat1 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[1], matNo).c_str())];
-                    mat2 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[2], matNo).c_str())];
+                    *mat1 = *temp_matrices[findMatrix(temp_matrices, matStr[1], matNo)];
+                    *mat2 = *temp_matrices[findMatrix(temp_matrices, matStr[2], matNo)];
 
-                    matIndex = atoi(findMatrix(temp_matrices, matStr[0], matNo).c_str());
-                    mat3 = temp_matrices[matIndex];
+                    matIndex = findMatrix(temp_matrices, matStr[0], matNo);
+                    *mat3 = *temp_matrices[matIndex];
 
-                    mat3 = mat1 + mat2;
+//                    *mat3 = mat1->add(*mat2);// *mat2;
 
-                    mat3.setName(temp_matrices[matIndex].getName());
+                    sum_matrix(*mat1, *mat2, *mat3);
 
-                    mat3.display();
+                    mat3->setName(temp_matrices[matIndex]->getName());
 
-                    temp_matrices[matIndex] = mat3;
+                    mat3->display();
+
+                    *temp_matrices[matIndex] = *mat3;
 
                     break;
                 case '-':
-                    mat1 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[1], matNo).c_str())];
-                    mat2 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[2], matNo).c_str())];
+                    *mat1 = *temp_matrices[findMatrix(temp_matrices, matStr[1], matNo)];
+                    *mat2 = *temp_matrices[findMatrix(temp_matrices, matStr[2], matNo)];
 
-                    matIndex = atoi(findMatrix(temp_matrices, matStr[0], matNo).c_str());
-                    mat3 = temp_matrices[matIndex];
+                    matIndex = (findMatrix(temp_matrices, matStr[0], matNo));
+                    *mat3 = *temp_matrices[matIndex];
 
-                    mat3 = mat1 - mat2;
+                    *mat3 = *mat1 - *mat2;
 
-                    mat3.setName(temp_matrices[matIndex].getName());
+                    mat3->setName(temp_matrices[matIndex]->getName());
 
-                    mat3.display();
-                    temp_matrices[matIndex] = mat3;
+                    mat3->display();
+                    *temp_matrices[matIndex] = *mat3;
 
                     break;
                 case '*':
-                    mat1 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[1], matNo).c_str())];
-                    mat2 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[2], matNo).c_str())];
+                    *mat1 = *temp_matrices[findMatrix(temp_matrices, matStr[1], matNo)];
+                    *mat2 = *temp_matrices[findMatrix(temp_matrices, matStr[2], matNo)];
 
-                    matIndex = atoi(findMatrix(temp_matrices, matStr[0], matNo).c_str());
-                    mat3 = temp_matrices[matIndex];
+                    matIndex = findMatrix(temp_matrices, matStr[0], matNo);
+                    *mat3 = *temp_matrices[matIndex];
 
-                    mat3 = mat1 * mat2;
+                    *mat3 = *mat1 * *mat2;
 
-                    mat3.setName(temp_matrices[matIndex].getName());
+                    mat3->setName(temp_matrices[matIndex]->getName());
 
-                    mat3.display();
-                    temp_matrices[matIndex] = mat3;
+                    mat3->display();
+                    *temp_matrices[matIndex] = *mat3;
 
                     break;
                 case '/':
-                    mat1 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[1], matNo).c_str())];
-                    mat2 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[2], matNo).c_str())];
+                    *mat1 = *temp_matrices[findMatrix(temp_matrices, matStr[1], matNo)];
+                    *mat2 = *temp_matrices[findMatrix(temp_matrices, matStr[2], matNo)];
 
-                    matIndex = atoi(findMatrix(temp_matrices, matStr[0], matNo).c_str());
-                    mat3 = temp_matrices[matIndex];
+                    matIndex = findMatrix(temp_matrices, matStr[0], matNo);
+                    *mat3 = *temp_matrices[matIndex];
 
                     try {
 
-                        mat3 = mat1 / mat2;
+                        *mat3 = *mat1 / *mat2;
 
-                        mat3.setName(temp_matrices[matIndex].getName());
+                        mat3->setName(temp_matrices[matIndex]->getName());
 
-                        mat3.display();
-                        temp_matrices[matIndex] = mat3;
+                        mat3->display();
+                        *temp_matrices[matIndex] = *mat3;
                     }
                     catch ( const char* e){
                         printf("%s",e);
@@ -198,18 +206,18 @@ void openFile(char* path) {
 
                 case '\'':
                     try{
-                        mat1 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[1], matNo).c_str())];
+                        *mat1 = *temp_matrices[findMatrix(temp_matrices, matStr[1], matNo)];
 
-                        matIndex = atoi(findMatrix(temp_matrices, matStr[0], matNo).c_str());
-                        mat2 = temp_matrices[matIndex];
+                        matIndex = findMatrix(temp_matrices, matStr[0], matNo);
+                        *mat2 = *temp_matrices[matIndex];
 //                mat2.display();
 
-                        mat2 = mat1.transpose();
+                        *mat2 = mat1->transpose();
 
-                        mat2.setName(temp_matrices[matIndex].getName());
+                        mat2->setName(temp_matrices[matIndex]->getName());
 
-                        mat2.display();
-                        temp_matrices[matIndex] = mat2;
+                        mat2->display();
+                        *temp_matrices[matIndex] = *mat2;
                     }
                     catch (const char* e){
                         printf("%s",e);
@@ -218,44 +226,44 @@ void openFile(char* path) {
 
                     break;
                 case 'd':
-                    mat1 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[1], matNo).c_str())];
+                    *mat1 = *temp_matrices[findMatrix(temp_matrices, matStr[1], matNo)];
 
-                    matIndex = atoi(findMatrix(temp_matrices, matStr[0], matNo).c_str());
-                    mat2 = temp_matrices[matIndex];
+                    matIndex = findMatrix(temp_matrices, matStr[0], matNo);
+                    *mat2 = *temp_matrices[matIndex];
 
 
                     //mat2 ./ mat1
-                    mat2 = mat1.divElement(atof(constNo.c_str()));
+                    *mat2 = mat1->divElement(atof(constNo.c_str()));
 
-                    mat2.setName(temp_matrices[matIndex].getName());
+                    mat2->setName(temp_matrices[matIndex]->getName());
 
-                    mat2.display();
+                    mat2->display();
 
-                    temp_matrices[matIndex] = mat2;
+                    *temp_matrices[matIndex] = *mat2;
                     break;
 
                 case 'm':
-                    mat1 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[1], matNo).c_str())];
+                    *mat1 = *temp_matrices[findMatrix(temp_matrices, matStr[1], matNo)];
 
-                    matIndex = atoi(findMatrix(temp_matrices, matStr[0], matNo).c_str());
-                    mat2 = temp_matrices[matIndex];
+                    matIndex = findMatrix(temp_matrices, matStr[0], matNo);
+                    *mat2 = *temp_matrices[matIndex];
 
                     // implement here
 
                     //mat2 .* mat1
-                    mat2 = mat1.multElement(atof(constNo.c_str()));
+                    *mat2 = mat1->multElement(atof(constNo.c_str()));
 
-                    mat2.setName(temp_matrices[matIndex].getName());
+                    mat2->setName(temp_matrices[matIndex]->getName());
 
-                    mat2.display();
+                    mat2->display();
 
-                    temp_matrices[matIndex] = mat2;
+                    *temp_matrices[matIndex] = *mat2;
                     break;
 
                 case 'p':
-                    mat1 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[0], matNo).c_str())];
+                    *mat1 = *temp_matrices[findMatrix(temp_matrices, matStr[0], matNo)];
 
-                    mat1.display();
+                    mat1->display();
 
                     break;
             }
@@ -279,7 +287,7 @@ void openFile(char* path) {
 
 void cline(){
 
-    CMatrix temp_matrices[10];
+    CMatrix *temp_matrices[10];
     std::string matStr = "";
     char operation = 'a';
     int n = 0, matNo = 0;
@@ -304,11 +312,11 @@ void cline(){
 
             if (((int) fileLine[i] > 96 && (int) fileLine[i] < 123) || ((int) fileLine[i] > 64 && (int) fileLine[i] < 91)){
 
-                if (findMatrix(temp_matrices, fileLine[i], matNo).empty()){
+                if (findMatrix(temp_matrices, fileLine[i], matNo) == -1){
 
                     CMatrix tempMat;
                     tempMat.setName(fileLine[i]);
-                    temp_matrices[matNo] = tempMat;
+                    *temp_matrices[matNo] = tempMat;
 
                     operation = 'a';
 
@@ -344,7 +352,7 @@ void cline(){
                     matrixStr = matrixStr.substr(0, matrixStr.length() - 2);
                 }
 
-                temp_matrices[matNo - 1].setValues(matrixStr);
+                temp_matrices[matNo - 1]->setValues(matrixStr);
                 matrixStr = "";
                 break;
 
@@ -388,66 +396,66 @@ void cline(){
 
                 case '+':
 
-                    mat1 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[1], matNo).c_str())];
-                    mat2 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[2], matNo).c_str())];
+                    mat1 = *temp_matrices[findMatrix(temp_matrices, matStr[1], matNo)];
+                    mat2 = *temp_matrices[findMatrix(temp_matrices, matStr[2], matNo)];
 
-                    matIndex = atoi(findMatrix(temp_matrices, matStr[0], matNo).c_str());
-                    mat3 = temp_matrices[matIndex];
+                    matIndex = findMatrix(temp_matrices, matStr[0], matNo);
+                    mat3 = *temp_matrices[matIndex];
 
                     mat3 = mat1 + mat2;
 
-                    mat3.setName(temp_matrices[matIndex].getName());
+                    mat3.setName(temp_matrices[matIndex]->getName());
 
                     mat3.display();
 
-                    temp_matrices[matIndex] = mat3;
+                    *temp_matrices[matIndex] = mat3;
 
                     break;
                 case '-':
-                    mat1 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[1], matNo).c_str())];
-                    mat2 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[2], matNo).c_str())];
+                    mat1 = *temp_matrices[findMatrix(temp_matrices, matStr[1], matNo)];
+                    mat2 = *temp_matrices[findMatrix(temp_matrices, matStr[2], matNo)];
 
-                    matIndex = atoi(findMatrix(temp_matrices, matStr[0], matNo).c_str());
-                    mat3 = temp_matrices[matIndex];
+                    matIndex = findMatrix(temp_matrices, matStr[0], matNo);
+                    mat3 = *temp_matrices[matIndex];
 
                     mat3 = mat1 - mat2;
 
-                    mat3.setName(temp_matrices[matIndex].getName());
+                    mat3.setName(temp_matrices[matIndex]->getName());
 
                     mat3.display();
-                    temp_matrices[matIndex] = mat3;
+                    *temp_matrices[matIndex] = mat3;
 
                     break;
                 case '*':
-                    mat1 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[1], matNo).c_str())];
-                    mat2 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[2], matNo).c_str())];
+                    mat1 = *temp_matrices[findMatrix(temp_matrices, matStr[1], matNo)];
+                    mat2 = *temp_matrices[findMatrix(temp_matrices, matStr[2], matNo)];
 
-                    matIndex = atoi(findMatrix(temp_matrices, matStr[0], matNo).c_str());
-                    mat3 = temp_matrices[matIndex];
+                    matIndex = findMatrix(temp_matrices, matStr[0], matNo);
+                    mat3 = *temp_matrices[matIndex];
 
                     mat3 = mat1 * mat2;
 
-                    mat3.setName(temp_matrices[matIndex].getName());
+                    mat3.setName(temp_matrices[matIndex]->getName());
 
                     mat3.display();
-                    temp_matrices[matIndex] = mat3;
+                    *temp_matrices[matIndex] = mat3;
 
                     break;
                 case '/':
-                    mat1 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[1], matNo).c_str())];
-                    mat2 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[2], matNo).c_str())];
+                    mat1 = *temp_matrices[findMatrix(temp_matrices, matStr[1], matNo)];
+                    mat2 = *temp_matrices[findMatrix(temp_matrices, matStr[2], matNo)];
 
-                    matIndex = atoi(findMatrix(temp_matrices, matStr[0], matNo).c_str());
-                    mat3 = temp_matrices[matIndex];
+                    matIndex = findMatrix(temp_matrices, matStr[0], matNo);
+                    mat3 = *temp_matrices[matIndex];
 
                     try {
 
                         mat3 = mat1 / mat2;
 
-                        mat3.setName(temp_matrices[matIndex].getName());
+                        mat3.setName(temp_matrices[matIndex]->getName());
 
                         mat3.display();
-                        temp_matrices[matIndex] = mat3;
+                        *temp_matrices[matIndex] = mat3;
                     }
                     catch (const char* e){
                         printf("%s", e);
@@ -457,18 +465,18 @@ void cline(){
 
                 case '\'':
                     try{
-                        mat1 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[1], matNo).c_str())];
+                        mat1 = *temp_matrices[findMatrix(temp_matrices, matStr[1], matNo)];
 
-                        matIndex = atoi(findMatrix(temp_matrices, matStr[0], matNo).c_str());
-                        mat2 = temp_matrices[matIndex];
+                        matIndex = findMatrix(temp_matrices, matStr[0], matNo);
+                        mat2 = *temp_matrices[matIndex];
 //                mat2.display();
 
                         mat2 = mat1.transpose();
 
-                        mat2.setName(temp_matrices[matIndex].getName());
+                        mat2.setName(temp_matrices[matIndex]->getName());
 
                         mat2.display();
-                        temp_matrices[matIndex] = mat2;
+                        *temp_matrices[matIndex] = mat2;
                     }
                     catch (const char* e){
                         printf("%s", e);
@@ -476,42 +484,42 @@ void cline(){
 
                     break;
                 case 'd':
-                    mat1 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[1], matNo).c_str())];
+                    mat1 = *temp_matrices[findMatrix(temp_matrices, matStr[1], matNo)];
 
-                    matIndex = atoi(findMatrix(temp_matrices, matStr[0], matNo).c_str());
-                    mat2 = temp_matrices[matIndex];
+                    matIndex = findMatrix(temp_matrices, matStr[0], matNo);
+                    mat2 = *temp_matrices[matIndex];
 
 
                     //mat2 ./ mat1
                     mat2 = mat1.divElement(atof(constNo.c_str()));
 
-                    mat2.setName(temp_matrices[matIndex].getName());
+                    mat2.setName(temp_matrices[matIndex]->getName());
 
                     mat2.display();
 
-                    temp_matrices[matIndex] = mat2;
+                    *temp_matrices[matIndex] = mat2;
                     break;
 
                 case 'm':
-                    mat1 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[1], matNo).c_str())];
+                    mat1 = *temp_matrices[findMatrix(temp_matrices, matStr[1], matNo)];
 
-                    matIndex = atoi(findMatrix(temp_matrices, matStr[0], matNo).c_str());
-                    mat2 = temp_matrices[matIndex];
+                    matIndex = findMatrix(temp_matrices, matStr[0], matNo);
+                    mat2 = *temp_matrices[matIndex];
 
                     // implement here
 
                     //mat2 .* mat1
                     mat2 = mat1.multElement(atof(constNo.c_str()));
 
-                    mat2.setName(temp_matrices[matIndex].getName());
+                    mat2.setName(temp_matrices[matIndex]->getName());
 
                     mat2.display();
 
-                    temp_matrices[matIndex] = mat2;
+                    *temp_matrices[matIndex] = mat2;
                     break;
 
                 case 'p':
-                    mat1 = temp_matrices[atoi(findMatrix(temp_matrices, matStr[0], matNo).c_str())];
+                    mat1 = *temp_matrices[findMatrix(temp_matrices, matStr[0], matNo)];
 
                     mat1.display();
 

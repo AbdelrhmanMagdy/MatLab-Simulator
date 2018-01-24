@@ -272,6 +272,20 @@ void CMatrix::display(){
 }
 
 
+void sum_matrix(CMatrix &a, CMatrix &b, CMatrix &c){
+
+    c.nR = a.nR;
+    c.nC = a.nC;
+
+    for (int i = 0; i < a.nR; i++) {
+        for (int j = 0; j < a.nC; j++) {
+
+            c.values[i][j] = a.values[i][j] + b.values[i][j];
+
+        }
+    }
+}
+
 CMatrix CMatrix::add(const CMatrix & x){
     //print error when the number of cols and rows are not the same in the two matrices
     if (x.nR != nR || x.nC != nC)
@@ -279,16 +293,17 @@ CMatrix CMatrix::add(const CMatrix & x){
         throw("Invalid Matrix Addition columns and rows must be equal in the two matrices");
     }
 
-    CMatrix temp(*this);
+    CMatrix *temp = new CMatrix();
+    *temp = *this;
     //add the values of the two matrices in one temp matrix
     for (int iR = 0; iR < nR; iR++)
     {
         for (int iC = 0; iC < nC; iC++)
         {
-            temp.values[iR][iC] += x.values[iR][iC];
+            temp->values[iR][iC] += x.values[iR][iC];
         }
     }
-    return temp;
+    return *temp;
 }
 
 CMatrix CMatrix::sub(const CMatrix &x)
@@ -647,4 +662,8 @@ CMatrix  CMatrix::operator/(CMatrix& x)
     CMatrix xInverse(x.nR,x.nC);
     xInverse = x.GaussianInverse();
     return (*this * xInverse);
+}
+
+CMatrix::~CMatrix() {
+    reset();
 }
