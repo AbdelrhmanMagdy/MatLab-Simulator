@@ -54,6 +54,14 @@ public:
     CMatrix operator*(const CMatrix &x);
     CMatrix operator/(CMatrix& x);
 
+    static CMatrix Log (const CMatrix & a ) ;
+    CMatrix operator ^( const int a);
+
+    CMatrix Sin(const CMatrix &a);
+    CMatrix Cos(const CMatrix &a);
+    CMatrix Tan(const CMatrix &a);
+
+
 };
 
 #endif

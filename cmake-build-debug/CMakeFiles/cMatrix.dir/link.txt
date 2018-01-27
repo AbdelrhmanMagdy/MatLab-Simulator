@@ -1,0 +1,1 @@
+/usr/bin/c++.exe -g  -Wl,--enable-auto-import CMakeFiles/cMatrix.dir/cMatrix.cpp.o CMakeFiles/cMatrix.dir/main.cpp.o CMakeFiles/cMatrix.dir/Matlab.cpp.o  -o cMatrix.exe -Wl,--out-implib,libcMatrix.dll.a -Wl,--major-image-version,0,--minor-image-version,0 
