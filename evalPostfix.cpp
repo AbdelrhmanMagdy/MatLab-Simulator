@@ -103,7 +103,7 @@ CMatrix PerformOperation(char operation, CMatrix operand1, CMatrix operand2)
     else if (operation == '/')
         return operand1.div(operand2);
     else
-        cout << "Unexpected Error \n";
+        cout << "Unexpected Error with simple calc perform operation\n"<<endl;
     return -1;
 }
 CMatrix PerformOperation(char operation, CMatrix operand1)
@@ -117,6 +117,6 @@ CMatrix PerformOperation(char operation, CMatrix operand1)
     else if (operation == 'q')
         return operand1.msqrt(operand2);
     else
-        cout << "Unexpected Error \n";
+        cout << "Unexpected Error with trinogometric calc perform operation\n";
     return -1;
 }
