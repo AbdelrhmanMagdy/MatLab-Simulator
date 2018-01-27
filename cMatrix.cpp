@@ -1,3 +1,4 @@
+
 #include "stdarg.h"
 #include "string.h"
 #include "cMatrix.h"
@@ -6,13 +7,81 @@
 #include <cmath>
 
 using namespace std;
+CMatrix CMatrix::Sin(const CMatrix &a)
+{
+    CMatrix temp(a.nR, a.nC);
+    for (int i = 0; i < a.nR; i++)
+    {
+        for (int j = 0; j < a.nC; j++)
+        {
+            temp.values[i][j] = sin(a.values[i][j]);
+        }
+    }
 
-CMatrix::CMatrix(){
+    return temp;
+}
+
+CMatrix CMatrix::Cos(const CMatrix &a)
+{
+    CMatrix temp(a.nR, a.nC);
+    for (int i = 0; i < a.nR; i++)
+    {
+        for (int j = 0; j < a.nC; j++)
+        {
+            temp.values[i][j] = cos(a.values[i][j]);
+        }
+    }
+
+    return temp;
+}
+CMatrix CMatrix::Tan(const CMatrix &a)
+{
+    CMatrix temp(a.nR, a.nC);
+    for (int i = 0; i < a.nR; i++)
+    {
+        for (int j = 0; j < a.nC; j++)
+        {
+            temp.values[i][j] = tan(a.values[i][j]);
+        }
+    }
+
+    return temp;
+}
+
+CMatrix CMatrix::operator^(int i)
+{
+    CMatrix temp = *this;
+
+    if (i == 0)
+    {
+        for (int i = 0; i < nR; i++)
+        {
+            for (int j = 0; j < nC; j++)
+            {
+                if (i == j)
+                    temp.values[i][j] = 1;
+                else
+                    temp.values[i][j] = 0;
+            }
+        }
+    }
+
+    for (int j = 2; j <= i; j++)
+    {
+        temp = temp * *this;
+    }
+
+    return temp;
+}
+
+CMatrix::CMatrix()
+{
     nR = nC = 0;
     values = NULL;
 }
 
-CMatrix::CMatrix(const CMatrix &x){
+CMatrix::CMatrix(const CMatrix &x)
+{
     copy(x);
 }
 
@@ -26,12 +95,14 @@ void CMatrix::copy(const CMatrix &x)
         values = NULL;
         return;
     }
-    values = new double*[nR];
+    values = new double *[nR];
 
-    for (int i=0; i<this->nR; i++){
+    for (int i = 0; i < this->nR; i++)
+    {
         values[i] = new double[nC];
 
-        for (int j=0; j<this->nC; j++){
+        for (int j = 0; j < this->nC; j++)
+        {
             values[i][j] = x.values[i][j];
         }
     }
@@ -50,11 +121,12 @@ void CMatrix::reset()
     nR = nC = 0;
     values = NULL;
 }
-CMatrix::CMatrix(int nR, int nC,int initialization, double initializationValue)//need it to initialize matrices with certain values and hamada is important for the compiler to differentiate between this fn and the fn with infinite variables
+CMatrix::CMatrix(int nR, int nC, int initialization, double initializationValue) //need it to initialize matrices with certain values and hamada is important for the compiler to differentiate between this fn and the fn with infinite variables
 {
     this->nR = nR;
     this->nC = nC;
-    if((nR*nC) == 0) {
+    if ((nR * nC) == 0)
+    {
         values = NULL;
         return;
     }
@@ -67,15 +139,15 @@ CMatrix::CMatrix(int nR, int nC,int initialization, double initializationValue)/
         {
             switch (initialization)
             {
-                default:
-                    values[iR][iC] = initializationValue;
-                    break;
+            default:
+                values[iR][iC] = initializationValue;
+                break;
             }
         }
     }
 }
-
-CMatrix::CMatrix(int nR, int nC) {
+CMatrix::CMatrix(int nR, int nC)
+{
     this->nR = nR;
     this->nC = nC;
     values = new double *[nR];
@@ -91,140 +163,88 @@ CMatrix::CMatrix(int nR, int nC) {
     }
 }
 
-void CMatrix::addCol(){
+void CMatrix::addCol()
+{
 
-    double* newArr = new double [nC + 1];
-    if (nC != 0) {
+    double *newArr = new double[nC + 1];
+    if (nC != 0)
+    {
         std::copy(values[nR], values[nR] + (nC + 1), newArr);
         delete[] values[nR];
     }
     values[nR] = newArr;
-
 }
 
-void CMatrix::addRow(){
+void CMatrix::addRow()
+{
 
-    double** newArr = new double* [nR + 1];
-    newArr[nR] = new double [nC + 1];
+    double **newArr = new double *[nR + 1];
+    newArr[nR] = new double[nC + 1];
     std::copy(values, values + (nR + 1), newArr);
     delete[] values;
     values = newArr;
-
 }
 
-CMatrix::CMatrix(std::string matStr) {
+CMatrix::CMatrix(std::string matStr)
+{
 
     setValues(matStr);
-
 }
 
 void CMatrix::setValues(std::string matStr)
 {
 
-
-
-    //
-
-//    nR = 0;
-//    nC = 0;
-//
-//    std::string temp;
-//    bool lastCh = false;
-//    values = new double *[1];
-//    values[0] = new double [1];
-//
-//    for (int i = 0; i < matStr.length(); i++){
-//
-//        switch(matStr[i]){
-//
-//            case ' ':
-//                if (lastCh){
-//
-//                    values[nR][nC] = atof(temp.c_str());
-//                    temp = "";
-//                    nC++;
-//                    values[nR] = new double [nC + 1];
-//
-//                }
-//                lastCh = false;
-//                break;
-//            case ';':
-//                if (i == matStr.length() - 1 || i == matStr.length() - 2)
-//                    break;
-//
-//                if (lastCh){
-//                    values[nR][nC] = atof(temp.c_str());
-//                    temp = "";
-//                }
-//
-//                lastCh = false;
-//                nR++;
-//                values = new double *[nR + 1];
-//                values[nR] = new double [nC + 1];
-//                nC = 0;
-//                break;
-//
-//            default:
-//
-//                lastCh = true;
-//                temp += matStr[i];
-//
-//                break;
-//        }
-//
-//    }
-
-    //
     nR = 0, nC = 0;
 
-
     values = new double *[1];
-    values[0] = new double [0];
+    values[0] = new double[0];
 
     std::string tempNo = "";
     int n = 0;
     bool newNo = false;
 
-    for (int i = 0; i < matStr.length(); i++){
+    for (int i = 0; i < matStr.length(); i++)
+    {
 
-        switch(matStr[i]){
+        switch (matStr[i])
+        {
 
-            case ' ':
-                if (newNo) {
-                    addCol();
-                    values[nR][nC] = atof(tempNo.c_str());
-                    newNo = false;
-                    tempNo = "";
-                    nC++;
-                }
-                break;
-
-            case ';':
+        case ' ':
+            if (newNo)
+            {
                 addCol();
                 values[nR][nC] = atof(tempNo.c_str());
                 newNo = false;
                 tempNo = "";
-                nR++;
-                addRow();
-                nC = 0;
-//                addCol();
-                break;
+                nC++;
+            }
+            break;
 
-            case '\r':
-                break;
+        case ';':
+            addCol();
+            values[nR][nC] = atof(tempNo.c_str());
+            newNo = false;
+            tempNo = "";
+            nR++;
+            addRow();
+            nC = 0;
+            //                addCol();
+            break;
 
-            case '\n':
-                break;
+        case '\r':
+            break;
 
-            case ']':
-                break;
+        case '\n':
+            break;
 
-            default:
-                tempNo += matStr[i];
-                newNo = true;
-                break;
+        case ']':
+            break;
+
+        default:
+            tempNo += matStr[i];
+            newNo = true;
+            break;
         }
-
     }
 
     addCol();
@@ -232,7 +252,6 @@ void CMatrix::setValues(std::string matStr)
     tempNo = "";
     nR++;
     nC++;
-
 }
 
 void CMatrix::setName(char nme)
@@ -258,21 +277,23 @@ int CMatrix::getCols()
     return nC;
 }
 
-void CMatrix::display(){
+void CMatrix::display()
+{
 
-    printf("%c = \n", nme);
-    for (int iR=0; iR<this->nR; iR++){
-        for (int iC=0; iC<this->nC; iC++){
+    for (int iR = 0; iR < this->nR; iR++)
+    {
+        for (int iC = 0; iC < this->nC; iC++)
+        {
 
-            printf("%.4f  \t",values[iR][iC]);
+            printf("%.4f  \t", values[iR][iC]);
         }
         printf("\n");
     }
     printf("\n");
 }
 
-
-CMatrix CMatrix::add(const CMatrix & x){
+CMatrix CMatrix::add(const CMatrix &x)
+{
     //print error when the number of cols and rows are not the same in the two matrices
     if (x.nR != nR || x.nC != nC)
     {
@@ -311,8 +332,10 @@ CMatrix CMatrix::sub(const CMatrix &x)
     return temp;
 }
 
-CMatrix CMatrix::mult(const CMatrix &x){
-    if( x.nR != nC || x.nC != nR ){
+CMatrix CMatrix::mult(const CMatrix &x)
+{
+    if (x.nR != nC || x.nC != nR)
+    {
         throw("Invalid Matrix Multiplication");
     }
     CMatrix temp(nR, x.nC);
@@ -325,16 +348,19 @@ CMatrix CMatrix::mult(const CMatrix &x){
     return temp;
 }
 
-
-CMatrix CMatrix::coMatrix(int r, int c){
-    CMatrix temp(nR-1,nC-1);
-    int r_index = 0, c_index ;
-    for (int iR = 0; iR < nR; iR++){
-        if (iR==r) continue;
+CMatrix CMatrix::coMatrix(int r, int c)
+{
+    CMatrix temp(nR - 1, nC - 1);
+    int r_index = 0, c_index;
+    for (int iR = 0; iR < nR; iR++)
+    {
+        if (iR == r)
+            continue;
         c_index = 0;
         for (int iC = 0; iC < nC; iC++)
         {
-            if (iC==c) continue;
+            if (iC == c)
+                continue;
             temp.values[r_index][c_index] = values[iR][iC];
             c_index++;
         }
@@ -346,23 +372,23 @@ CMatrix CMatrix::coMatrix(int r, int c){
 
 double CMatrix::determinent()
 {
-    int  indexcolomns, minorrows, minorcolomns;
+    int indexcolomns, minorrows, minorcolomns;
     double Determinent = 0;
-    CMatrix minorMatrix(nR -1, nC - 1);
+    CMatrix minorMatrix(nR - 1, nC - 1);
     if (nR == 2)
     {
-        Determinent = ((values[0][0])*(values[1][1])) - ((values[1][0])*(values[0][1]));
+        Determinent = ((values[0][0]) * (values[1][1])) - ((values[1][0]) * (values[0][1]));
         return Determinent;
     }
     else
     {
-        for (indexcolomns = 0; indexcolomns<nC; indexcolomns++)
+        for (indexcolomns = 0; indexcolomns < nC; indexcolomns++)
         {
             minorrows = 0;
             minorcolomns = 0;
-            for (int i = 1; i<nR; i++)
+            for (int i = 1; i < nR; i++)
             {
-                for (int j = 0; j<nC; j++)
+                for (int j = 0; j < nC; j++)
                 {
                     if (j == indexcolomns)
                     {
@@ -377,11 +403,10 @@ double CMatrix::determinent()
                     }
                 }
             }
-            Determinent += values[0][indexcolomns] * pow(-1, indexcolomns)*minorMatrix.determinent();
+            Determinent += values[0][indexcolomns] * pow(-1, indexcolomns) * minorMatrix.determinent();
         }
         return Determinent;
     }
-
 }
 
 CMatrix CMatrix::transpose()
@@ -399,7 +424,8 @@ CMatrix CMatrix::transpose()
     return temp;
 }
 
-CMatrix CMatrix::divElement(double x){
+CMatrix CMatrix::divElement(double x)
+{
     CMatrix temp(nR, nC);
     for (int i = 0; i < nR; i++)
     {
@@ -411,7 +437,8 @@ CMatrix CMatrix::divElement(double x){
     return temp;
 }
 
-CMatrix CMatrix::multElement(double x) {
+CMatrix CMatrix::multElement(double x)
+{
 
     CMatrix temp(nR, nC);
 
@@ -428,10 +455,10 @@ CMatrix CMatrix::multElement(double x) {
 
 CMatrix CMatrix::getInverse()
 {
-    CMatrix MatrixInverse(nR,nC);
+    CMatrix MatrixInverse(nR, nC);
 
     // Created to get the determinant
-    CMatrix matrixB(nR,nC);
+    CMatrix matrixB(nR, nC);
     matrixB.copy(*this);
 
     double Determinant = matrixB.determinent();
@@ -520,7 +547,6 @@ CMatrix CMatrix::getInverse()
                 indexrows++;
             }
         }
-
     }
     MatrixInverse = MatrixInverse.transpose();
     for (int x = 0; x < nR; x++)
@@ -537,14 +563,14 @@ CMatrix CMatrix::GaussianInverse()
 {
     // Used for testing
     /*
-    values[0][0] = 12; values[0][1] = 7; values[0][2] = 10; values[0][3] = 13; values[0][4] = 14;
-    values[1][0] = 11; values[1][1] = 15; values[1][2] = 16; values[1][3] = 2; values[1][4] = 8;
-    values[2][0] = 4; values[2][1] = 9; values[2][2] = 17; values[2][3] = 18; values[2][4] = 6;
-    values[3][0] = 19; values[3][1] = 20; values[3][2] = 5; values[3][3] = 21; values[3][4] = 22;
-    values[4][0] = 23; values[4][1] = 24; values[4][2] = 25; values[4][3] = 26; values[4][4] = 27;
+	values[0][0] = 6; values[0][1] = 9; values[0][2] = 8; values[0][3] = 5; values[0][4] = 4;
+	values[1][0] = 7; values[1][1] = 12; values[1][2] = 11; values[1][3] = 13; values[1][4] = 10;
+	values[2][0] = 14; values[2][1] = 3; values[2][2] = 15; values[2][3] = 16; values[2][4] = 17;
+	values[3][0] = 18; values[3][1] = 19; values[3][2] = 20; values[3][3] = 21; values[3][4] = 22;
+	values[4][0] = 23; values[4][1] = 24; values[4][2] = 25; values[4][3] = 26; values[4][4] = 27;
     */
     //The New Matrix that will held the operations
-    CMatrix gaussianMatrix(nR, nC + nC);
+    CMatrix gaussianMatrix(nR, nC * 2);
     for (int i = 0; i < nR; i++)
     {
         for (int j = 0; j < nC; j++)
@@ -554,7 +580,7 @@ CMatrix CMatrix::GaussianInverse()
     }
     for (int i = 0; i < nR; i++)
     {
-        for (int j = nC; j < nC + nC; j++)
+        for (int j = nC; j < nC * 2; j++)
         {
             if ((j - i) == nC)
             {
@@ -562,52 +588,55 @@ CMatrix CMatrix::GaussianInverse()
             }
         }
     }
-
-    int temp = 0, y = 0, x = 0, z = 0;
-
-    double swapTemp = 0, Factor1 = 0;
-
-    for (x = 0; x < nR; x++)
+    //this->display();
+    //gaussianMatrix.display();
+    //
+    int IndexRows = 0, Index1 = 0;
+    int factorrows = 1, factorcols = 0;
+    int j = 0, k = 0, temp = 0, Row = 0;
+    double factor0 = 0, factor1 = 0;
+    for (int i = 0; i < nR; i++)
     {
-        temp = x;
-        for (y = x + 1; y < nR; y++)
+        for (j = 0; j < nR; j++)
         {
-            if (gaussianMatrix.values[y][x] > gaussianMatrix.values[temp][x])
+            if (j == 0)
             {
-                temp = y;
+                factor1 = gaussianMatrix.values[Index1][Index1];
+                for (k = 0; k < nC + nC; k++)
+                {
+                    gaussianMatrix.values[temp][k] /= factor1;
+                }
+                Index1++;
+                //gaussianMatrix.display();
+            }
+            else
+            {
+                if (i > 0 && j == 1)
+                {
+                    Row = 0;
+                }
+                if (Row == IndexRows)
+                {
+                    Row++;
+                    factorrows++;
+                }
+                factor0 = gaussianMatrix.values[factorrows][factorcols];
+                for (k = 0; k < nC + nC; k++)
+                {
+                    gaussianMatrix.values[Row][k] -= factor0 * gaussianMatrix.values[IndexRows][k];
+                }
+                factorrows++;
+                //gaussianMatrix.display();
+            }
+            Row++;
+            if (factorrows == nR)
+            {
+                factorrows = 0;
+                factorcols++;
+                temp++;
             }
         }
-
-
-        if (temp != x)
-        {
-            for (z = 0; z < 2 * nR; z++)
-            {
-                swapTemp = gaussianMatrix.values[x][z];
-                gaussianMatrix.values[x][z] = gaussianMatrix.values[temp][z];
-                gaussianMatrix.values[temp][z] = swapTemp;
-            }
-
-        }
-
-        for (y = 0; y < nR; y++)
-            if (y != x) {
-                Factor1 = gaussianMatrix.values[y][x];
-                if (gaussianMatrix.values[x][x] == 0) {
-                    throw "NAN: Invalid matrices division \n\n";
-                }
-                for (z = 0; z < 2 * nR; z++)
-                    gaussianMatrix.values[y][z] -= gaussianMatrix.values[x][z] *
-                                                   Factor1 / gaussianMatrix.values[x][x];
-            }
-            else {
-                Factor1 = gaussianMatrix.values[y][x];
-                if (Factor1 == 0) {
-                    throw "NAN: Invalid matrices division \n\n";
-                }
-                for (z = 0; z < 2 * nR; z++)
-                    gaussianMatrix.values[y][z] /= Factor1;
-            }
+        IndexRows++;
     }
 
     CMatrix inverseMatrix(nR, nC);
@@ -621,16 +650,16 @@ CMatrix CMatrix::GaussianInverse()
     return inverseMatrix;
 }
 
-CMatrix CMatrix::operator+(const CMatrix & x){
+CMatrix CMatrix::operator+(const CMatrix &x)
+{
 
     return (this->add(x));
-
 }
 
-CMatrix CMatrix::operator-(const CMatrix& x){
+CMatrix CMatrix::operator-(const CMatrix &x)
+{
 
     return (this->sub(x));
-
 }
 
 CMatrix CMatrix::operator*(const CMatrix &x)
@@ -638,13 +667,42 @@ CMatrix CMatrix::operator*(const CMatrix &x)
     return (this->mult(x));
 }
 
-CMatrix  CMatrix::operator/(CMatrix& x)
+CMatrix CMatrix::operator/(CMatrix &x)
 {
-    if (nR != x.nC)
-    {
-        throw "There is no unique solution\n";
+	if (nR != x.nC)
+	{
+		throw "There is no unique solution\n";
+	}
+	CMatrix xInverse(x.nR,x.nC);
+	xInverse = x.GaussianInverse();
+	return (*this * xInverse);
+}
+
+CMatrix CMatrix::Log(const CMatrix &a )
+{
+
+    CMatrix temp( a.nR,a.nC) ;
+
+    for(int i=0 ; i<a.nR ; i++) {
+        for (int j = 0; j < a.nC; j++) {
+            temp.values[i][j]=log(a.values[i][j]);
+        }
     }
-    CMatrix xInverse(x.nR,x.nC);
-    xInverse = x.GaussianInverse();
-    return (*this * xInverse);
+
+    return temp ;
+}
+CMatrix  CMatrix::operator ^( const int a)
+{
+    CMatrix temp (this->nR , this->nC);
+    for (int i=0 ; i<this->nR ;i++ )
+    {
+        for (int j=0 ; j<this->nC ; j++)
+        {
+
+            temp.values[i][j]=pow(this->values[i][j],a) ;
+
+        }
+
+    }
+    return temp ;
 }
