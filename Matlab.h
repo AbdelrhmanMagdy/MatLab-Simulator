@@ -11,7 +11,7 @@
 #include "string.h"
 #include "cMatrix.h"
 
-std::string findMatrix(CMatrix *temp_matrices, char name, int n);
+int findMatrix(CMatrix *temp_matrices, char name, int n);
 
 std::string itos(int in);
 
