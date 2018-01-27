@@ -61,6 +61,11 @@ int EvaluatePostfix(string expression)
             CMatrix result(operand);
             S.push(result);
         }
+        else if (IsMatrix(expression[i]))
+        {
+
+            S.push(getMatrix(expression[i]););
+        }
     }
     return S.top();
 }
