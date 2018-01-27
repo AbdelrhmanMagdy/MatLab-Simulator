@@ -57,7 +57,7 @@ public:
     CMatrix operator*(const CMatrix &x);
     CMatrix operator/(CMatrix& x);
 	static CMatrix Log (const CMatrix & a ) ;
-	CMatrix solve (std::string eqnstr);
+	CMatrix solve (CMatrix mat1, CMatrix mat2, char op);
 
 
 
