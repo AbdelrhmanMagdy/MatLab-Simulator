@@ -755,11 +755,8 @@ CMatrix CMatrix::Log(const CMatrix &a )
 CMatrix CMatrix::solve(CMatrix mat1, char op, CMatrix mat2)
 {
 
-	std::string number;
-	double ans1;
-	CMatrix temp,temp2,answer;
-	int flag1=0;
-	int flag2=0;
+	CMatrix answer(mat1.nR,mat1.nC);
+
 	if (op=="s")
 		{	
 			answer(sin(mat1));
@@ -782,33 +779,79 @@ CMatrix CMatrix::solve(CMatrix mat1, char op, CMatrix mat2)
 
 	elseif (op=="+")
 		{
-			temp=mat1+mat2;
-			answer(temp);
+			answer=mat1+mat2;
 		}
 
 	elseif (op=="-")
 		{
-			temp=mat1-mat2;
-			answer(temp);
+			answer=mat1-mat2;
 		}
 
 		elseif (op=="*")
 		{
-			temp=mat1*mat2;
-			answer(temp);
+			answer=mat1*mat2;
 		}
 
 		elseif (op=="/")
 		{
-			temp=mat1/mat2;
-			answer(temp);
+			answer=mat1/mat2;
 		}
 
-			elseif (op=="p")
+		elseif (op=="^")
 		{
-			temp=mat1/mat2;
-			answer(temp);
+			answer=mat1^mat2.values[0][0];
 		}
+
+		elseif (op=="p")
+		{
+			for(int i=0;i<mat1.nR;i++)
+				 {
+					  for(int j=0;j<mat1.nC;j++)
+					   {
+						    answer.values[i][j]= mat1.values[i][j]+mat2.values[0][0];
+
+					   }
+				}
+		}
+
+		elseif (op=="s")
+		{
+			for(int i=0;i<mat1.nR;i++)
+				 {
+					  for(int j=0;j<mat1.nC;j++)
+					   {
+						    answer.values[i][j]= mat1.values[i][j]-mat2.values[0][0];
+
+					   }
+				}
+		}
+
+		elseif (op=="m")
+		{
+			for(int i=0;i<mat1.nR;i++)
+				 {
+					  for(int j=0;j<mat1.nC;j++)
+					   {
+						    answer.values[i][j]= mat1.values[i][j]*mat2.values[0][0];
+
+					   }
+				}
+		}
+
+		elseif (op=="d")
+		{
+			for(int i=0;i<mat1.nR;i++)
+				 {
+					  for(int j=0;j<mat1.nC;j++)
+					   {
+						    answer.values[i][j]= mat1.values[i][j]/mat2.values[0][0];
+
+					   }
+				}
+		}
+
+
+		return answer;
 
 }
 
