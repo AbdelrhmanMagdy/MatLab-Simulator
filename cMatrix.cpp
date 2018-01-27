@@ -757,7 +757,9 @@ CMatrix CMatrix::solve(std::string eqnstr)
 
 	std::string number;
 	double ans1;
-	CMatrix temp,answer;
+	CMatrix temp,temp2,answer;
+	int flag1=0;
+	int flag2=0;
 	if (eqnstr.find("sin") != std::string::npos)
 		{
 			if ( isdigit(s.at(4)) )//tells if the sin is for a number 
@@ -879,5 +881,191 @@ CMatrix CMatrix::solve(std::string eqnstr)
 		
 			
 		}
+
+	elseif (eqnstr.find("+") != std::string::npos)
+	{
+		if ( isdigit(s.at(0)) )//tells if the addition is for a numbers
+		{
+			ans1=(atof(eqnstr.substr(0,eqnstr.find("+"))))+(atof(eqnstr.substr(eqnstr.find("+")+1)));
+			answer(1,1,1,ans1);
+		}
+		else
+		{
+			for (int i=0;i<(sizeof(arr)/sizeof(char));i++)//before the array of the names of the matrices is initialized ..so we use arr as the name of the array 
+				{
+					if(eqnstr.substr(0,1)==arr[i])
+					{
+						temp(arr[i].func())//	before the function that calls the matrix with the name of arr[i] is initialized..so we use func() as its name
+						flag1=1;
+					}
+					if(eqnstr.substr(2,1)==arr[i])
+					{
+						temp2(arr[i].func())//	before the function that calls the matrix with the name of arr[i] is initialized..so we use func() as its name
+						flag2=1;
+					}
+					if(flag1 && flag2)
+					{
+						answer=temp+temp2;
+						break;
+					}
+					elseif(i==((sizeof(arr)/sizeof(char))-1) && (flag1==0 || flag2==0))
+					{
+						throw("one of the matrices doesn't exist");
+					}
+			}
+
+
+		}
+
+	}
+
+	elseif (eqnstr.find("-") != std::string::npos)
+	{
+		if ( isdigit(s.at(0)) )//tells if the addition is for a numbers
+		{
+			ans1=(atof(eqnstr.substr(0,eqnstr.find("-"))))-(atof(eqnstr.substr(eqnstr.find("-")+1)));
+			answer(1,1,1,ans1);
+		}
+		else
+		{
+			for (int i=0;i<(sizeof(arr)/sizeof(char));i++)//before the array of the names of the matrices is initialized ..so we use arr as the name of the array 
+				{
+					if(eqnstr.substr(0,1)==arr[i])
+					{
+						temp(arr[i].func())//	before the function that calls the matrix with the name of arr[i] is initialized..so we use func() as its name
+						flag1=1;
+					}
+					if(eqnstr.substr(2,1)==arr[i])
+					{
+						temp2(arr[i].func())//	before the function that calls the matrix with the name of arr[i] is initialized..so we use func() as its name
+						flag2=1;
+					}
+					if(flag1 && flag2)
+					{
+						answer=temp-temp2;
+						break;
+					}
+					elseif(i==((sizeof(arr)/sizeof(char))-1) && (flag1==0 || flag2==0))
+					{
+						throw("one of the matrices doesn't exist");
+					}
+			}
+
+
+		}
+
+	}
+
+		elseif (eqnstr.find("*") != std::string::npos)
+	{
+		if ( isdigit(s.at(0)) )//tells if the addition is for a numbers
+		{
+			ans1=(atof(eqnstr.substr(0,eqnstr.find("*"))))*(atof(eqnstr.substr(eqnstr.find("*")+1)));
+			answer(1,1,1,ans1);
+		}
+		else
+		{
+			for (int i=0;i<(sizeof(arr)/sizeof(char));i++)//before the array of the names of the matrices is initialized ..so we use arr as the name of the array 
+				{
+					if(eqnstr.substr(0,1)==arr[i])
+					{
+						temp(arr[i].func())//	before the function that calls the matrix with the name of arr[i] is initialized..so we use func() as its name
+						flag1=1;
+					}
+					if(eqnstr.substr(2,1)==arr[i])
+					{
+						temp2(arr[i].func())//	before the function that calls the matrix with the name of arr[i] is initialized..so we use func() as its name
+						flag2=1;
+					}
+					if(flag1 && flag2)
+					{
+						answer=temp*temp2;
+						break;
+					}
+					elseif(i==((sizeof(arr)/sizeof(char))-1) && (flag1==0 || flag2==0))
+					{
+						throw("one of the matrices doesn't exist");
+					}
+			}
+
+
+		}
+
+	}
+
+		elseif (eqnstr.find("/") != std::string::npos)
+	{
+		if ( isdigit(s.at(0)) )//tells if the addition is for a numbers
+		{
+			ans1=(atof(eqnstr.substr(0,eqnstr.find("/"))))/(atof(eqnstr.substr(eqnstr.find("/")+1)));
+			answer(1,1,1,ans1);
+		}
+		else
+		{
+			for (int i=0;i<(sizeof(arr)/sizeof(char));i++)//before the array of the names of the matrices is initialized ..so we use arr as the name of the array 
+				{
+					if(eqnstr.substr(0,1)==arr[i])
+					{
+						temp(arr[i].func())//	before the function that calls the matrix with the name of arr[i] is initialized..so we use func() as its name
+						flag1=1;
+					}
+					if(eqnstr.substr(2,1)==arr[i])
+					{
+						temp2(arr[i].func())//	before the function that calls the matrix with the name of arr[i] is initialized..so we use func() as its name
+						flag2=1;
+					}
+					if(flag1 && flag2)
+					{
+						answer=temp/temp2;
+						break;
+					}
+					elseif(i==((sizeof(arr)/sizeof(char))-1) && (flag1==0 || flag2==0))
+					{
+						throw("one of the matrices doesn't exist");
+					}
+			}
+
+
+		}
+
+	}
+
+		elseif (eqnstr.find(".^") != std::string::npos)
+	{
+		if ( isdigit(s.at(0)) )//tells if the addition is for a numbers
+		{
+			ans1=(atof(eqnstr.substr(0,eqnstr.find("."))))^(atof(eqnstr.substr(eqnstr.find("^")+1)));
+			answer(1,1,1,ans1);
+		}
+		else
+		{
+			for (int i=0;i<(sizeof(arr)/sizeof(char));i++)//before the array of the names of the matrices is initialized ..so we use arr as the name of the array 
+				{
+					if(eqnstr.substr(0,1)==arr[i])
+					{
+						temp(arr[i].func())//	before the function that calls the matrix with the name of arr[i] is initialized..so we use func() as its name
+						flag1=1;
+					}
+					if(eqnstr.substr(2,1)==arr[i])
+					{
+						temp2(arr[i].func())//	before the function that calls the matrix with the name of arr[i] is initialized..so we use func() as its name
+						flag2=1;
+					}
+					if(flag1 && flag2)
+					{
+						answer=temp.^temp2;////////////////////////////////////////////////////////////////////
+						break;
+					}
+					elseif(i==((sizeof(arr)/sizeof(char))-1) && (flag1==0 || flag2==0))
+					{
+						throw("one of the matrices doesn't exist");
+					}
+			}
+
+
+		}
+
+	}
+
 }
 
