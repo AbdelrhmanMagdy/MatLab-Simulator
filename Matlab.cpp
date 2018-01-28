@@ -4,13 +4,6 @@
 
 #include "Matlab.h"
 
-std::string itos(int in){
-
-    std::ostringstream stream;
-    stream << in;
-    return stream.str();
-}
-
 int findMatrix(CMatrix *temp_matrices, char name, int n){
 
     for (int i = 0; i < n; i++) {
@@ -162,7 +155,6 @@ void openFile(char* path) {
                     mat2 = temp_matrices[findMatrix(temp_matrices, matStr[2], matNo)];
 
                     matIndex = findMatrix(temp_matrices, matStr[0], matNo);
-                    mat3 = temp_matrices[matIndex];
 
                     mat3 = mat1 * mat2;
 
@@ -177,7 +169,6 @@ void openFile(char* path) {
                     mat2 = temp_matrices[findMatrix(temp_matrices, matStr[2], matNo)];
 
                     matIndex = findMatrix(temp_matrices, matStr[0], matNo);
-                    mat3 = temp_matrices[matIndex];
 
                     try {
 
@@ -199,7 +190,6 @@ void openFile(char* path) {
                         mat1 = temp_matrices[findMatrix(temp_matrices, matStr[1], matNo)];
 
                         matIndex = findMatrix(temp_matrices, matStr[0], matNo);
-                        mat2 = temp_matrices[matIndex];
 
                         mat2 = mat1.transpose();
 
@@ -218,8 +208,6 @@ void openFile(char* path) {
                     mat1 = temp_matrices[findMatrix(temp_matrices, matStr[1], matNo)];
 
                     matIndex = findMatrix(temp_matrices, matStr[0], matNo);
-                    mat2 = temp_matrices[matIndex];
-
 
                     //mat2 ./ mat1
                     mat2 = mat1.divElement(atof(constNo.c_str()));
@@ -519,4 +507,244 @@ void cline(){
         n++;
     }
 
+}
+
+
+// Function to convert Infix expression to Postfix expression
+std::string InfixToPostfix(std::string expression) {
+    // Declaring a Stack from Standard template library in C++.
+    std::stack<char> S;
+    std::string postfix = ""; // Initialize postfix as empty string.
+    for(int i = 0;i< expression.length();i++) {
+
+        // Scanning each character from left.
+        // If character is a delimitter, move on.
+        if(expression[i] == ' ') {
+            if(postfix[postfix.length() - 1] != ' ')
+                postfix += ' ';
+            continue;
+        }
+            // If character is operator, pop two elements from stack, perform operation and push the result back.
+        else if(IsOperator(expression[i]))
+        {
+            while(!S.empty() && S.top() != '(' && HasHigherPrecedence(S.top(), expression[i]))
+            {
+                if(postfix[postfix.length() - 1] != ' ')
+                    postfix += ' ';
+
+                postfix+= S.top();
+                S.pop();
+            }
+            S.push(expression[i]);
+        }
+            // Else if character is an operand
+        else if(IsOperand(expression[i]))
+        {
+            char oper = ' ';
+            if (expression[i] == 's'){
+                if(expression[i + 1] == 'i' && expression[i + 2] == 'n'){
+                    oper = 's';
+                    i = i + 2;
+                }
+                else if(expression[i + 1] == 'q' && expression[i + 2] == 'r' && expression[i + 3] == 't'){
+                    oper = 'q';
+                    i = i + 3;
+                }
+            }
+            else if (expression[i] == 'c'){
+                if(expression[i + 1] == 'o' && expression[i + 2] == 's'){
+                    oper = 'c';
+                    i = i + 2;
+                }
+            }
+            else if (expression[i] == 't'){
+                if(expression[i + 1] == 'a' && expression[i + 2] == 'n'){
+                    oper = 't';
+                    i = i + 2;
+                }
+            }
+            else if (expression[i] == 'l'){
+                if(expression[i + 1] == 'o' && expression[i + 2] == 'g'){
+                    oper = 'l';
+                    i = i + 2;
+                }
+                else if(expression[i + 1] == 'n'){
+                    oper = 'n';
+                    i = i + 1;
+                }
+            }
+            else if (expression[i] == '.'){
+                if (expression[i + 1] == '/'){
+                    oper = 'd';
+                    i = i + 1;
+                }
+                else if (expression[i + 1] == '*'){
+                    oper = 'm';
+                    i = i + 1;
+                }
+                else if (expression[i + 1] == '+'){
+                    oper = 'a';
+                    i = i + 1;
+                }
+                else if (expression[i + 1] == '-'){
+                    oper = 'u';
+                    i = i + 1;
+                }
+                else if (expression[i + 1] == '^'){
+                    oper = 'p';
+                    i = i + 1;
+                }
+                else{
+                    postfix +=expression[i];
+                }
+            }
+            else{
+                postfix +=expression[i];
+            }
+
+            if (oper != ' '){
+                while(!S.empty() && S.top() != '(' && HasHigherPrecedence(S.top(), oper))
+                {
+                    if(postfix[postfix.length() - 1] != ' ')
+                        postfix += ' ';
+
+                    postfix+= S.top();
+                    S.pop();
+                }
+                S.push(oper);
+            }
+        }
+
+        else if (expression[i] == '(')
+        {
+            S.push(expression[i]);
+        }
+
+        else if(expression[i] == ')')
+        {
+            while(!S.empty() && S.top() !=  '(') {
+
+                if(postfix[postfix.length() - 1] != ' ')
+                    postfix += ' ';
+
+                postfix += S.top();
+                postfix += ' ';
+                S.pop();
+            }
+            S.pop();
+        }
+
+        if(!IsOperand(expression[i]) && postfix[postfix.length() - 1] != ' ')
+            postfix += ' ';
+    }
+
+    while(!S.empty()) {
+        postfix += ' ';
+        postfix += S.top();
+        S.pop();
+    }
+
+    if(postfix[0] == ' ')
+        postfix = postfix.substr(1, postfix.length() - 1);
+    if(postfix[postfix.length() - 1] == ' ')
+        postfix = postfix.substr(0, postfix.length() - 2);
+
+    return postfix;
+}
+
+// Function to verify whether a character is english letter or numeric digit.
+// We are assuming in this solution that operand will be a single character
+bool IsOperand(char C) {
+    if(C >= '0' && C <= '9') return true;
+    if(C >= 'a' && C <= 'z') return true;
+    if(C >= 'A' && C <= 'Z') return true;
+    if(C == '.') return true;
+    return false;
+}
+
+// Function to verify whether a character is operator symbol or not.
+bool IsOperator(char C) {
+    if(C == '+' || C == '-' || C == '*' || C == '/' || C == '^')
+        return true;
+
+    return false;
+}
+
+// Function to verify whether an operator is right associative or not.
+int IsRightAssociative(char op) {
+    if(op == '^') return true;
+    return false;
+}
+
+// Function to get weight of an operator. An operator with higher weight will have higher precedence.
+int GetOperatorWeight(char op) {
+    int weight = -1;
+    switch(op)
+    {
+        case '+':
+            weight = 1;
+            break;
+        case '-':
+            weight = 1;
+            break;
+        case 'a': // .+
+            weight = 2;
+            break;
+        case 'u': // .-
+            weight = 2;
+            break;
+        case '*':
+            weight = 3;
+            break;
+        case '/':
+            weight = 3;
+            break;
+        case 'm': // .*
+            weight = 3;
+            break;
+        case 'd': // ./
+            weight = 3;
+            break;
+        case '^':
+            weight = 4;
+            break;
+        case 'p': // .^
+            weight = 4;
+            break;
+        case 's': // sin
+            weight = 4;
+            break;
+        case 'q': // sqrt
+            weight = 4;
+            break;
+        case 'c': // cos
+            weight = 4;
+            break;
+        case 't': // tan
+            weight = 4;
+            break;
+        case 'l': // log
+            weight = 4;
+            break;
+        case 'n': // Ln
+            weight = 4;
+            break;
+    }
+    return weight;
+}
+
+// Function to perform an operation and return output.
+int HasHigherPrecedence(char op1, char op2) {
+    int op1Weight = GetOperatorWeight(op1);
+    int op2Weight = GetOperatorWeight(op2);
+
+    // If operators have equal precedence, return true if they are left associative.
+    // return false, if right associative.
+    // if operator is left-associative, left one should be given priority.
+    if(op1Weight == op2Weight)
+    {
+        if(IsRightAssociative(op1)) return false;
+        else return true;
+    }
+    return op1Weight > op2Weight;
 }
