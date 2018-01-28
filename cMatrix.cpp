@@ -739,3 +739,45 @@ CMatrix CMatrix:: Sqrt (const CMatrix & a )
 
 
 }
+
+CMatrix CMatrix:: Cbrt (const CMatrix & a )
+{
+
+    CMatrix temp( a.nR,a.nC) ;
+
+
+
+
+    for (int i = 0; i < a.nR; i++) {
+        for (int j = 0; j < a.nC; j++) {
+            temp.values[i][j] = cbrt(a.values[i][j]);
+        }
+    }
+
+
+    return temp ;
+
+
+
+}
+
+
+CMatrix CMatrix:: Exp (const CMatrix & a )
+{
+
+    CMatrix temp( a.nR,a.nC) ;
+
+
+
+
+    for (int i = 0; i < a.nR; i++) {
+        for (int j = 0; j < a.nC; j++) {
+            temp.values[i][j] = exp(a.values[i][j]);
+        }
+    }
+
+
+    return temp ;
+
+}
+

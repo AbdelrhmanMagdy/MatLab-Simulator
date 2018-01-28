@@ -57,6 +57,8 @@ public:
     static CMatrix Log (const CMatrix & a ) ;
     CMatrix operator ^= (const int a ) ; // ^= is doing the function required from ( ^. )
     static CMatrix Sqrt (const CMatrix & a ) ;
+    static CMatrix Cbrt (const CMatrix & a ) ;
+    static CMatrix Exp (const CMatrix & a ) ;
 
 };
 
