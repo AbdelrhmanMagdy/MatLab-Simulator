@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     hi.setName('A');
     CMatrix bi(2,2,4,2);
     bi.setName('B');
-    s = "(A./3)";
+    s = "(A./2)";
     temp_matrices[0]=hi;
     temp_matrices[1]=bi;
     // CMatrix zi;
@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
     CMatrix x;
     string y = InfixToPostfix(s);
     std::cout << y<<endl;
-    // x = EvaluatePostfix(InfixToPostfix(s));
-    // x.display();
+    x = EvaluatePostfix(InfixToPostfix(s));
+    x.display();
     return 0;
 }

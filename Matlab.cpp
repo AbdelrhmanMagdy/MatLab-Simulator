@@ -774,15 +774,13 @@ int HasHigherPrecedence(char op1, char op2) {
     }
     return op1Weight > op2Weight;
 }
-/////////////////////////////////////////////
-/////////////////////////////////////////////////
 // Function to evaluate Postfix expression and return output
 CMatrix EvaluatePostfix(std::string expression){
     std::stack <CMatrix> S;
-    cout<<expression<<endl;
+    // cout<<expression<<endl;
     for (int i = 0; i < expression.length(); i++)
     {
-        cout<<expression[i]<<endl;
+        // cout<<expression[i]<<endl;
         if (expression[i] == ' ' || expression[i] == ',')
             continue;
         else if (IsTrigonometric(expression[i]))
@@ -871,9 +869,9 @@ CMatrix solve(CMatrix mat1, char op)
 CMatrix solve(CMatrix mat1, char op, CMatrix mat2)
 {
     CMatrix answer(mat1.getRows(), mat1.getCols());
-    mat1.display();
-    mat2.display();
-    cout<<op<<endl;
+    // mat1.display();
+    // mat2.display();
+    // cout<<op<<endl;
     if(op == '+')
     {
         answer = mat1 + mat2;
