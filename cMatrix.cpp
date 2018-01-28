@@ -675,7 +675,18 @@ CMatrix  CMatrix::operator/(CMatrix& x)
 CMatrix CMatrix::Log(const CMatrix &a )
 {
 
+
+    for (int i = 0; i < a.nR; i++) {
+        for (int j = 0; j < a.nC; j++) {
+            if ( a.values[i][j]<0 )
+                throw "Invalid Matrix log values must be positive ";
+        }
+    }
+
+
     CMatrix temp( a.nR,a.nC) ;
+
+
 
     for(int i=0 ; i<a.nR ; i++) {
         for (int j = 0; j < a.nC; j++) {
