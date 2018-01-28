@@ -7,7 +7,7 @@ CMatrix temp_matrices[10];
 int n = 0;
 int findMatrix(CMatrix *temp_matrices, char name, int n)
 {
-    n=2;
+    // n=2;
     for (int i = 0; i < n; i++) {
         if (temp_matrices[i].getName() == name){
             return i;}
