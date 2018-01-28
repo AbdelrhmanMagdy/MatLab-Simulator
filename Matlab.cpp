@@ -948,37 +948,3 @@ CMatrix solve(CMatrix mat1, char op, CMatrix mat2)
 
     return answer;
 }
-// CMatrix PerformOperation(char operation, CMatrix operand1, CMatrix operand2)
-// {
-//     double x=0;
-//     if(operand2.nR == 1 && operand2.nC == 1){
-//         x = operand2.values[0][0]; 
-//     }
-//     if (operation == '+')
-//     {
-//         return operand1.add(operand2);
-//     }
-//     else if (operation == '-')
-//         return operand1.sub(operand2);
-//     else if (operation == '*')
-//         return operand1.mult(operand2);
-//     else if (operation == '/')
-//         return operand1/operand2;
-//     else
-//         std::cout << "Unexpected Error with simple calc perform operation\n"
-//              << std::endl;
-//     return operand1;
-// }
-// CMatrix PerformOperation(char operation, CMatrix operand1)
-// {
-//     // CMatrix x;
-//     // if (operation == 's')
-//     //     return Sin(operand2);
-//     // else if (operation == 'c')
-//     //     return operand1.Cos(operand2);
-//     // else if (operation == 't')
-//     //     return operand1.Tan(operand2);
-//     // else
-//     //     std::cout << "Unexpected Error with trinogometric calc perform operation\n";
-//     return operand1;
-// }
