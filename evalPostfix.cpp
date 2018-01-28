@@ -26,7 +26,7 @@ return 0;
 }
 int EvaluatePostfix(string expression)
 {
-    CMatrix <int> S;
+    stack <CMatrix> S;
 
     for (int i = 0; i < expression.length(); i++)
     {

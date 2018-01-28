@@ -1,15 +1,16 @@
 //
 // Created by Mamdouh El Nakeeb on 11/26/17.
 //
-
+using namespace std;
 #include "Matlab.h"
-
-int findMatrix(CMatrix *temp_matrices, char name, int n){
-
+CMatrix temp_matrices[10];
+int n = 0;
+int findMatrix(CMatrix *temp_matrices, char name, int n)
+{
+    n=2;
     for (int i = 0; i < n; i++) {
-
-        if (temp_matrices[i].getName() == name)
-            return i;
+        if (temp_matrices[i].getName() == name){
+            return i;}
     }
 
     return  -1;
@@ -18,10 +19,9 @@ int findMatrix(CMatrix *temp_matrices, char name, int n){
 
 void openFile(char* path) {
 
-    CMatrix temp_matrices[10];
     std::string matStr = "";
     char operation = 'a';
-    int n = 0, matNo = 0;
+    int matNo = 0;
     bool newMat = false;
     std::string matrixStr = "";
     std::string constNo = "";
@@ -663,16 +663,42 @@ bool IsOperand(char C) {
 }
 
 // Function to verify whether a character is operator symbol or not.
-bool IsOperator(char C) {
-    if(C == '+' || C == '-' || C == '*' || C == '/' || C == '^')
+bool IsOperator(char C)
+{
+    if (C == '+' || C == '-' || C == '*' || C == '/' || C == '^' || C == 'a' || C == 'p' || C == 'u' || C == 'm' || C == 'd')
+    // {   cout<<C<<" operator"<<endl;
+     return true;
+//  }
+ return false;
+}
+// Function to verify whether an operator is right associative or not.
+int IsRightAssociative(char op) {
+    if(op == '^') return true;
+    return false;
+}
+
+bool IsNumericDigit(char C)
+{
+    if (C >= '0' && C <= '9')
+        return true;
+    return false;
+}
+// Function to verify whether a character is trigonometric function or not.
+bool IsTrigonometric(char C)
+{
+    if (C == 's' || C == 'q' || C == 'c' || C == 't' || C == 'l' )
         return true;
 
     return false;
 }
+// Function to verify whether a character is matrix object.
+bool IsMatrix(char C)
+{
 
-// Function to verify whether an operator is right associative or not.
-int IsRightAssociative(char op) {
-    if(op == '^') return true;
+    // cout << "find matrix:"<<C<<"  " << findMatrix(temp_matrices, C, n)<<endl;
+    // temp_matrices[0].display();
+     if (findMatrix(temp_matrices, C, n) != -1) return true;
+
     return false;
 }
 
@@ -748,3 +774,213 @@ int HasHigherPrecedence(char op1, char op2) {
     }
     return op1Weight > op2Weight;
 }
+/////////////////////////////////////////////
+/////////////////////////////////////////////////
+// Function to evaluate Postfix expression and return output
+CMatrix EvaluatePostfix(std::string expression){
+    std::stack <CMatrix> S;
+    cout<<expression<<endl;
+    for (int i = 0; i < expression.length(); i++)
+    {
+        cout<<expression[i]<<endl;
+        if (expression[i] == ' ' || expression[i] == ',')
+            continue;
+        else if (IsTrigonometric(expression[i]))
+        {
+            CMatrix operand1 = S.top();
+            S.pop();
+            CMatrix result = solve(operand1,expression[i]);
+            S.push(result);
+        }
+        else if (IsOperator(expression[i]))
+        {
+            // std::cout << expression[i]<<"  IsOperator" << std::endl;
+            CMatrix operand2 = S.top();
+            // operand2.display();
+            S.pop();
+            CMatrix operand1 = S.top();
+            // operand1.display();
+            S.pop();
+            CMatrix result = solve(operand1, expression[i], operand2);
+            S.push(result);
+        }
+        else if (IsNumericDigit(expression[i]))
+        {
+            int operand = 0;
+            while (i < expression.length() && IsNumericDigit(expression[i]))
+            {
+                operand = (operand * 10) + (expression[i] - '0');
+                i++;
+            }
+            i--;
+            // cout<<operand<<endl;
+            CMatrix result(1,1,4,operand);
+            // std::cout<<"result is matrix"<<std::endl;
+            // result.display();
+            S.push(result);
+        }
+        else if (IsMatrix(expression[i]))
+        {
+            // cout << expression[i]<<"  Is Matrix" << endl;
+            int tempMatIndex = findMatrix(temp_matrices, expression[i] ,n);
+
+            S.push(temp_matrices[tempMatIndex]);
+        }
+        // cout<<expression[i]<<endl;
+    }
+    return S.top();
+}
+
+CMatrix solve(CMatrix mat1, char op)
+{
+    CMatrix answer(mat1.getRows(), mat1.getCols());
+
+    if (op == 's')
+    {
+        answer = Sin(mat1);
+    }
+
+    else if(op == 'c')
+    {
+        answer = Cos(mat1);
+    }
+
+    else if(op == 't')
+    {
+        answer = Tan(mat1);
+    }
+
+    // else if(op == 'l')
+    // {
+    //     answer(log(mat1));
+    // }
+
+    // else if(op == 'n')
+    // {
+    //     answer(ln(mat1));
+    // }
+
+    // else if(op == 'q')
+    // {
+    //     answer(sqrt(mat1));
+    // }
+
+    return answer;
+}
+
+CMatrix solve(CMatrix mat1, char op, CMatrix mat2)
+{
+    CMatrix answer(mat1.getRows(), mat1.getCols());
+    mat1.display();
+    mat2.display();
+    cout<<op<<endl;
+    if(op == '+')
+    {
+        answer = mat1 + mat2;
+    }
+
+    else if(op == '-')
+    {
+        answer = mat1 - mat2;
+    }
+
+    else if(op == '*')
+    {
+        answer = mat1 * mat2;
+    }
+
+    else if(op == '/')
+    {
+        answer = mat1 / mat2;
+    }
+
+    else if(op == '^')
+    {
+        answer = mat1 ^ mat2.values[0][0];
+    }
+
+    else if(op == 'p')
+    {
+        // answer = mat1 ^= mat2.values[0][0];
+    }
+
+    else if(op == 'a') //.+
+    {
+        for (int i = 0; i < mat1.nR; i++)
+        {
+            for (int j = 0; j < mat1.nC; j++)
+            {
+                answer.values[i][j] = mat1.values[i][j] + mat2.values[0][0];
+            }
+        }
+    }
+
+    else if(op == 'u') //.-
+    {
+        for (int i = 0; i < mat1.nR; i++)
+        {
+            for (int j = 0; j < mat1.nC; j++)
+            {
+                answer.values[i][j] = mat1.values[i][j] - mat2.values[0][0];
+            }
+        }
+    }
+
+    else if(op == 'm') //.*
+    {
+        for (int i = 0; i < mat1.nR; i++)
+        {
+            for (int j = 0; j < mat1.nC; j++)
+            {
+                answer.values[i][j] = mat1.values[i][j] * mat2.values[0][0];
+            }
+        }
+    }
+
+    else if(op == 'd') //./
+    {
+        for (int i = 0; i < mat1.nR; i++)
+        {
+            for (int j = 0; j < mat1.nC; j++)
+            {
+                answer.values[i][j] = mat1.values[i][j] / mat2.values[0][0];
+            }
+        }
+    }
+
+    return answer;
+}
+// CMatrix PerformOperation(char operation, CMatrix operand1, CMatrix operand2)
+// {
+//     double x=0;
+//     if(operand2.nR == 1 && operand2.nC == 1){
+//         x = operand2.values[0][0]; 
+//     }
+//     if (operation == '+')
+//     {
+//         return operand1.add(operand2);
+//     }
+//     else if (operation == '-')
+//         return operand1.sub(operand2);
+//     else if (operation == '*')
+//         return operand1.mult(operand2);
+//     else if (operation == '/')
+//         return operand1/operand2;
+//     else
+//         std::cout << "Unexpected Error with simple calc perform operation\n"
+//              << std::endl;
+//     return operand1;
+// }
+// CMatrix PerformOperation(char operation, CMatrix operand1)
+// {
+//     // CMatrix x;
+//     // if (operation == 's')
+//     //     return Sin(operand2);
+//     // else if (operation == 'c')
+//     //     return operand1.Cos(operand2);
+//     // else if (operation == 't')
+//     //     return operand1.Tan(operand2);
+//     // else
+//     //     std::cout << "Unexpected Error with trinogometric calc perform operation\n";
+//     return operand1;
+// }

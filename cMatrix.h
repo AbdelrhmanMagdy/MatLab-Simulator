@@ -56,10 +56,13 @@ public:
 
     CMatrix Log () ;
     CMatrix operator ^ (const int a) ;
+    friend CMatrix PerformOperation(char operation, CMatrix operand1, CMatrix operand2);
+    friend CMatrix Sin(const CMatrix &a);
+    friend CMatrix Cos(const CMatrix &a);
+    friend CMatrix Tan(const CMatrix &a);
 
-    CMatrix Sin();
-    CMatrix Cos();
-    CMatrix Tan();
+    friend CMatrix solve(CMatrix mat1, char op, CMatrix mat2);
+    friend CMatrix solve(CMatrix mat1, char op);
 };
 
 #endif

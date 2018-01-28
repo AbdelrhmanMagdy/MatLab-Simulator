@@ -74,6 +74,21 @@ CMatrix::CMatrix(int nR, int nC, int initialization, double initializationValue)
         {
             switch (initialization)
             {
+            case MI_ZEROS:
+                values[iR][iC] = 0;
+                break;
+            case MI_ONES:
+                values[iR][iC] = 1;
+                break;
+            case MI_EYE:
+                values[iR][iC] = (iR == iC) ? 1 : 0;
+                break;
+            case MI_RAND:
+                values[iR][iC] = (rand() % 1000000) / 1000000.0;
+                break;
+            case MI_VALUE:
+                values[iR][iC] = initializationValue;
+                break;
             default:
                 values[iR][iC] = initializationValue;
                 break;
@@ -143,7 +158,8 @@ void CMatrix::setValues(std::string matStr)
 
         switch (matStr[i])
         {
-
+        case '[':
+            continue;
         case ' ':
             if (newNo)
             {
@@ -627,73 +643,46 @@ CMatrix CMatrix::Log()
 
     return temp ;
 }
-
-CMatrix CMatrix::Sin()
+CMatrix Sin(const CMatrix &a)
 {
-    CMatrix temp(nR, nC);
-    for (int i = 0; i < nR; i++)
+    CMatrix temp(a.nR, a.nC);
+    for (int i = 0; i < a.nR; i++)
     {
-        for (int j = 0; j < nC; j++)
+        for (int j = 0; j < a.nC; j++)
         {
-            temp.values[i][j] = sin(values[i][j]);
+            temp.values[i][j] = sin(a.values[i][j]);
         }
     }
 
     return temp;
 }
 
-CMatrix CMatrix::Cos()
+CMatrix Cos(const CMatrix &a)
 {
-    CMatrix temp(nR, nC);
-    for (int i = 0; i < nR; i++)
+    CMatrix temp(a.nR, a.nC);
+    for (int i = 0; i < a.nR; i++)
     {
-        for (int j = 0; j < nC; j++)
+        for (int j = 0; j < a.nC; j++)
         {
-            temp.values[i][j] = cos(values[i][j]);
+            temp.values[i][j] = cos(a.values[i][j]);
         }
     }
 
     return temp;
 }
-CMatrix CMatrix::Tan()
+CMatrix Tan(const CMatrix &a)
 {
-    CMatrix temp(nR, nC);
-    for (int i = 0; i < nR; i++)
+    CMatrix temp(a.nR, a.nC);
+    for (int i = 0; i < a.nR; i++)
     {
-        for (int j = 0; j < nC; j++)
+        for (int j = 0; j < a.nC; j++)
         {
-            temp.values[i][j] = tan(values[i][j]);
+            temp.values[i][j] = tan(a.values[i][j]);
         }
     }
 
     return temp;
 }
-
-//CMatrix CMatrix::operator^(int i)
-//{
-//    CMatrix temp = *this;
-//
-//    if (i == 0)
-//    {
-//        for (int i = 0; i < nR; i++)
-//        {
-//            for (int j = 0; j < nC; j++)
-//            {
-//                if (i == j)
-//                    temp.values[i][j] = 1;
-//                else
-//                    temp.values[i][j] = 0;
-//            }
-//        }
-//    }
-//
-//    for (int j = 2; j <= i; j++)
-//    {
-//        temp = temp * *this;
-//    }
-//
-//    return temp;
-//}
 
 CMatrix  CMatrix::operator ^( const int a)
 {
