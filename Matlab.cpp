@@ -848,20 +848,20 @@ CMatrix solve(CMatrix mat1, char op)
         answer = Tan(mat1);
     }
 
-    // else if(op == 'l')
-    // {
-    //     answer(log(mat1));
-    // }
+    else if(op == 'l')
+    {
+        answer(Log(mat1));
+    }
 
-    // else if(op == 'n')
-    // {
-    //     answer(ln(mat1));
-    // }
+    else if(op == 'n')
+    {
+        answer(Ln(mat1));
+    }
 
-    // else if(op == 'q')
-    // {
-    //     answer(sqrt(mat1));
-    // }
+    else if(op == 'q')
+    {
+        answer(Sqrt(mat1));
+    }
 
     return answer;
 }

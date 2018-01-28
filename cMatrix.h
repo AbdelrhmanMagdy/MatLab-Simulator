@@ -54,12 +54,14 @@ public:
     CMatrix operator*(const CMatrix &x);
     CMatrix operator/(CMatrix& x);
 
-    CMatrix Log () ;
+    CMatrix Ln();
+    CMatrix Log();
     CMatrix operator ^ (const int a) ;
     friend CMatrix PerformOperation(char operation, CMatrix operand1, CMatrix operand2);
     friend CMatrix Sin(const CMatrix &a);
     friend CMatrix Cos(const CMatrix &a);
     friend CMatrix Tan(const CMatrix &a);
+    friend CMatrix Sqrt(const CMatrix &a);
 
     friend CMatrix solve(CMatrix mat1, char op, CMatrix mat2);
     friend CMatrix solve(CMatrix mat1, char op);

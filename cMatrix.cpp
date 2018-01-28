@@ -629,8 +629,22 @@ CMatrix CMatrix::operator/(CMatrix &x)
 	xInverse = x.GaussianInverse();
 	return (*this * xInverse);
 }
-
 CMatrix CMatrix::Log()
+{
+
+    CMatrix temp(nR, nC);
+
+    for (int i = 0; i < nR; i++)
+    {
+        for (int j = 0; j < nC; j++)
+        {
+            temp.values[i][j] = log10(values[i][j]);
+        }
+    }
+
+    return temp;
+}
+CMatrix CMatrix::Ln()
 {
 
     CMatrix temp(nR, nC) ;
@@ -683,7 +697,18 @@ CMatrix Tan(const CMatrix &a)
 
     return temp;
 }
+CMatrix Sqrt(const CMatrix &a){
+    CMatrix temp(a.nR, a.nC);
+    for (int i = 0; i < a.nR; i++)
+    {
+        for (int j = 0; j < a.nC; j++)
+        {
+            temp.values[i][j] = sqrt(a.values[i][j]);
+        }
+    }
 
+    return temp;
+}
 CMatrix  CMatrix::operator ^( const int a)
 {
     CMatrix temp (this->nR , this->nC);
@@ -698,4 +723,8 @@ CMatrix  CMatrix::operator ^( const int a)
 
     }
     return temp ;
+}
+CMatrix rand(int nR,int nC){
+    CMatrix x = (nR,nC,CMatrix::MI_RAND,1);
+    return x;
 }

@@ -35,11 +35,6 @@ bool IsOperand(char C);
 // Function to evaluate Postfix expression and return output
 CMatrix EvaluatePostfix(std::string expression);
 
-// // Function to perform an operation and return output for simple calcs.
-// CMatrix PerformOperation(char operation, int operand1, int operand2);
-// // Function to perform an operation and return output for ttrigonometric functions.
-// CMatrix PerformOperation(char operation, CMatrix operand1);
-
 // Function to verify whether a character is trigonometric function or not.
 bool IsTrigonometric(char C);
 // Function to verify whether a character is numeric digit.
@@ -48,9 +43,9 @@ bool IsNumericDigit(char C);
 bool IsMatrix(char C);
 ////////////////////////////////////////
 // Function to perform an operation and return output for simple calcs.
-CMatrix PerformOperation(char operation, int operand1, int operand2);
+// CMatrix PerformOperation(char operation, int operand1, int operand2);
 CMatrix solve(CMatrix mat1, char op, CMatrix mat2);
 // Function to perform an operation and return output for ttrigonometric functions.
 CMatrix PerformOperation(char operation, CMatrix operand1);
-CMatrix solve(CMatrix mat1, char op, CMatrix mat2);
+// CMatrix solve(CMatrix mat1, char op, CMatrix mat2);
 #endif
