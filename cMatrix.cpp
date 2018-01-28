@@ -711,3 +711,31 @@ CMatrix  CMatrix::operator ^=( const double a)
     }
     return temp ;
 }
+
+CMatrix CMatrix:: Sqrt (const CMatrix & a )
+{
+
+    CMatrix temp( a.nR,a.nC) ;
+
+
+    for (int i = 0; i < a.nR; i++) {
+        for (int j = 0; j < a.nC; j++) {
+            if ( a.values[i][j]<0 )
+                throw "Invalid Matrix  square root  values must be positive ";
+        }
+    }
+
+
+    for (int i = 0; i < a.nR; i++) {
+        for (int j = 0; j < a.nC; j++) {
+            temp.values[i][j] = sqrt(a.values[i][j]);
+        }
+    }
+
+
+
+    return temp ;
+
+
+
+}
