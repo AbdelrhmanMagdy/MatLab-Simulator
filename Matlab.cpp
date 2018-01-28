@@ -2,6 +2,7 @@
 // Created by Mamdouh El Nakeeb on 11/26/17.
 //
 
+#include <stdlib.h>
 #include "Matlab.h"
 
 std::string itos(int in){
@@ -22,6 +23,23 @@ std::string findMatrix(CMatrix *temp_matrices, char name, int n){
     return  "";
 
 }
+
+bool subMatrixExist(std::string fileline){
+    int submatrixfound = -1;
+    for (int i = 0; i < fileline.length(); i++)
+    {
+        if (fileline[i] == '[')
+        {
+            submatrixfound++;
+        }
+    }
+    if (submatrixfound > 0)
+    {
+        return true;
+    }
+    return false;
+}
+
 
 void openFile(char* path) {
 
@@ -325,29 +343,43 @@ void cline(){
 
                 operation = 'a';
 
-                i++;
-
-                while (fileLine[i] != ']'){
-                    matrixStr += fileLine[i];
+                if (subMatrixExist(fileLine)){
+                    std::string substr = "";
                     i++;
-
-                    if(i >= fileLine.length()){
-                        getline(std::cin, fileLine);
-                        i = 0;
+                    for (int j = i; j < fileLine.length();j++)
+                    {
+                        substr += fileLine[j];
                     }
-                }
+                    if (substr[substr.length() - 1] == ']'){
+                        substr = substr.substr(0, substr.length() - 1);
+                    }
 
-                if (matrixStr[matrixStr.length() - 1] == ';'){
-                    matrixStr = matrixStr.substr(0, matrixStr.length() - 1);
+                    temp_matrices[matNo - 1].setSubValues(substr);
+                    matrixStr = "";
+                    break;
                 }
-                else if (matrixStr[matrixStr.length() - 2] == ';'){
-                    matrixStr = matrixStr.substr(0, matrixStr.length() - 2);
+                else {
+                    while (fileLine[i] != ']'){
+                        matrixStr += fileLine[i];
+                        i++;
+
+                        if(i >= fileLine.length()){
+                            getline(std::cin, fileLine);
+                            i = 0;
+                        }
+                    }
+
+                    if (matrixStr[matrixStr.length() - 1] == ';'){
+                        matrixStr = matrixStr.substr(0, matrixStr.length() - 1);
+                    }
+                    else if (matrixStr[matrixStr.length() - 2] == ';'){
+                        matrixStr = matrixStr.substr(0, matrixStr.length() - 2);
+                    }
+
+                    temp_matrices[matNo - 1].setValues(matrixStr);
+                    matrixStr = "";
+                    break;
                 }
-
-                temp_matrices[matNo - 1].setValues(matrixStr);
-                matrixStr = "";
-                break;
-
             }
             else if (fileLine[i] == '+' || fileLine[i] == '-' || fileLine[i] == '*' || fileLine[i] == '/' || fileLine[i] == '\''){
 

@@ -1,4 +1,4 @@
-# Install script for directory: /cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix
+# Install script for directory: /cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -35,5 +35,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

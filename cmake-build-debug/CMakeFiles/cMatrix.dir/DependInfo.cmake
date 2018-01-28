@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/Matlab.cpp" "/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/CMakeFiles/cMatrix.dir/Matlab.cpp.o"
-  "/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cMatrix.cpp" "/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/CMakeFiles/cMatrix.dir/cMatrix.cpp.o"
-  "/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/main.cpp" "/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/CMakeFiles/cMatrix.dir/main.cpp.o"
+  "/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/Matlab.cpp" "/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/CMakeFiles/cMatrix.dir/Matlab.cpp.o"
+  "/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cMatrix.cpp" "/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/CMakeFiles/cMatrix.dir/cMatrix.cpp.o"
+  "/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/main.cpp" "/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/CMakeFiles/cMatrix.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

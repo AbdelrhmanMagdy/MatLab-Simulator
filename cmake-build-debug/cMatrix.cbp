@@ -8,38 +8,38 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug"/>
+				<Option working_dir="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug"/>
+				<Option working_dir="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug"/>
+				<Option working_dir="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="cMatrix">
-				<Option output="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/cMatrix.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug"/>
+				<Option output="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/cMatrix.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -52,15 +52,15 @@
 					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/../../../../lib/../include/w32api"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 cMatrix"/>
-					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 cMatrix"/>
+					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="cMatrix/fast">
-				<Option output="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/cMatrix.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug"/>
+				<Option output="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/cMatrix.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -73,29 +73,29 @@
 					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/6.4.0/../../../../lib/../include/w32api"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 cMatrix/fast"/>
-					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 cMatrix/fast"/>
+					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/Matlab.cpp">
+		<Unit filename="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/Matlab.cpp">
 			<Option target="cMatrix"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/Matlab.h">
+		<Unit filename="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/Matlab.h">
 			<Option target="cMatrix"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cMatrix.cpp">
+		<Unit filename="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cMatrix.cpp">
 			<Option target="cMatrix"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cMatrix.h">
+		<Unit filename="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cMatrix.h">
 			<Option target="cMatrix"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/main.cpp">
+		<Unit filename="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/main.cpp">
 			<Option target="cMatrix"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/CMakeLists.txt">
+		<Unit filename="/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

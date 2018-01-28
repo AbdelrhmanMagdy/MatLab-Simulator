@@ -6,6 +6,7 @@
 #include <iostream>
 #include <cmath>
 
+
 using namespace std;
 CMatrix CMatrix::Sin(const CMatrix &a)
 {
@@ -680,3 +681,146 @@ CMatrix CMatrix:: operator ^( const int a)
     }
     return temp ;
 }
+
+void CMatrix::setSubMatrix(int r, int c, CMatrix& m)
+{
+    if((r+m.nR)>nR || (c+m.nC)>nC)throw("Invalid matrix dimension");
+    for(int iR=0;iR<m.nR;iR++)
+        for(int iC=0;iC<m.nC;iC++)
+            values[r+iR][c+iC] = m.values[iR][iC];
+}
+
+void CMatrix::addColumn(CMatrix& m)
+{
+    CMatrix n(max(nR, m.nR), nC+m.nC);
+    n.setSubMatrix(0, 0, *this);
+    n.setSubMatrix(0, nC, m);
+    *this = n;
+}
+void CMatrix::addRow(CMatrix& m)
+{
+    CMatrix n(nR+m.nR, max(nC, m.nC));
+    n.setSubMatrix(0, 0, *this);
+    n.setSubMatrix(nR, 0, m);
+    *this = n;
+}
+
+void CMatrix::copy(double d)
+{
+    reset();
+    this->nR = 1;
+    this->nC = 1;
+    values = new double*[1];
+    values[0] = new double[1];
+    values[0][0] = d;
+}
+
+CMatrix CMatrix::operator=(double d)
+{
+    copy(d);
+    return *this;
+}
+
+void CMatrix::copy(string s)
+{
+    reset();
+    char* buffer = new char[s.length()+1];
+    strcpy(buffer, s.c_str());
+    char* lineContext;
+    char* lineSeparators = ";\r\n";
+    char* line = strtok_r(buffer, lineSeparators, &lineContext);
+    while(line)
+    {
+        CMatrix row;
+        char* context;
+        char* separators = " []";
+        char* token = strtok_r(line, separators, &context);
+        while(token)
+        {
+            CMatrix item;
+            item = atof(token);
+            row.addColumn(item);
+            token = strtok_r(NULL, separators, &context);
+        }
+        if(row.nC>0 && (row.nC==nC || nR==0))
+            addRow(row);
+        line = strtok_r(NULL, lineSeparators, &lineContext);
+    }
+    delete[] buffer;
+}
+
+void  CMatrix:: setSubValues(std::string matStr)
+{
+    CMatrix array[35];
+    int index = 0;
+    std::string tempNo="";
+    for (int i = 0; i < matStr.length() ; ++i)
+    {
+        switch (matStr[i])
+        {
+
+            case ' ':
+                break;
+
+            case ';':
+                break;
+
+            case '\r':
+                break;
+
+            case ',':
+                break;
+
+            case '\n':
+                break;
+
+            case ']':
+                break;
+
+            case '[':
+            {
+                int open = 0,close =0;
+                for (int j = i; j < matStr.length(); ++j)
+                {
+                    if (matStr[j] == '[')
+                    {
+                        open++;
+                    }
+                    else if (matStr[j] == ']')
+                    {
+                        close++;
+                    }
+                    if (open == 1 && close ==1)
+                    {
+                        open = 0; close = 0;
+                        break;
+                    }
+                }
+                if (open > 0)
+                {
+
+                }
+                else
+                {
+                    std::string substr = matStr.substr(i);
+                    substr = substr.substr(0,(substr.find("]")+1));
+                    array[index].setValues(substr.substr(1, substr.length() - 2));
+                    matStr.replace(i, substr.length(), to_string(index));
+                    index++;
+                }
+                break;
+            }
+
+
+            default:
+                tempNo += matStr[i];
+                array[index] = CMatrix(1,1,4,atof(tempNo.c_str()));
+                matStr.replace(i,tempNo.length(),to_string(index));
+                tempNo ="";
+                index++;
+                break;
+        }
+
+    }
+}
+

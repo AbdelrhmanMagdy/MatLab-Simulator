@@ -15,6 +15,9 @@ std::string findMatrix(CMatrix *temp_matrices, char name, int n);
 
 std::string itos(int in);
 
+bool subMatrixExist(std::string fileline);
+
+
 void openFile(char* path);
 void cline();
 

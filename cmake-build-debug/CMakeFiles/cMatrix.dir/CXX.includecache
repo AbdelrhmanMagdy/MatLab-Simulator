@@ -6,11 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/Matlab.cpp
+/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/Matlab.cpp
+stdlib.h
+-
 Matlab.h
-/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/Matlab.h
+/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/Matlab.h
 
-/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/Matlab.h
+/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/Matlab.h
 sstream
 -
 fstream
@@ -18,33 +20,35 @@ fstream
 iostream
 -
 string.h
-/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/string.h
+/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/string.h
 cMatrix.h
-/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cMatrix.h
+/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cMatrix.h
 
-/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cMatrix.cpp
+/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cMatrix.cpp
 stdarg.h
-/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/stdarg.h
+/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/stdarg.h
 string.h
-/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/string.h
+/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/string.h
 cMatrix.h
-/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cMatrix.h
+/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cMatrix.h
 stdio.h
-/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/stdio.h
+/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/stdio.h
 iostream
 -
 cmath
 -
 
-/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/cMatrix.h
+/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/cMatrix.h
 string
 -
 stdlib.h
 -
 
-/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/main.cpp
+/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/main.cpp
 iostream
 -
 Matlab.h
-/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/cMatrix/Matlab.h
+/cygdrive/c/Users/ahmed_nqedrw9/Desktop/SW/AsuMathLabG21/Matlab.h
+string
+-
 

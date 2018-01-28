@@ -1,6 +1,7 @@
 #include <string>
 #include <stdlib.h>
 
+
 #ifndef CMATRIX
 #define CMATRIX
 class CMatrix
@@ -61,7 +62,14 @@ public:
     CMatrix Cos(const CMatrix &a);
     CMatrix Tan(const CMatrix &a);
 
+    void setSubValues(std::string matStr);
 
+    void setSubMatrix(int r, int c, CMatrix& m);
+    void addColumn(CMatrix& m);
+    void addRow(CMatrix& m);
+    void copy(std::string s);
+    void copy(double d);
+    CMatrix operator=(double d);
 };
 
 #endif
