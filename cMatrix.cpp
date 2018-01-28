@@ -745,6 +745,32 @@ CMatrix CMatrix::solve(CMatrix mat1, char op)
 			answer(sqrt(mat1));
 		}
 
+	elseif (op=="r")
+		{
+			answer(Cbrt(mat1));
+		}
+
+	elseif (op=="e")
+		{
+			answer(Exp(mat1));
+		}
+
+	elseif (op=="h")
+		{
+			answer(Asin(mat1));
+		}
+
+	elseif (op=="o")
+		{
+			answer(Acos(mat1));
+		}
+
+	elseif (op=="g")
+		{
+			answer(Atan(mat1));
+		}
+	
+
 		return answer;
 }
 
