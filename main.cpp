@@ -13,8 +13,7 @@ int main(int argc, char *argv[]) {
     //     cline();
     // }
 
-        CMatrix x = rand(4,4);
-        x.display();
+
     // string s;
     // CMatrix hi(2,2,4,3);
     // hi.display();

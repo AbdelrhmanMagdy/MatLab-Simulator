@@ -629,29 +629,29 @@ CMatrix CMatrix::operator/(CMatrix &x)
 	xInverse = x.GaussianInverse();
 	return (*this * xInverse);
 }
-CMatrix CMatrix::Log()
+CMatrix Log(const CMatrix &a)
 {
 
-    CMatrix temp(nR, nC);
+    CMatrix temp(a.nR, a.nC);
 
-    for (int i = 0; i < nR; i++)
+    for (int i = 0; i < a.nR; i++)
     {
-        for (int j = 0; j < nC; j++)
+        for (int j = 0; j < a.nC; j++)
         {
-            temp.values[i][j] = log10(values[i][j]);
+            temp.values[i][j] = log10(a.values[i][j]);
         }
     }
 
     return temp;
 }
-CMatrix CMatrix::Ln()
+CMatrix Ln(const CMatrix &a)
 {
 
-    CMatrix temp(nR, nC) ;
+    CMatrix temp(a.nR, a.nC) ;
 
-    for(int i = 0; i < nR ; i++) {
-        for (int j = 0; j < nC; j++) {
-            temp.values[i][j] = log(values[i][j]);
+    for(int i = 0; i < a.nR ; i++) {
+        for (int j = 0; j < a.nC; j++) {
+            temp.values[i][j] = log(a.values[i][j]);
         }
     }
 
@@ -724,7 +724,19 @@ CMatrix  CMatrix::operator ^( const int a)
     }
     return temp ;
 }
-CMatrix rand(int nR,int nC){
-    CMatrix x = (nR,nC,CMatrix::MI_RAND,1);
+CMatrix Rand(int nR, int nC){
+    CMatrix x(nR, nC, CMatrix::MI_RAND, 1);
+    return x;
+}
+CMatrix Eye(int nR, int nC){
+    CMatrix x(nR, nC, CMatrix::MI_EYE, 1);
+    return x;
+}
+CMatrix Zeros(int nR, int nC){
+    CMatrix x(nR, nC, CMatrix::MI_ZEROS, 1);
+    return x;
+}
+CMatrix Ones(int nR, int nC){
+    CMatrix x(nR, nC, CMatrix::MI_ONES, 1);
     return x;
 }

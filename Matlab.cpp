@@ -850,17 +850,17 @@ CMatrix solve(CMatrix mat1, char op)
 
     else if(op == 'l')
     {
-        answer(Log(mat1));
+         answer = Log(mat1);
     }
 
     else if(op == 'n')
     {
-        answer(Ln(mat1));
+         answer = Ln(mat1);
     }
 
     else if(op == 'q')
     {
-        answer(Sqrt(mat1));
+         answer = Sqrt(mat1);
     }
 
     return answer;
