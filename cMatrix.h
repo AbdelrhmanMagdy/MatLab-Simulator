@@ -9,7 +9,6 @@ class CMatrix
     char nme;
     double** values;
 public:
-    CMatrix();
 
     enum MI
     {
@@ -20,6 +19,7 @@ public:
         MI_VALUE
     };
 
+    CMatrix();
     CMatrix(std::string matStr);
     CMatrix(const CMatrix &x);
     CMatrix(int nR, int nC);
@@ -54,8 +54,12 @@ public:
     CMatrix operator*(const CMatrix &x);
     CMatrix operator/(CMatrix& x);
 
-    static CMatrix Log (const CMatrix & a ) ;
-    CMatrix operator ^ (const int a ) ;
+    CMatrix Log () ;
+    CMatrix operator ^ (const int a) ;
+
+    CMatrix Sin();
+    CMatrix Cos();
+    CMatrix Tan();
 };
 
 #endif

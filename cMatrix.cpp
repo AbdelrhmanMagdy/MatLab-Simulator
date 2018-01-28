@@ -6,78 +6,13 @@
 #include <iostream>
 #include <cmath>
 
-using namespace std;
-CMatrix CMatrix::Sin(const CMatrix &a)
-{
-    CMatrix temp(a.nR, a.nC);
-    for (int i = 0; i < a.nR; i++)
-    {
-        for (int j = 0; j < a.nC; j++)
-        {
-            temp.values[i][j] = sin(a.values[i][j]);
-        }
-    }
-
-    return temp;
-}
-
-CMatrix CMatrix::Cos(const CMatrix &a)
-{
-    CMatrix temp(a.nR, a.nC);
-    for (int i = 0; i < a.nR; i++)
-    {
-        for (int j = 0; j < a.nC; j++)
-        {
-            temp.values[i][j] = cos(a.values[i][j]);
-        }
-    }
-
-    return temp;
-}
-CMatrix CMatrix::Tan(const CMatrix &a)
-{
-    CMatrix temp(a.nR, a.nC);
-    for (int i = 0; i < a.nR; i++)
-    {
-        for (int j = 0; j < a.nC; j++)
-        {
-            temp.values[i][j] = tan(a.values[i][j]);
-        }
-    }
-
-    return temp;
-}
-
-CMatrix CMatrix::operator^(int i)
-{
-    CMatrix temp = *this;
-
-    if (i == 0)
-    {
-        for (int i = 0; i < nR; i++)
-        {
-            for (int j = 0; j < nC; j++)
-            {
-                if (i == j)
-                    temp.values[i][j] = 1;
-                else
-                    temp.values[i][j] = 0;
-            }
-        }
-    }
-
-    for (int j = 2; j <= i; j++)
-    {
-        temp = temp * *this;
-    }
-
-    return temp;
-}
+//using namespace std;
 
 CMatrix::CMatrix()
 {
     nR = nC = 0;
     values = NULL;
+    nme = ' ';
 }
 
 CMatrix::CMatrix(const CMatrix &x)
@@ -280,6 +215,7 @@ int CMatrix::getCols()
 void CMatrix::display()
 {
 
+    printf("%c =  \n", nme);
     for (int iR = 0; iR < this->nR; iR++)
     {
         for (int iC = 0; iC < this->nC; iC++)
@@ -678,19 +614,87 @@ CMatrix CMatrix::operator/(CMatrix &x)
 	return (*this * xInverse);
 }
 
-CMatrix CMatrix::Log(const CMatrix &a )
+CMatrix CMatrix::Log()
 {
 
-    CMatrix temp( a.nR,a.nC) ;
+    CMatrix temp(nR, nC) ;
 
-    for(int i=0 ; i<a.nR ; i++) {
-        for (int j = 0; j < a.nC; j++) {
-            temp.values[i][j]=log(a.values[i][j]);
+    for(int i = 0; i < nR ; i++) {
+        for (int j = 0; j < nC; j++) {
+            temp.values[i][j] = log(values[i][j]);
         }
     }
 
     return temp ;
 }
+
+CMatrix CMatrix::Sin()
+{
+    CMatrix temp(nR, nC);
+    for (int i = 0; i < nR; i++)
+    {
+        for (int j = 0; j < nC; j++)
+        {
+            temp.values[i][j] = sin(values[i][j]);
+        }
+    }
+
+    return temp;
+}
+
+CMatrix CMatrix::Cos()
+{
+    CMatrix temp(nR, nC);
+    for (int i = 0; i < nR; i++)
+    {
+        for (int j = 0; j < nC; j++)
+        {
+            temp.values[i][j] = cos(values[i][j]);
+        }
+    }
+
+    return temp;
+}
+CMatrix CMatrix::Tan()
+{
+    CMatrix temp(nR, nC);
+    for (int i = 0; i < nR; i++)
+    {
+        for (int j = 0; j < nC; j++)
+        {
+            temp.values[i][j] = tan(values[i][j]);
+        }
+    }
+
+    return temp;
+}
+
+//CMatrix CMatrix::operator^(int i)
+//{
+//    CMatrix temp = *this;
+//
+//    if (i == 0)
+//    {
+//        for (int i = 0; i < nR; i++)
+//        {
+//            for (int j = 0; j < nC; j++)
+//            {
+//                if (i == j)
+//                    temp.values[i][j] = 1;
+//                else
+//                    temp.values[i][j] = 0;
+//            }
+//        }
+//    }
+//
+//    for (int j = 2; j <= i; j++)
+//    {
+//        temp = temp * *this;
+//    }
+//
+//    return temp;
+//}
+
 CMatrix  CMatrix::operator ^( const int a)
 {
     CMatrix temp (this->nR , this->nC);
