@@ -55,7 +55,7 @@ public:
     CMatrix operator/(CMatrix& x);
 
     static CMatrix Log (const CMatrix & a ) ;
-    CMatrix operator ^ (const int a ) ;
+    CMatrix operator ^= (const int a ) ; // ^= is doing the function required from ( ^. )
 };
 
 #endif

@@ -685,7 +685,7 @@ CMatrix CMatrix::Log(const CMatrix &a )
 
     return temp ;
 }
-CMatrix  CMatrix::operator ^( const int a)
+CMatrix  CMatrix::operator ^=( const int a)
 {
     CMatrix temp (this->nR , this->nC);
     for (int i=0 ; i<this->nR ;i++ )
