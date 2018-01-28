@@ -781,3 +781,70 @@ CMatrix CMatrix:: Exp (const CMatrix & a )
 
 }
 
+
+CMatrix CMatrix:: Asin(const CMatrix &a)
+{
+    for (int i = 0; i < a.nR; i++) {
+        for (int j = 0; j < a.nC; j++) {
+            if ( a.values[i][j]>1 || a.values[i][j]<-1 )
+                throw "Invalid Matrix sin inverse  values can't be less than -1 or greater than 1 ";
+        }
+    }
+
+    CMatrix temp(a.nR,a.nC);
+    for(int i=0;i<a.nR;i++)
+    {
+        for(int j=0;j<a.nC;j++)
+        {
+            temp.values[i][j]= asin(a.values[i][j]);
+
+        }
+
+    }
+
+    return temp;
+}
+
+
+
+CMatrix CMatrix:: Acos(const CMatrix &a)
+{
+    for (int i = 0; i < a.nR; i++) {
+        for (int j = 0; j < a.nC; j++) {
+            if ( a.values[i][j]>1 || a.values[i][j]<-1 )
+                throw "Invalid Matrix cos inverse  values can't be less than -1 or greater than 1 ";
+        }
+    }
+
+    CMatrix temp(a.nR,a.nC);
+    for(int i=0;i<a.nR;i++)
+    {
+        for(int j=0;j<a.nC;j++)
+        {
+            temp.values[i][j]= acos(a.values[i][j]);
+
+        }
+
+    }
+
+    return temp;
+}
+
+
+CMatrix CMatrix:: Atan(const CMatrix &a)
+{
+
+
+    CMatrix temp(a.nR,a.nC);
+    for(int i=0;i<a.nR;i++)
+    {
+        for(int j=0;j<a.nC;j++)
+        {
+            temp.values[i][j]= atan(a.values[i][j]);
+
+        }
+
+    }
+
+    return temp;
+}

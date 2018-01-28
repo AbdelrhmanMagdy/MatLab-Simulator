@@ -59,6 +59,9 @@ public:
     static CMatrix Sqrt (const CMatrix & a ) ;
     static CMatrix Cbrt (const CMatrix & a ) ;
     static CMatrix Exp (const CMatrix & a ) ;
+    static CMatrix Asin (const CMatrix & a ) ;
+    static CMatrix Acos (const CMatrix & a ) ;
+    static CMatrix Atan (const CMatrix & a ) ;
 
 };
 
