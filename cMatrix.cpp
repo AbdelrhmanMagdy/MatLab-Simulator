@@ -44,6 +44,13 @@ CMatrix CMatrix:: Cos(const CMatrix &a)
 }
 CMatrix CMatrix:: Tan(const CMatrix &a)
 {
+    for (int i = 0; i < a.nR; i++) {
+        for (int j = 0; j < a.nC; j++) {
+            if ( a.values[i][j]=90 )
+                throw "Invalid Matrix tan values can't be equal  90 ";
+        }
+    }
+    
     CMatrix temp(a.nR,a.nC);
     for(int i=0;i<a.nR;i++)
     {
@@ -60,35 +67,46 @@ CMatrix CMatrix:: Tan(const CMatrix &a)
 
 }
 
+
 CMatrix CMatrix:: operator ^(int i)
 {
+    if (nR != nC) throw "Invalid Matrix Subtraction columns and rows must be equal";
+
     CMatrix temp = *this;
 
-        if(i==0)
+    if(i==0)
+    {
+        for(int i=0;i<nR;i++)
         {
-            for(int i=0;i<nR;i++)
+            for(int j=0;j<nC;j++)
             {
-                for(int j=0;j<nC;j++)
-                {
-                    if(i==j)
-                       temp. values[i][j]=1;
-                    else
-                       temp. values[i][j]=0;
-
-                }
+                if(i==j)
+                    temp. values[i][j]=1;
+                else
+                    temp. values[i][j]=0;
 
             }
-        }
 
-        for(int j=2 ; j<=i ; j++)
-        {
-            temp=temp* *this;
         }
+    }
+
+    for(int j=2 ; j<=i ; j++)
+    {
+        temp=temp* *this;
+    }
 
 
     return temp;
 
 }
+
+
+
+
+
+
+
+
 
 
 CMatrix::CMatrix(){
