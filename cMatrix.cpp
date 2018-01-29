@@ -754,7 +754,8 @@ void CMatrix::copy(string s)
 
 
 void CMatrix:: subMatrixParser(std::string matStr) {
-    CMatrix C;
+
+    //array to hold 1x1 matrices and larger ones
     CMatrix array[35];
     int index = 0;
     std::string tempNo = "";
@@ -762,6 +763,8 @@ void CMatrix:: subMatrixParser(std::string matStr) {
 
     int open = 0, close = 0;
     bool subsub = false;
+
+    //Function to know if submatrix is inside a sub matrix
     for (int j = 0; j < matStr.length(); j++) {
         if (matStr[j] == '[') {
             open++;
@@ -775,8 +778,11 @@ void CMatrix:: subMatrixParser(std::string matStr) {
             subsub = true;
         }
     }
-    if (subsub) {
-        for (int i = 0; i < matStr.length(); i++) {
+
+    // if subsub is true yet to implement
+    if (subsub)
+    {
+        /*for (int i = 0; i < matStr.length(); i++) {
             if (matStr[i] == '[') {
                 found++;
             }
@@ -885,12 +891,16 @@ void CMatrix:: subMatrixParser(std::string matStr) {
         }
 
         array[(int) atof(matStr.c_str())].display();
-        int x = 0;
+        int x = 0;*/
     }
-    else {
+    // if normal sequence
+    else
+    {
         int spaceindex = 0;
         std::string tempstr = matStr;
-        for (int i = 0; i < matStr.length(); i++) {
+        for (int i = 0; i < matStr.length(); i++)
+        {
+            // search for a number
             if (matStr[i] == '0' || matStr[i] == '1' || matStr[i] == '2' || matStr[i] == '3' || matStr[i] == '.'
                 || matStr[i] == '4' || matStr[i] == '5' || matStr[i] == '6' || matStr[i] == '7' || matStr[i] == '8'
                 || matStr[i] == '9')
@@ -898,20 +908,22 @@ void CMatrix:: subMatrixParser(std::string matStr) {
 
                 tempNo += matStr[i];
             }
+            //if a whole bracket take it untill the end and replace it with index for the array
             else if (matStr[i] == '[')
             {
                 std::string substr = matStr.substr(i);
                 substr = substr.substr(0,(substr.find("]")+1));
                 array[index].setValues(substr.substr(1, substr.length() - 2));
-                array[index].display();
+        //        array[index].display();
                 matStr.replace(i, substr.length(), to_string(index));
                 index++;
             }
+            // we know end of number if followed by ' ' or ']' or ';'
             else if (matStr[i] == ']')
             {
                 i = i - tempNo.length();
                 array[index] = CMatrix(1, 1, 4, atof(tempNo.c_str()));
-                array[index].display();
+          //      array[index].display();
                 matStr.replace(i, tempNo.length(), to_string(index));
                 i++;
                 tempNo = "";
@@ -922,14 +934,16 @@ void CMatrix:: subMatrixParser(std::string matStr) {
 
                 i = i - tempNo.length();
                 array[index] = CMatrix(1, 1, 4, atof(tempNo.c_str()));
-                array[index].display();
+            //    array[index].display();
                 matStr.replace(i, tempNo.length(), to_string(index));
                 i++;
                 tempNo = "";
                 index++;
             }
+
             else if (matStr[i] == ';')
             {
+                //we need to check if before the ';' is a number to write or already a token/index for the arrays
                 bool condition = false;
                 std::string condition1="";
                 condition1 = matStr[(i-1)];
@@ -941,7 +955,7 @@ void CMatrix:: subMatrixParser(std::string matStr) {
                 {
                     i = i - tempNo.length();
                     array[index] = CMatrix(1, 1, 4, atof(tempNo.c_str()));
-                    array[index].display();
+              //      array[index].display();
                     matStr.replace(i, tempNo.length(), to_string(index));
                     i++;
                     tempNo = "";
@@ -999,14 +1013,14 @@ void CMatrix:: subMatrixParser(std::string matStr) {
             }*/
 
 
-
+        //checks if parsing gone correctly
         if (matStr[matStr.length() - 1] == ']') {
             matStr = matStr.substr(0, matStr.length() - 1);
         }
         int priority = 0;
         std::string tempIndex1 = "";
         std::string tempIndex2 = "";
-
+        //  priority for ' ' comes first
         for (int j = 0; j < matStr.length(); j++) {
 
             if (matStr[j] == ' ') {
@@ -1022,7 +1036,7 @@ void CMatrix:: subMatrixParser(std::string matStr) {
                 tempIndex2 = "";
             }
         }
-
+        // priority for ',' comes second
         for (int j = 0; j < matStr.length(); j++) {
 
             if (matStr[j] == ',') {
@@ -1037,7 +1051,7 @@ void CMatrix:: subMatrixParser(std::string matStr) {
                 tempIndex2 = "";
             }
         }
-
+        // priority for ';' comes last
         for (int k = 0; k < matStr.length(); k++) {
             if (matStr[k] == ';') {
                 priority = k;
@@ -1051,9 +1065,9 @@ void CMatrix:: subMatrixParser(std::string matStr) {
                 tempIndex2 = "";
             }
         }
-
-        array[(int) atof(matStr.c_str())].display();
-        int x = 0;
+        // we put the whole arrays in one array then copy it to caller
+        //array[(int) atof(matStr.c_str())].display();
+        this->copy(array[(int) atof(matStr.c_str())]);
     }
 
 }

@@ -358,6 +358,7 @@ void cline(){
                     }
 
                     temp_matrices[matNo - 1].subMatrixParser(substr);
+                    //temp_matrices[matNo - 1].display();
                     matrixStr = "";
                     break;
                 }
