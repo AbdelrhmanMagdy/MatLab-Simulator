@@ -353,8 +353,11 @@ void cline(){
                     if (substr[substr.length() - 1] == ']'){
                         substr = substr.substr(0, substr.length() - 1);
                     }
+                    else if (substr[substr.length() - 2] == ']'){
+                        substr = substr.substr(0, substr.length() - 2);
+                    }
 
-                    temp_matrices[matNo - 1].setSubValues(substr);
+                    temp_matrices[matNo - 1].subMatrixParser(substr);
                     matrixStr = "";
                     break;
                 }

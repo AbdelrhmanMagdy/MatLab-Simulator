@@ -62,7 +62,7 @@ public:
     CMatrix Cos(const CMatrix &a);
     CMatrix Tan(const CMatrix &a);
 
-    void setSubValues(std::string matStr);
+    void subMatrixParser(std::string matStr);
 
     void setSubMatrix(int r, int c, CMatrix& m);
     void addColumn(CMatrix& m);

@@ -18,13 +18,13 @@ int main(int argc, char *argv[]) {
     }
 
     /*CMatrix A(3,3);
-    A.setValues("1 2 3;4 5 6;7 8 9");
+    A.setValues("3 2 1;4 5 6;7 8 9");
     A.display();
-    CMatrix B(3,1);
-    B.setValues("0;0;0");
+    CMatrix B(2,1);
+    B.setValues("3 3");
     B.display();
 
-    A.addColumn(B);
+    A.setSubMatrix(1,2,B);
     A.display();*/
 
     /*CMatrix A(4,4);

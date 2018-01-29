@@ -749,12 +749,17 @@ void CMatrix::copy(string s)
     delete[] buffer;
 }
 
-void  CMatrix:: setSubValues(std::string matStr)
+
+
+
+
+void CMatrix:: subMatrixParser(std::string matStr)
 {
-    CMatrix array[35];
-    int index = 0;
+    CMatrix C;
+    static CMatrix array[35];
+    static int index = 0;
     std::string tempNo="";
-    for (int i = 0; i < matStr.length() ; ++i)
+    for (int i = 0; i < matStr.length() ; i++)
     {
         switch (matStr[i])
         {
@@ -798,13 +803,14 @@ void  CMatrix:: setSubValues(std::string matStr)
                 }
                 if (open > 0)
                 {
-
+                    
                 }
                 else
                 {
                     std::string substr = matStr.substr(i);
                     substr = substr.substr(0,(substr.find("]")+1));
                     array[index].setValues(substr.substr(1, substr.length() - 2));
+                    //array[index].display();
                     matStr.replace(i, substr.length(), to_string(index));
                     index++;
                 }
@@ -820,7 +826,68 @@ void  CMatrix:: setSubValues(std::string matStr)
                 index++;
                 break;
         }
-
     }
-}
 
+    if (matStr[matStr.length()-1]== ']')
+    {
+        matStr = matStr.substr(0,matStr.length()-1);
+    }
+    int priority =0;
+    std::string tempIndex1="";
+    std::string tempIndex2="";
+
+    for (int j = 0; j < matStr.length() ; j++)
+    {
+
+        if (matStr[j] == ' ')
+        {
+            priority = j;
+            tempIndex1 += matStr[--priority];
+            priority++;
+            tempIndex2 += matStr[++priority];
+            array[(int)atof(tempIndex1.c_str())].addColumn(array[(int)atof(tempIndex2.c_str())]);
+            //array[(int)atof(tempIndex1.c_str())].display();
+            matStr.replace(--j,3,tempIndex1);
+            j = -1;
+            tempIndex1="";
+            tempIndex2="";
+        }
+    }
+
+    for (int j = 0; j < matStr.length() ; j++)
+    {
+
+        if (matStr[j] == ',')
+        {
+            priority = j;
+            tempIndex1 += matStr[--priority];
+            priority++;
+            tempIndex2 += matStr[++priority];
+            array[(int)atof(tempIndex1.c_str())].addColumn(array[(int)atof(tempIndex2.c_str())]);
+            //array[(int)atof(tempIndex1.c_str())].display();
+            matStr.replace(--j,3,tempIndex1);
+            tempIndex1="";
+            tempIndex2="";
+        }
+    }
+
+    for (int k = 0; k < matStr.length(); k++)
+    {
+        if (matStr[k] == ';')
+        {
+            priority = k;
+            tempIndex1 += matStr[--priority];
+            priority++;
+            tempIndex2 += matStr[++priority];
+            array[(int)atof(tempIndex1.c_str())].addRow(array[(int)atof(tempIndex2.c_str())]);
+            //array[(int)atof(tempIndex1.c_str())].display();
+            matStr.replace(--k,3,tempIndex1);
+            tempIndex1="";
+            tempIndex2="";
+        }
+    }
+
+    array[(int)atof(matStr.c_str())].display();
+
+    int x =0;
+}
