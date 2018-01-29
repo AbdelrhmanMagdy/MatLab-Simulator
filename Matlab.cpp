@@ -647,7 +647,7 @@ std::string InfixToPostfix(std::string expression) {
     if(postfix[0] == ' ')
         postfix = postfix.substr(1, postfix.length() - 1);
     if(postfix[postfix.length() - 1] == ' ')
-        postfix = postfix.substr(0, postfix.length() - 2);
+        postfix = postfix.substr(0, postfix.length() - 1);
 
     return postfix;
 }
