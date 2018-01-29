@@ -638,6 +638,8 @@ CMatrix Log(const CMatrix &a)
     {
         for (int j = 0; j < a.nC; j++)
         {
+            if (a.values[i][j] < 0)
+                throw "Error: can't apply Ln for zero or -ve values\n";
             temp.values[i][j] = log10(a.values[i][j]);
         }
     }
@@ -651,6 +653,9 @@ CMatrix Ln(const CMatrix &a)
 
     for(int i = 0; i < a.nR ; i++) {
         for (int j = 0; j < a.nC; j++) {
+            if (a.values[i][j] < 0)
+                throw("Error: can't apply Ln for zero or -ve values\n");
+
             temp.values[i][j] = log(a.values[i][j]);
         }
     }
@@ -703,6 +708,8 @@ CMatrix Sqrt(const CMatrix &a){
     {
         for (int j = 0; j < a.nC; j++)
         {
+            if(a.values[i][j]<0) throw("Error: can't apply sqrt for -ve values\n");
+            else
             temp.values[i][j] = sqrt(a.values[i][j]);
         }
     }

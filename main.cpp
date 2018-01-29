@@ -13,7 +13,15 @@ int main(int argc, char *argv[]) {
     //     cline();
     // }
 
-
+        CMatrix x(1,1,4,-9);
+        CMatrix y(1,1,4,1);
+        try{
+        y = Log(x);
+        y.display();
+        }
+        catch(const char *error){
+            cout<<error<<endl;
+        }
     // string s;
     // CMatrix hi(2,2,4,3);
     // hi.display();
