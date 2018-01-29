@@ -753,59 +753,231 @@ void CMatrix::copy(string s)
 
 
 
-void CMatrix:: subMatrixParser(std::string matStr)
-{
+void CMatrix:: subMatrixParser(std::string matStr) {
     CMatrix C;
-    static CMatrix array[35];
-    static int index = 0;
-    std::string tempNo="";
-    for (int i = 0; i < matStr.length() ; i++)
-    {
-        switch (matStr[i])
-        {
+    CMatrix array[35];
+    int index = 0;
+    std::string tempNo = "";
+    int found = 0;
 
-            case ' ':
-                break;
-
-            case ';':
-                break;
-
-            case '\r':
-                break;
-
-            case ',':
-                break;
-
-            case '\n':
-                break;
-
-            case ']':
-                break;
-
-            case '[':
-            {
-                int open = 0,close =0;
-                for (int j = i; j < matStr.length(); ++j)
-                {
-                    if (matStr[j] == '[')
-                    {
-                        open++;
-                    }
-                    else if (matStr[j] == ']')
-                    {
-                        close++;
-                    }
-                    if (open == 1 && close ==1)
-                    {
-                        open = 0; close = 0;
-                        break;
-                    }
+    int open = 0, close = 0;
+    bool subsub = false;
+    for (int j = 0; j < matStr.length(); j++) {
+        if (matStr[j] == '[') {
+            open++;
+        } else if (matStr[j] == ']') {
+            close++;
+        }
+        if (open == 1 && close == 1) {
+            open = 0;
+            close = 0;
+        } else if (open == close && open > 0) {
+            subsub = true;
+        }
+    }
+    if (subsub) {
+        for (int i = 0; i < matStr.length(); i++) {
+            if (matStr[i] == '[') {
+                found++;
+            }
+        }
+        std::string tempstr = "";
+        std::string tempstr2 = "";
+        for (int l = 0; l < found - 1; l++) {
+            tempstr = matStr.substr(matStr.rfind('['));
+            for (int i = 1; i < matStr.length(); i++) {
+                if (tempstr[i] == ']') {
+                    break;
+                } else {
+                    tempstr2 += tempstr[i];
                 }
-                if (open > 0)
+            }
+            array[index].setValues(tempstr2);
+            //array[index].display();
+            matStr.replace(matStr.find_last_of("["), tempstr2.length() + 2, to_string(index));
+            index++;
+            tempstr = "";
+            tempstr2 = "";
+        }
+        std::string tempstr3 = "";
+        tempstr3 = matStr.substr(matStr.find('[') + 1, matStr.find(']') - 1);
+        std::string tempstr4 = "";
+        for (int i = 0; i < tempstr3.length(); i++) {
+            if (tempstr3[i] == ';' && tempstr3[i + 1] == ' ') {
+                tempstr4 += ";";
+                tempstr4 += tempstr3[i + 2];
+                i = i + 2;
+            } else {
+                tempstr4 += tempstr3[i];
+            }
+        }
+        for (int j = 0; j < tempstr3.length(); j++) {
+            if (tempstr3[j] == ']') {
+                for (int i = j + 1; i < tempstr3.length(); i++) {
+                    tempstr4 += tempstr3[i];
+                }
+            }
+        }
+        for (int j = 0; j < matStr.length(); j++) {
+            if (matStr[j] == ']') {
+                for (int i = j + 1; i < matStr.length(); i++) {
+                    tempstr4 += matStr[i];
+                }
+            }
+        }
+        std::string tempstr5 = "";
+        for (int i = 0; i < tempstr4.length(); i++) {
+            if (tempstr4[i] == ',' && tempstr4[i + 1] == ' ') {
+                tempstr5 += ",";
+                tempstr5 += tempstr4[i + 2];
+                i = i + 2;
+            } else {
+                tempstr5 += tempstr4[i];
+            }
+        }
+        int priority = 0;
+        std::string tempIndex1 = "";
+        std::string tempIndex2 = "";
+
+        for (int j = 0; j < tempstr5.length(); j++) {
+
+            if (tempstr5[j] == ' ') {
+                priority = j;
+                tempIndex1 += tempstr5[--priority];
+                priority++;
+                tempIndex2 += tempstr5[++priority];
+                array[(int) atof(tempIndex1.c_str())].addColumn(array[(int) atof(tempIndex2.c_str())]);
+                //array[(int)atof(tempIndex1.c_str())].display();
+                tempstr5.replace(--j, 3, tempIndex1);
+                j = -1;
+                tempIndex1 = "";
+                tempIndex2 = "";
+            }
+        }
+
+        for (int k = 0; k < tempstr5.length(); k++) {
+            if (tempstr5[k] == ';') {
+                priority = k;
+                tempIndex1 += tempstr5[--priority];
+                priority++;
+                tempIndex2 += tempstr5[++priority];
+                array[(int) atof(tempIndex1.c_str())].addRow(array[(int) atof(tempIndex2.c_str())]);
+                //array[(int)atof(tempIndex1.c_str())].display();
+                tempstr5.replace(--k, 3, tempIndex1);
+                tempIndex1 = "";
+                tempIndex2 = "";
+            }
+        }
+
+        for (int j = 0; j < tempstr5.length(); j++) {
+
+            if (tempstr5[j] == ',') {
+                priority = j;
+                tempIndex1 += tempstr5[--priority];
+                priority++;
+                tempIndex2 += tempstr5[++priority];
+                array[(int) atof(tempIndex1.c_str())].addColumn(array[(int) atof(tempIndex2.c_str())]);
+                //array[(int)atof(tempIndex1.c_str())].display();
+                tempstr5.replace(--j, 3, tempIndex1);
+                tempIndex1 = "";
+                tempIndex2 = "";
+            }
+        }
+
+        array[(int) atof(matStr.c_str())].display();
+        int x = 0;
+    }
+    else {
+        int spaceindex = 0;
+        std::string tempstr = matStr;
+        for (int i = 0; i < matStr.length(); i++) {
+            if (matStr[i] == '0' || matStr[i] == '1' || matStr[i] == '2' || matStr[i] == '3' || matStr[i] == '.'
+                || matStr[i] == '4' || matStr[i] == '5' || matStr[i] == '6' || matStr[i] == '7' || matStr[i] == '8'
+                || matStr[i] == '9')
+            {
+
+                tempNo += matStr[i];
+            }
+            else if (matStr[i] == '[')
+            {
+                std::string substr = matStr.substr(i);
+                substr = substr.substr(0,(substr.find("]")+1));
+                array[index].setValues(substr.substr(1, substr.length() - 2));
+                array[index].display();
+                matStr.replace(i, substr.length(), to_string(index));
+                index++;
+            }
+            else if (matStr[i] == ']')
+            {
+                i = i - tempNo.length();
+                array[index] = CMatrix(1, 1, 4, atof(tempNo.c_str()));
+                array[index].display();
+                matStr.replace(i, tempNo.length(), to_string(index));
+                i++;
+                tempNo = "";
+                index++;
+            }
+            else if (matStr[i] == ' ')
+            {
+
+                i = i - tempNo.length();
+                array[index] = CMatrix(1, 1, 4, atof(tempNo.c_str()));
+                array[index].display();
+                matStr.replace(i, tempNo.length(), to_string(index));
+                i++;
+                tempNo = "";
+                index++;
+            }
+            else if (matStr[i] == ';')
+            {
+                bool condition = false;
+                std::string condition1="";
+                condition1 = matStr[(i-1)];
+                if (condition1 == to_string(index-1))
                 {
-                    
+                    continue;
                 }
                 else
+                {
+                    i = i - tempNo.length();
+                    array[index] = CMatrix(1, 1, 4, atof(tempNo.c_str()));
+                    array[index].display();
+                    matStr.replace(i, tempNo.length(), to_string(index));
+                    i++;
+                    tempNo = "";
+                    index++;
+                }
+            }
+            else if (matStr[i] == ',')
+            {
+                continue;
+            }
+
+        }
+
+
+        /*switch (matStr[i])
+            {
+
+                case ' ':
+                    break;
+
+                case ';':
+                    break;
+
+                case '\r':
+                    break;
+
+                case ',':
+                    break;
+
+                case '\n':
+                    break;
+
+                case ']':
+                    break;
+
+                case '[':
                 {
                     std::string substr = matStr.substr(i);
                     substr = substr.substr(0,(substr.find("]")+1));
@@ -813,81 +985,76 @@ void CMatrix:: subMatrixParser(std::string matStr)
                     //array[index].display();
                     matStr.replace(i, substr.length(), to_string(index));
                     index++;
+                    break;
                 }
-                break;
+
+
+                default:
+                    tempNo += matStr[i];
+                    array[index] = CMatrix(1,1,4,atof(tempNo.c_str()));
+                    matStr.replace(i,tempNo.length(),to_string(index));
+                    tempNo ="";
+                    index++;
+                    break;
+            }*/
+
+
+
+        if (matStr[matStr.length() - 1] == ']') {
+            matStr = matStr.substr(0, matStr.length() - 1);
+        }
+        int priority = 0;
+        std::string tempIndex1 = "";
+        std::string tempIndex2 = "";
+
+        for (int j = 0; j < matStr.length(); j++) {
+
+            if (matStr[j] == ' ') {
+                priority = j;
+                tempIndex1 += matStr[--priority];
+                priority++;
+                tempIndex2 += matStr[++priority];
+                array[(int) atof(tempIndex1.c_str())].addColumn(array[(int) atof(tempIndex2.c_str())]);
+                //array[(int)atof(tempIndex1.c_str())].display();
+                matStr.replace(--j, 3, tempIndex1);
+                j = -1;
+                tempIndex1 = "";
+                tempIndex2 = "";
             }
-
-
-            default:
-                tempNo += matStr[i];
-                array[index] = CMatrix(1,1,4,atof(tempNo.c_str()));
-                matStr.replace(i,tempNo.length(),to_string(index));
-                tempNo ="";
-                index++;
-                break;
         }
-    }
 
-    if (matStr[matStr.length()-1]== ']')
-    {
-        matStr = matStr.substr(0,matStr.length()-1);
-    }
-    int priority =0;
-    std::string tempIndex1="";
-    std::string tempIndex2="";
+        for (int j = 0; j < matStr.length(); j++) {
 
-    for (int j = 0; j < matStr.length() ; j++)
-    {
-
-        if (matStr[j] == ' ')
-        {
-            priority = j;
-            tempIndex1 += matStr[--priority];
-            priority++;
-            tempIndex2 += matStr[++priority];
-            array[(int)atof(tempIndex1.c_str())].addColumn(array[(int)atof(tempIndex2.c_str())]);
-            //array[(int)atof(tempIndex1.c_str())].display();
-            matStr.replace(--j,3,tempIndex1);
-            j = -1;
-            tempIndex1="";
-            tempIndex2="";
+            if (matStr[j] == ',') {
+                priority = j;
+                tempIndex1 += matStr[--priority];
+                priority++;
+                tempIndex2 += matStr[++priority];
+                array[(int) atof(tempIndex1.c_str())].addColumn(array[(int) atof(tempIndex2.c_str())]);
+                //array[(int)atof(tempIndex1.c_str())].display();
+                matStr.replace(--j, 3, tempIndex1);
+                tempIndex1 = "";
+                tempIndex2 = "";
+            }
         }
-    }
 
-    for (int j = 0; j < matStr.length() ; j++)
-    {
-
-        if (matStr[j] == ',')
-        {
-            priority = j;
-            tempIndex1 += matStr[--priority];
-            priority++;
-            tempIndex2 += matStr[++priority];
-            array[(int)atof(tempIndex1.c_str())].addColumn(array[(int)atof(tempIndex2.c_str())]);
-            //array[(int)atof(tempIndex1.c_str())].display();
-            matStr.replace(--j,3,tempIndex1);
-            tempIndex1="";
-            tempIndex2="";
+        for (int k = 0; k < matStr.length(); k++) {
+            if (matStr[k] == ';') {
+                priority = k;
+                tempIndex1 += matStr[--priority];
+                priority++;
+                tempIndex2 += matStr[++priority];
+                array[(int) atof(tempIndex1.c_str())].addRow(array[(int) atof(tempIndex2.c_str())]);
+                //array[(int)atof(tempIndex1.c_str())].display();
+                matStr.replace(--k, 3, tempIndex1);
+                tempIndex1 = "";
+                tempIndex2 = "";
+            }
         }
+
+        array[(int) atof(matStr.c_str())].display();
+        int x = 0;
     }
 
-    for (int k = 0; k < matStr.length(); k++)
-    {
-        if (matStr[k] == ';')
-        {
-            priority = k;
-            tempIndex1 += matStr[--priority];
-            priority++;
-            tempIndex2 += matStr[++priority];
-            array[(int)atof(tempIndex1.c_str())].addRow(array[(int)atof(tempIndex2.c_str())]);
-            //array[(int)atof(tempIndex1.c_str())].display();
-            matStr.replace(--k,3,tempIndex1);
-            tempIndex1="";
-            tempIndex2="";
-        }
-    }
-
-    array[(int)atof(matStr.c_str())].display();
-
-    int x =0;
 }
+
