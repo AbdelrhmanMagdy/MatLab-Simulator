@@ -51,9 +51,34 @@ void openFile(char* path) {
     while (getline(fileData, fileLine)){
 
         for (int i = 0; i < fileLine.length(); i++){
+            // cout<<fileLine.find("rand",0)<<endl;
+            cout << fileLine[i] << endl;
 
             newMat = false;
-
+            int pullishNotation=0;
+            ///////////////////////////////PULLISH NOTATION////////////////////////////
+            if (fileLine.length() > 3)
+            {
+                
+                for (int i = 2; i < fileLine.length(); i++)
+                {
+                    if (IsOperator(fileLine[i]))
+                    {
+                        pullishNotation=1;
+                    }
+                }
+            }
+            if(pullishNotation){
+                string s = fileLine;
+                s[0] = ' ';
+                s[1] = ' ';
+                temp_matrices[matNo] = Equation(s);
+                temp_matrices[matNo].setName(fileLine[0]);
+                temp_matrices[matNo].display();
+                matNo++;
+                break;
+            }
+            ///////////////////////////////////////////////////////////////////////////
             if (((int) fileLine[i] > 96 && (int) fileLine[i] < 123) || ((int) fileLine[i] > 64 && (int) fileLine[i] < 91)){
 
                 if (findMatrix(temp_matrices, fileLine[i], matNo) == -1){
@@ -71,6 +96,24 @@ void openFile(char* path) {
                 matStr += fileLine[i];
 
             }
+            /////////////////////////////////////Rand Constructors////////////////////////
+            // else if (fileLine.find("rand",0) < 100){
+            //     cout<<"SAdsadasdasd";
+            //     string nr = fileLine.substr(fileLine.find('(') + 1, fileLine.find(',') - fileLine.find('(') - 1);
+            //     string nc = fileLine.substr(fileLine.find(',') + 1, fileLine.find(')') - fileLine.find(',') - 1);
+            //     int nnr = 0;
+            //     int nnc = 0;
+            //     for (int i=0; i< nr.length(); i++)
+            //     {
+            //         nnr = (nnr * 10) + (nr[i] - '0');
+            //     }
+            //     for (int i = 0; i < nc.length(); i++)
+            //     {
+            //         nnc = (nnc * 10) + (nc[i] - '0');
+            //     }
+            
+            // }
+            //////////////////////////////////////////////////////////////////////////////
             else if (fileLine[i] == '['){
 
                 newMat = true;
