@@ -65,6 +65,14 @@ public:
 
     friend CMatrix solve(CMatrix mat1, char op, CMatrix mat2);
     friend CMatrix solve(CMatrix mat1, char op);
+
+    void setSubMatrix(int r, int c, CMatrix &m);
+    void addColumn(CMatrix &m);
+    void addRow(CMatrix &m);
+    void copy(std::string s);
+    void copy(double d);
+    CMatrix operator=(double d);
+    void subMatrixParser(std::string matStr);
 };
 CMatrix Rand(int nR, int nC);
 CMatrix Eye(int nR, int nC);

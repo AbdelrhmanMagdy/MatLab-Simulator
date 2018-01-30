@@ -3,11 +3,13 @@
 //
 using namespace std;
 #include "Matlab.h"
+
+
 CMatrix temp_matrices[10];
 int n = 0;
 int findMatrix(CMatrix *temp_matrices, char name, int n)
 {
-    // n=2;
+    // n=3;
     for (int i = 0; i < n; i++) {
         if (temp_matrices[i].getName() == name){
             return i;}
@@ -15,6 +17,22 @@ int findMatrix(CMatrix *temp_matrices, char name, int n)
 
     return  -1;
 
+}
+bool subMatrixExist(std::string fileline)
+{
+    int submatrixfound = -1;
+    for (int i = 0; i < fileline.length(); i++)
+    {
+        if (fileline[i] == '[')
+        {
+            submatrixfound++;
+        }
+    }
+    if (submatrixfound > 0)
+    {
+        return true;
+    }
+    return false;
 }
 
 void openFile(char* path) {
@@ -267,10 +285,11 @@ void openFile(char* path) {
 
 void cline(){
 
-    CMatrix temp_matrices[10];
+    // CMatrix temp_matrices[10];
     std::string matStr = "";
     char operation = 'a';
-    int n = 0, matNo = 0;
+    // int n = 0, 
+    int matNo = 0;
     bool newMat = false;
     std::string matrixStr = "";
     std::string constNo = "";
@@ -307,35 +326,92 @@ void cline(){
                 matStr += fileLine[i];
 
             }
-            else if (fileLine[i] == '['){
+            // else if (fileLine[i] == '['){
+
+            //     newMat = true;
+
+            //     operation = 'a';
+
+            //     i++;
+
+            //     while (fileLine[i] != ']'){
+            //         matrixStr += fileLine[i];
+            //         i++;
+
+            //         if(i >= fileLine.length()){
+            //             getline(std::cin, fileLine);
+            //             i = 0;
+            //         }
+            //     }
+
+            //     if (matrixStr[matrixStr.length() - 1] == ';'){
+            //         matrixStr = matrixStr.substr(0, matrixStr.length() - 1);
+            //     }
+            //     else if (matrixStr[matrixStr.length() - 2] == ';'){
+            //         matrixStr = matrixStr.substr(0, matrixStr.length() - 2);
+            //     }
+
+            //     temp_matrices[matNo - 1].setValues(matrixStr);
+            //     matrixStr = "";
+            //     break;
+
+            // }
+            else if (fileLine[i] == '[')
+            {
 
                 newMat = true;
 
                 operation = 'a';
 
-                i++;
-
-                while (fileLine[i] != ']'){
-                    matrixStr += fileLine[i];
+                if (subMatrixExist(fileLine))
+                {
+                    std::string substr = "";
                     i++;
-
-                    if(i >= fileLine.length()){
-                        getline(std::cin, fileLine);
-                        i = 0;
+                    for (int j = i; j < fileLine.length(); j++)
+                    {
+                        substr += fileLine[j];
                     }
+                    if (substr[substr.length() - 1] == ']')
+                    {
+                        substr = substr.substr(0, substr.length() - 1);
+                    }
+                    else if (substr[substr.length() - 2] == ']')
+                    {
+                        substr = substr.substr(0, substr.length() - 2);
+                    }
+                    cout<<substr<<endl;
+                    temp_matrices[matNo - 1].subMatrixParser(substr);
+                    temp_matrices[matNo - 1].display();
+                    //matrixStr = "";
+                    break;
                 }
+                else
+                {
+                    while (fileLine[i] != ']')
+                    {
+                        matrixStr += fileLine[i];
+                        i++;
 
-                if (matrixStr[matrixStr.length() - 1] == ';'){
-                    matrixStr = matrixStr.substr(0, matrixStr.length() - 1);
+                        if (i >= fileLine.length())
+                        {
+                            getline(std::cin, fileLine);
+                            i = 0;
+                        }
+                    }
+
+                    if (matrixStr[matrixStr.length() - 1] == ';')
+                    {
+                        matrixStr = matrixStr.substr(0, matrixStr.length() - 1);
+                    }
+                    else if (matrixStr[matrixStr.length() - 2] == ';')
+                    {
+                        matrixStr = matrixStr.substr(0, matrixStr.length() - 2);
+                    }
+
+                    temp_matrices[matNo - 1].setValues(matrixStr);
+                    matrixStr = "";
+                    break;
                 }
-                else if (matrixStr[matrixStr.length() - 2] == ';'){
-                    matrixStr = matrixStr.substr(0, matrixStr.length() - 2);
-                }
-
-                temp_matrices[matNo - 1].setValues(matrixStr);
-                matrixStr = "";
-                break;
-
             }
             else if (fileLine[i] == '+' || fileLine[i] == '-' || fileLine[i] == '*' || fileLine[i] == '/' || fileLine[i] == '\''){
 
@@ -649,6 +725,8 @@ std::string InfixToPostfix(std::string expression) {
     if(postfix[postfix.length() - 1] == ' ')
         postfix = postfix.substr(0, postfix.length() - 1);
 
+    // CMatrix result;
+    // result = EvaluatePostfix(postfix);
     return postfix;
 }
 
@@ -679,7 +757,7 @@ int IsRightAssociative(char op) {
 
 bool IsNumericDigit(char C)
 {
-    if (C >= '0' && C <= '9')
+    if (C >= '0' && C <= '9' )
         return true;
     return false;
 }
@@ -785,6 +863,7 @@ CMatrix EvaluatePostfix(std::string expression){
             continue;
         else if (IsTrigonometric(expression[i]))
         {
+            // cout<<expression[i]<<" is trignomotric"<<endl;
             CMatrix operand1 = S.top();
             S.pop();
             CMatrix result = solve(operand1,expression[i]);
@@ -802,17 +881,18 @@ CMatrix EvaluatePostfix(std::string expression){
             CMatrix result = solve(operand1, expression[i], operand2);
             S.push(result);
         }
-        else if (IsNumericDigit(expression[i]))
+        else if (IsNumericDigit(expression[i])||(expression[i]=='.'&&IsNumericDigit(expression[i+1])))
         {
-            int operand = 0;
-            while (i < expression.length() && IsNumericDigit(expression[i]))
+            string operand = "";
+            while (i < expression.length() && IsNumericDigit(expression[i]) || (expression[i] == '.' && IsNumericDigit(expression[i + 1])))
             {
-                operand = (operand * 10) + (expression[i] - '0');
+                // operand = (operand * 10) + (expression[i] - '0');
+                operand+=expression[i];
                 i++;
             }
             i--;
             // cout<<operand<<endl;
-            CMatrix result(1,1,4,operand);
+            CMatrix result(operand);
             // std::cout<<"result is matrix"<<std::endl;
             // result.display();
             S.push(result);
@@ -825,6 +905,7 @@ CMatrix EvaluatePostfix(std::string expression){
             S.push(temp_matrices[tempMatIndex]);
         }
         // cout<<expression[i]<<endl;
+        // S.top().display();
     }
     return S.top();
 }
@@ -899,7 +980,7 @@ CMatrix solve(CMatrix mat1, char op, CMatrix mat2)
 
     else if(op == 'p')
     {
-        // answer = mat1 ^= mat2.values[0][0];
+        answer = mat1 ^ mat2.values[0][0];
     }
 
     else if(op == 'a') //.+
@@ -937,6 +1018,7 @@ CMatrix solve(CMatrix mat1, char op, CMatrix mat2)
 
     else if(op == 'd') //./
     {
+        
         for (int i = 0; i < mat1.nR; i++)
         {
             for (int j = 0; j < mat1.nC; j++)
@@ -947,4 +1029,10 @@ CMatrix solve(CMatrix mat1, char op, CMatrix mat2)
     }
 
     return answer;
+}
+CMatrix Equation(std::string s)
+{
+    CMatrix result;
+    result = EvaluatePostfix(InfixToPostfix(s));
+    return result;
 }
